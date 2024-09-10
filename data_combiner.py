@@ -13,7 +13,9 @@ class DataCombiner:
 
     def combine_data(self) -> None:
         dfs = [pd.read_csv(file) for file in self.input_files]
-        self.combined_df = pd.concat(dfs, ignore_index=True)
+        self.combined_df = dfs[0]
+        for df in dfs[1:]:
+            self.combined_df = pd.merge(self.combined_df, df, on='SEQN', how='outer')
 
     def filter_data(self, data_filter: 'DataFilter') -> None:
         if self.combined_df is None:
