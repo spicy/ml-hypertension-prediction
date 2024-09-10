@@ -1,82 +1,56 @@
 import os
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.io as pio
-from typing import Dict
+import matplotlib.pyplot as plt
+import seaborn as sns
 from constants import *
+from logger import logger, log_execution_time
 
-def plot_missing_data(missing_percentage_sorted: pd.Series, statistics_folder: str, column_definitions: Dict[str, str]):
-    print("Plotting missing data...")
-    fig = go.Figure()
+@log_execution_time
+def plot_missing_data(missing_percentage_sorted: pd.Series, statistics_folder: str) -> None:
+    logger.info("Plotting missing data...")
+    plt.figure(figsize=(FIGURE_WIDTH, FIGURE_HEIGHT))
+    ax = sns.barplot(x=missing_percentage_sorted.index, y=missing_percentage_sorted.values)
 
-    fig.add_trace(go.Bar(
-        x=missing_percentage_sorted.index,
-        y=missing_percentage_sorted.values,
-        text=missing_percentage_sorted.values.round(1).astype(str) + '%',
-        textposition='outside',
-        hovertext=[f"{col}<br>{column_definitions.get(col, 'No definition available')}<br>{val:.1f}%"
-                   for col, val in zip(missing_percentage_sorted.index, missing_percentage_sorted.values)],
-        hoverinfo='text'
-    ))
+    plt.title('Percentage of Missing Data by Column', fontsize=TITLE_FONTSIZE, pad=TITLE_PAD)
+    plt.xlabel('Columns', fontsize=XLABEL_FONTSIZE, labelpad=LABEL_PAD)
+    plt.ylabel('Percentage of Missing Data', fontsize=YLABEL_FONTSIZE, labelpad=LABEL_PAD)
+    plt.xticks(rotation=90, fontsize=XTICK_FONTSIZE)
+    plt.yticks(fontsize=YTICK_FONTSIZE)
 
-    fig.update_layout(
-        title='Percentage of Missing Data by Column',
-        xaxis_title='Columns',
-        yaxis_title='Percentage of Missing Data',
-        width=FIGURE_WIDTH * 50,
-        height=FIGURE_HEIGHT * 50,
-        xaxis_tickangle=-90,
-        yaxis_range=[0, max(missing_percentage_sorted) * YLIM_MULTIPLIER]
-    )
+    for i, v in enumerate(missing_percentage_sorted.values):
+        ax.text(i, v, f'{v:.1f}%', ha='center', va='bottom', fontsize=TEXT_FONTSIZE)
 
-    # Save as interactive HTML
-    html_path = os.path.join(statistics_folder, 'missing_data_percentage_interactive.html')
-    pio.write_html(fig, file=html_path)
-    print(f"Interactive missing data plot saved to: {html_path}")
+    plt.ylim(0, max(missing_percentage_sorted) * YLIM_MULTIPLIER)
+    plt.tight_layout(pad=TIGHT_LAYOUT_PAD)
 
-    # Save as static image
     png_path = os.path.join(statistics_folder, 'missing_data_percentage.png')
-    fig.write_image(png_path, scale=2)
-    print(f"Static missing data plot saved to: {png_path}")
+    plt.savefig(png_path, dpi=DPI)
+    plt.close()
+    logger.info(f"Missing data plot saved to: {png_path}")
 
-def plot_correlation_matrix(correlation_matrix: pd.DataFrame, statistics_folder: str, column_definitions: Dict[str, str]):
-    print("Plotting correlation matrix...")
-    fig = go.Figure(data=go.Heatmap(
-        z=correlation_matrix.values,
-        x=correlation_matrix.columns,
-        y=correlation_matrix.columns,
-        colorscale='RdBu',
-        zmin=-1, zmax=1,
-        text=correlation_matrix.values,
-        texttemplate='%{text:.2f}',
-        hovertemplate='%{x}<br>%{y}<br>Correlation: %{z:.2f}<extra></extra>'
-    ))
+@log_execution_time
+def plot_correlation_matrix(correlation_matrix: pd.DataFrame, statistics_folder: str):
+    logger.info("Plotting correlation matrix...")
+    plt.figure(figsize=(CORRELATION_FIGURE_WIDTH, CORRELATION_FIGURE_HEIGHT))
 
-    # Add hover text with full question definitions
-    hover_text = [[f"{col}<br>{column_definitions.get(col, 'No definition available')}" for col in correlation_matrix.columns]
-                  for _ in correlation_matrix.columns]
+    sns.heatmap(correlation_matrix,
+                cmap='RdBu',
+                vmin=-1,
+                vmax=1,
+                center=0,
+                annot=True,
+                fmt='.2f',
+                square=True,
+                cbar_kws={"shrink": .8},
+                annot_kws={"size": CORRELATION_ANNOT_FONTSIZE})
 
-    fig.update_traces(
-        hovertext=hover_text,
-        hoverinfo='text'
-    )
+    plt.title('Correlation Matrix Heatmap', fontsize=CORRELATION_TITLE_FONTSIZE, pad=TITLE_PAD)
+    plt.xticks(rotation=90, fontsize=CORRELATION_XTICK_FONTSIZE)
+    plt.yticks(rotation=0, fontsize=CORRELATION_YTICK_FONTSIZE)
 
-    fig.update_layout(
-        title='Correlation Matrix Heatmap',
-        width=CORRELATION_FIGURE_WIDTH * 50,
-        height=CORRELATION_FIGURE_HEIGHT * 50,
-        xaxis_title='',
-        yaxis_title='',
-        xaxis={'side': 'bottom'},
-        yaxis={'side': 'left', 'autorange': 'reversed'},
-    )
+    plt.tight_layout(pad=CORRELATION_TIGHT_LAYOUT_PAD)
 
-    # Save as interactive HTML
-    html_path = os.path.join(statistics_folder, 'correlation_matrix_heatmap_interactive.html')
-    pio.write_html(fig, file=html_path)
-    print(f"Interactive correlation matrix saved to: {html_path}")
-
-    # Save as static image
     png_path = os.path.join(statistics_folder, 'correlation_matrix_heatmap.png')
-    fig.write_image(png_path, scale=2)
-    print(f"Static correlation matrix saved to: {png_path}")
+    plt.savefig(png_path, dpi=DPI)
+    plt.close()
+    logger.info(f"Correlation matrix plot saved to: {png_path}")

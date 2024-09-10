@@ -26,7 +26,9 @@ CORRELATION_TIGHT_LAYOUT_PAD = 3.0
 CORRELATION_ANNOT_FONTSIZE = 8
 
 # Define the path to the data file
-DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'CombinedData.csv')
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
+
+TARGET_COLUMN = "BPQ020"
 
 # Column definitions
 COLUMN_DEFINITIONS = {
