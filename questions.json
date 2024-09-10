@@ -1,0 +1,353 @@
+{
+  "blood_pressure_cholesterol": {
+    "BPQ020": {
+      "label": "Ever told you had high blood pressure",
+      "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension, also called high blood pressure?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ030": {
+      "label": "Told had high blood pressure - 2+ times",
+      "text": "{Were you/Was SP} told on 2 or more different visits that {you/s/he} had hypertension, also called high blood pressure?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ040A": {
+      "label": "Taking prescription for hypertension",
+      "text": "Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to . . . take prescribed medicine?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ050A": {
+      "label": "Now taking prescribed medicine for HBP",
+      "text": "{Are you/Is SP} now taking prescribed medicine?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ080": {
+      "label": "Doctor told you - high cholesterol level",
+      "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ060": {
+      "label": "Ever had blood cholesterol checked",
+      "text": "{Have you/Has SP} ever had {your/his/her} blood cholesterol checked?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ070": {
+      "label": "When blood cholesterol last checked",
+      "text": "About how long has it been since {you/SP} last had {your/his/her} blood cholesterol checked? Has it been...",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Less than 1 year ago",
+        "2": "1 year but less than 2 years ago",
+        "3": "2 years but less than 5 years ago",
+        "4": "5 years or more",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ090D": {
+      "label": "Told to take prescriptn for cholesterol",
+      "text": "[To lower (your/his/her) blood cholesterol, (have/has) (you/SP) ever been told by a doctor or other health professional]... to take prescribed medicine?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    },
+    "BPQ100D": {
+      "label": "Now taking prescribed medicine",
+      "text": "(Are you/Is SP) now following this advice to take prescribed medicine?",
+      "target": "Both males and females 16 YEARS - 150 YEARS",
+      "mappings": {
+        "1": "Yes",
+        "2": "No",
+        "7": "Refused",
+        "9": "Don't know"
+      }
+    }
+  },
+  "alcohol_consumption": {
+    "ALQ111": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ121": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ130": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ142": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ270": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ280": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ290": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ151": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "ALQ170": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    }
+  },
+  "physical_activity": {
+    "PAQ605": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ610": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD615": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ620": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ625": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD630": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ635": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ640": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD645": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ650": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ655": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD660": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ665": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAQ670": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD675": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "PAD680": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    }
+  },
+  "smoking": {
+    "SMQ020": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD030": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ040": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ050Q": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ050U": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD057": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ078": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD641": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD650": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD100FL": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD100MN": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ670": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMQ621": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    },
+    "SMD630": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    }
+  },
+  "diet": {
+    "DBQ700": {
+      "label": "",
+      "text": "",
+      "target": "",
+      "mappings": {}
+    }
+  }
+}

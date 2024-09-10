@@ -32,3 +32,15 @@ def save_summary_statistics(summary_statistics: pd.DataFrame, statistics_folder:
     csv_path = os.path.join(statistics_folder, 'summary_statistics.csv')
     summary_statistics.to_csv(csv_path)
     logger.info(f"Summary statistics saved to: {csv_path}")
+
+@log_execution_time
+def save_target_correlations(correlation_matrix: pd.DataFrame, target_column: str, statistics_folder: str):
+    logger.info(f"Saving correlations for target column: {target_column}")
+    target_correlations = correlation_matrix[target_column].sort_values(ascending=False)
+    target_correlations_df = pd.DataFrame({
+        'Column': target_correlations.index,
+        'Correlation': target_correlations.values
+    })
+    csv_path = os.path.join(statistics_folder, f'{target_column}_correlations.csv')
+    target_correlations_df.to_csv(csv_path, index=False)
+    logger.info(f"Target column correlations saved to: {csv_path}")
