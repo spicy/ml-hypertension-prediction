@@ -46,12 +46,15 @@ class DataFilter:
         return df[self.relevant_columns]
 
 def main():
+    DATA_DIR = Path('data') / '2017-2020'
+    RAW_DATA_DIR = DATA_DIR / 'raw'
+
     files_to_combine = [
-        'data/2017-2020/raw/AlcoholUse.csv',
-        'data/2017-2020/raw/BloodPressureAndCholesterol.csv',
-        'data/2017-2020/raw/DietBehaviorAndNutrition.csv',
-        'data/2017-2020/raw/PhysicalActivity.csv',
-        'data/2017-2020/raw/Smoking.csv'
+        RAW_DATA_DIR / 'AlcoholUse.csv',
+        RAW_DATA_DIR / 'BloodPressureAndCholesterol.csv',
+        RAW_DATA_DIR / 'DietBehaviorAndNutrition.csv',
+        RAW_DATA_DIR / 'PhysicalActivity.csv',
+        RAW_DATA_DIR / 'Smoking.csv'
     ]
 
     # List of columns to include in the filtered combined dataset
