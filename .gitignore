@@ -164,3 +164,4 @@ cython_debug/
 #.idea/
 /.history
 /statistics_creator/statistics
+.DS_Store
