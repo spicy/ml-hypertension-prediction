@@ -47,11 +47,47 @@ class DataConfig:
     PATH: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
     TARGET_COLUMN: str = "BPQ020"
 
+@dataclass
+class MulticollinearityConfig(BaseConfig):
+    WIDTH: int = 40
+    HEIGHT: int = 30
+    LABEL_FONT_SIZE: int = 16
+    LEGEND_FONT_SIZE: int = 12
+    VIF_THRESHOLD: float = 5.0
+
+@dataclass
+class NumericalDistributionConfig(BaseConfig):
+    WIDTH: int = 40
+    HEIGHT: int = 30
+    LABEL_FONT_SIZE: int = 16
+    LEGEND_FONT_SIZE: int = 12
+    HIST_BINS: int = 30
+
+@dataclass
+class FeatureImportanceConfig(BaseConfig):
+    WIDTH: int = 12
+    HEIGHT: int = 8
+    LABEL_FONT_SIZE: int = 12
+    TICK_FONT_SIZE: int = 10
+    TIGHT_LAYOUT_PAD: float = 1.5
+
+@dataclass
+class OutlierConfig(BaseConfig):
+    WIDTH: int = 40
+    HEIGHT: int = 30
+    LABEL_FONT_SIZE: int = 16
+    LEGEND_FONT_SIZE: int = 12
+    TICK_FONT_SIZE: int = 10
+
 missing_data_config = MissingDataConfig()
 correlation_config = CorrelationConfig()
 summary_statistics_config = SummaryStatisticsConfig()
 class_distribution_config = ClassDistributionConfig()
+multicollinearity_config = MulticollinearityConfig()
+numerical_distribution_config = NumericalDistributionConfig()
 data_config = DataConfig()
+feature_importance_config = FeatureImportanceConfig()
+outlier_config = OutlierConfig()
 
 COLUMN_DEFINITIONS = {
     "SEQN": "Respondent sequence number",

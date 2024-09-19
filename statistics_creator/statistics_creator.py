@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import List, Any
 from data_loader import DataLoader
 from analyzers.base_analyzer import BaseAnalyzer
 from visualizers.base_visualizer import BaseVisualizer
@@ -24,7 +24,7 @@ class StatisticsCreator:
         self.statistics_folder = self.data_loader.create_statistics_folder()
 
     @log_execution_time
-    def run_analysis(self, data_path: str) -> Dict[str, Any]:
+    def run_analysis(self, data_path: str) -> dict[str, Any]:
         """
         Run the analysis on the data and create visualizations.
 
@@ -32,7 +32,7 @@ class StatisticsCreator:
             data_path (str): The path to the data file.
 
         Returns:
-            Dict[str, Any]: A dictionary containing the results of all analyzers.
+            dict[str, Any]: A dictionary containing the results of all analyzers.
         """
         df = self.data_loader.load_data(data_path)
         results = {}

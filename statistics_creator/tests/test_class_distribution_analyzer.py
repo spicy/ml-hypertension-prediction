@@ -1,11 +1,11 @@
 import unittest
 import pandas as pd
-from analyzers.class_distribution_analyzer import ClassDistributionAnalyzer
+from statistics_creator.analyzers.class_analyzer import ClassAnalyzer
 
-class TestClassDistributionAnalyzer(unittest.TestCase):
+class TestClassAnalyzer(unittest.TestCase):
     def setUp(self):
         self.target_column = 'Class'
-        self.analyzer = ClassDistributionAnalyzer(self.target_column)
+        self.analyzer = ClassAnalyzer(self.target_column)
         self.test_data = pd.DataFrame({
             'Class': ['A', 'B', 'A', 'C', 'B', 'A'],
             'Value': [1, 2, 3, 4, 5, 6]

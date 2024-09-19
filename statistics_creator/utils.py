@@ -1,17 +1,17 @@
-from typing import Dict, Any
+from typing import Any
 from pathlib import Path
 import json
 import pandas as pd
 import numpy as np
 from logger import logger
 
-def summarize_results(results: Dict[str, Any]) -> str:
+def summarize_results(results: dict[str, Any]) -> str:
     summary = []
     for analyzer, result in results.items():
         summary.append(f"{analyzer}: {len(result)} data points analyzed")
     return ", ".join(summary)
 
-def save_results(results: Dict[str, Any], folder: str) -> None:
+def save_results(results: dict[str, Any], folder: str) -> None:
     def serialize_results(obj):
         if isinstance(obj, (pd.Series, pd.DataFrame)):
             return obj.to_dict()

@@ -2,7 +2,7 @@ import pandas as pd
 from .base_analyzer import BaseAnalyzer
 from logger import logger, log_execution_time
 
-class ClassDistributionAnalyzer(BaseAnalyzer):
+class ClassAnalyzer(BaseAnalyzer):
     def __init__(self, target_column: str):
         self.target_column = target_column
 
@@ -16,5 +16,16 @@ class ClassDistributionAnalyzer(BaseAnalyzer):
         value_counts = target_values.value_counts()
         total = len(target_values)
 
-        logger.info(f"Class distribution calculated for column '{self.target_column}'")
-        return (value_counts / total) * 100
+        distribution = (value_counts / total) * 100
+
+        majority_class = value_counts.index[0]
+        minority_class = value_counts.index[-1]
+        imbalance_ratio = value_counts[majority_class] / value_counts[minority_class]
+
+        logger.info(f"Class analysis completed for column '{self.target_column}'")
+        return pd.Series({
+            "distribution": distribution,
+            "majority_class": majority_class,
+            "minority_class": minority_class,
+            "imbalance_ratio": imbalance_ratio
+        })

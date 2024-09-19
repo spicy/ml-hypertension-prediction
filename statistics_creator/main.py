@@ -2,8 +2,8 @@ from typing import List, Tuple
 from data_loader import DataLoader
 from analyzers.base_analyzer import BaseAnalyzer
 from visualizers.base_visualizer import BaseVisualizer
-from analyzers import MissingDataAnalyzer, CorrelationAnalyzer, SummaryStatisticsAnalyzer, ClassDistributionAnalyzer
-from visualizers import MissingDataVisualizer, CorrelationVisualizer, SummaryStatisticsVisualizer, ClassDistributionVisualizer
+from analyzers import MissingDataAnalyzer, CorrelationAnalyzer, SummaryStatisticsAnalyzer, ClassAnalyzer, FeatureImportanceAnalyzer, MulticollinearityAnalyzer, NumericalDistributionAnalyzer, OutlierDetector
+from visualizers import MissingDataVisualizer, CorrelationVisualizer, SummaryStatisticsVisualizer, ClassVisualizer, FeatureImportanceVisualizer, MulticollinearityVisualizer, NumericalDistributionVisualizer, OutlierVisualizer
 from config import data_config
 from logger import logger
 from statistics_creator import StatisticsCreator
@@ -20,13 +20,21 @@ def create_analyzers_and_visualizers() -> Tuple[List[BaseAnalyzer], List[BaseVis
         MissingDataAnalyzer(),
         CorrelationAnalyzer(),
         SummaryStatisticsAnalyzer(),
-        ClassDistributionAnalyzer(data_config.TARGET_COLUMN)
+        ClassAnalyzer(data_config.TARGET_COLUMN),
+        FeatureImportanceAnalyzer(data_config.TARGET_COLUMN),
+        MulticollinearityAnalyzer(),
+        NumericalDistributionAnalyzer(),
+        OutlierDetector()
     ]
     visualizers = [
         MissingDataVisualizer(),
         CorrelationVisualizer(),
         SummaryStatisticsVisualizer(),
-        ClassDistributionVisualizer()
+        ClassVisualizer(),
+        FeatureImportanceVisualizer(),
+        MulticollinearityVisualizer(),
+        NumericalDistributionVisualizer(),
+        OutlierVisualizer()
     ]
     return analyzers, visualizers
 
