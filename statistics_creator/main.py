@@ -1,35 +1,50 @@
-from data_loader import create_statistics_folder, load_data
-from data_analyzer import analyze_missing_data, calculate_correlation_matrix, generate_summary_statistics, calculate_class_distribution
-from data_visualizer import plot_missing_data, plot_correlation_matrix
-from utils import save_missing_data_summary, save_summary_statistics, save_class_distribution, save_target_correlations
-from constants import DATA_PATH, TARGET_COLUMN
-from logger import logger, log_execution_time
+from typing import List, Tuple
+from data_loader import DataLoader
+from analyzers.base_analyzer import BaseAnalyzer
+from visualizers.base_visualizer import BaseVisualizer
+from analyzers import MissingDataAnalyzer, CorrelationAnalyzer, SummaryStatisticsAnalyzer, ClassDistributionAnalyzer
+from visualizers import MissingDataVisualizer, CorrelationVisualizer, SummaryStatisticsVisualizer, ClassDistributionVisualizer
+from config import data_config
+from logger import logger
+from statistics_creator import StatisticsCreator
+from utils import summarize_results, save_results
 
-@log_execution_time
-def main():
-    logger.info("Starting data analysis process...")
-    statistics_folder = create_statistics_folder()
-    df = load_data(DATA_PATH)
+def create_analyzers_and_visualizers() -> Tuple[List[BaseAnalyzer], List[BaseVisualizer]]:
+    """
+    Create and return lists of analyzers and visualizers.
 
-    logger.info("Analyzing missing data...")
-    missing_percentage_sorted = analyze_missing_data(df)
-    plot_missing_data(missing_percentage_sorted, statistics_folder)
-    save_missing_data_summary(missing_percentage_sorted, statistics_folder)
+    Returns:
+        Tuple[List[BaseAnalyzer], List[BaseVisualizer]]: A tuple containing a list of analyzers and a list of visualizers.
+    """
+    analyzers = [
+        MissingDataAnalyzer(),
+        CorrelationAnalyzer(),
+        SummaryStatisticsAnalyzer(),
+        ClassDistributionAnalyzer(data_config.TARGET_COLUMN)
+    ]
+    visualizers = [
+        MissingDataVisualizer(),
+        CorrelationVisualizer(),
+        SummaryStatisticsVisualizer(),
+        ClassDistributionVisualizer()
+    ]
+    return analyzers, visualizers
 
-    logger.info("Calculating correlation matrix...")
-    correlation_matrix = calculate_correlation_matrix(df)
-    plot_correlation_matrix(correlation_matrix, statistics_folder)
-    save_target_correlations(correlation_matrix, TARGET_COLUMN, statistics_folder)
+def main() -> None:
+    """
+    Main function to run the statistics creation process.
 
-    logger.info("Generating summary statistics...")
-    summary_statistics = generate_summary_statistics(df)
-    save_summary_statistics(summary_statistics, statistics_folder)
+    This function initializes the data loader, creates analyzers and visualizers,
+    runs the analysis, and saves the results.
+    """
+    data_loader = DataLoader()
+    analyzers, visualizers = create_analyzers_and_visualizers()
 
-    logger.info("Calculating class distribution...")
-    class_distribution = calculate_class_distribution(df, TARGET_COLUMN)
-    save_class_distribution(class_distribution, statistics_folder)
+    statistics_creator = StatisticsCreator(data_loader, analyzers, visualizers)
+    results = statistics_creator.run_analysis(data_config.PATH)
 
-    logger.info("Data analysis process completed successfully.")
+    logger.info(f"Analysis completed successfully. Summary: {summarize_results(results)}")
+    save_results(results, statistics_creator.statistics_folder)
 
 if __name__ == "__main__":
     main()

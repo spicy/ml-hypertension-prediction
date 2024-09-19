@@ -1,36 +1,58 @@
+from dataclasses import dataclass
 import os
 
-# Constants related to figures
-FIGURE_WIDTH = 30
-FIGURE_HEIGHT = 24
-TITLE_FONTSIZE = 24
-TITLE_PAD = 20
-XLABEL_FONTSIZE = 20
-YLABEL_FONTSIZE = 20
-LABEL_PAD = 15
-XTICK_FONTSIZE = 10
-YTICK_FONTSIZE = 14
-BAR_WIDTH = 0.6
-TIGHT_LAYOUT_PAD = 8.0
-TEXT_FONTSIZE = 5
-DPI = 300
-YLIM_MULTIPLIER = 1.15
+@dataclass
+class BaseConfig:
+    WIDTH: int = 30
+    HEIGHT: int = 24
+    TITLE_FONT_SIZE: int = 24
+    TITLE_PAD: int = 20
+    X_LABEL_FONT_SIZE: int = 20
+    Y_LABEL_FONT_SIZE: int = 20
+    LABEL_PAD: int = 15
+    X_TICK_FONT_SIZE: int = 10
+    Y_TICK_FONT_SIZE: int = 14
+    TIGHT_LAYOUT_PAD: float = 8.0
+    DPI: int = 300
 
-# Constants related to correlation matrix
-CORRELATION_FIGURE_WIDTH = 40
-CORRELATION_FIGURE_HEIGHT = 30
-CORRELATION_TITLE_FONTSIZE = 24
-CORRELATION_XTICK_FONTSIZE = 10
-CORRELATION_YTICK_FONTSIZE = 10
-CORRELATION_TIGHT_LAYOUT_PAD = 3.0
-CORRELATION_ANNOT_FONTSIZE = 8
+@dataclass
+class MissingDataConfig(BaseConfig):
+    TEXT_FONT_SIZE: int = 5
+    YLIM_MULTIPLIER: float = 1.15
 
-# Define the path to the data file
-DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
+@dataclass
+class CorrelationConfig(BaseConfig):
+    WIDTH: int = 40
+    HEIGHT: int = 30
+    X_TICK_FONT_SIZE: int = 10
+    Y_TICK_FONT_SIZE: int = 10
+    TIGHT_LAYOUT_PAD: float = 3.0
+    ANNOT_FONT_SIZE: int = 8
 
-TARGET_COLUMN = "BPQ020"
+@dataclass
+class SummaryStatisticsConfig(BaseConfig):
+    WIDTH: int = 60
+    HEIGHT: int = 20
+    X_TICK_FONT_SIZE: int = 10
+    Y_TICK_FONT_SIZE: int = 14
+    TIGHT_LAYOUT_PAD: float = 10.0
 
-# Column definitions
+@dataclass
+class ClassDistributionConfig(BaseConfig):
+    PIE_TEXT_FONT_SIZE: int = 24
+    TITLE_PAD: int = 60
+
+@dataclass
+class DataConfig:
+    PATH: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
+    TARGET_COLUMN: str = "BPQ020"
+
+missing_data_config = MissingDataConfig()
+correlation_config = CorrelationConfig()
+summary_statistics_config = SummaryStatisticsConfig()
+class_distribution_config = ClassDistributionConfig()
+data_config = DataConfig()
+
 COLUMN_DEFINITIONS = {
     "SEQN": "Respondent sequence number",
     "ALQ111": "Ever had a drink of any kind of alcohol",
