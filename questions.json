@@ -9,7 +9,11 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "populate": {
+            "PAD630-EXAMPLE-QUESTION-TO-POPULATE": "VALUE-TO-POPULATE-PAD630-WITH-WHEN-ANSWER-IS-2",
+            "PAD631-EXAMPLE-QUESTION-TO-POPULATE": "VALUE-TO-POPULATE-PAD631-WITH-WHEN-ANSWER-IS-2"
+          }
         },
         "7": {
           "description": "Refused"
@@ -526,22 +530,10 @@
           "description": "Range of Values"
         },
         "77": {
-          "description": "Refused",
-          "populate": {
-            "PAD630": "77",
-            "PAQ635": "77",
-            "PAQ640": "77",
-            "PAD645": "77"
-          }
+          "description": "Refused"
         },
         "99": {
-          "description": "Don't know",
-          "populate": {
-            "PAD630": "99",
-            "PAQ635": "99",
-            "PAQ640": "99",
-            "PAD645": "99"
-          }
+          "description": "Don't know"
         }
       }
     },
