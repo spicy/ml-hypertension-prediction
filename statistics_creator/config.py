@@ -41,6 +41,7 @@ class SummaryStatisticsConfig(BaseConfig):
 class ClassDistributionConfig(BaseConfig):
     PIE_TEXT_FONT_SIZE: int = 24
     TITLE_PAD: int = 60
+    TEXT_FONT_SIZE: int = 20
 
 @dataclass
 class DataConfig:
@@ -53,6 +54,7 @@ class MulticollinearityConfig(BaseConfig):
     HEIGHT: int = 30
     LABEL_FONT_SIZE: int = 16
     LEGEND_FONT_SIZE: int = 12
+    TICK_FONT_SIZE: int = 10
     VIF_THRESHOLD: float = 5.0
 
 @dataclass

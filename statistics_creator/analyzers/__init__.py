@@ -5,7 +5,7 @@ from .class_analyzer import ClassAnalyzer
 from .feature_importance_analyzer import FeatureImportanceAnalyzer
 from .multicollinearity_analyzer import MulticollinearityAnalyzer
 from .numerical_distribution_analyzer import NumericalDistributionAnalyzer
-from .outlier_detector import OutlierDetector
+from .outlier_analyzer import OutlierAnalyzer
 
 __all__ = [
     'MissingDataAnalyzer',
@@ -15,5 +15,5 @@ __all__ = [
     'FeatureImportanceAnalyzer',
     'MulticollinearityAnalyzer',
     'NumericalDistributionAnalyzer',
-    'OutlierDetector'
+    'OutlierAnalyzer'
 ]

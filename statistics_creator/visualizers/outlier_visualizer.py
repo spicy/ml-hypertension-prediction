@@ -13,7 +13,7 @@ class OutlierVisualizer(BaseVisualizer):
 
         for column, data in outlier_data.items():
             plt.figure(figsize=(config.WIDTH, config.HEIGHT))
-            
+
             sns.boxplot(x=column, data=pd.DataFrame({column: data['outliers']}))
             plt.title(f'Outliers in {column}', fontsize=config.TITLE_FONT_SIZE)
             plt.xlabel(column, fontsize=config.LABEL_FONT_SIZE)

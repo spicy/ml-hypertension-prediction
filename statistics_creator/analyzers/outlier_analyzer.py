@@ -3,7 +3,7 @@ import numpy as np
 from .base_analyzer import BaseAnalyzer
 from logger import logger, log_execution_time
 
-class OutlierDetector(BaseAnalyzer):
+class OutlierAnalyzer(BaseAnalyzer):
     @log_execution_time
     def analyze(self, df: pd.DataFrame) -> dict:
         numeric_columns = df.select_dtypes(include=[np.number]).columns
