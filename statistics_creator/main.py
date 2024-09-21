@@ -10,46 +10,35 @@ from statistics_creator import StatisticsCreator
 from utils import summarize_results, save_results
 import os
 
-def create_analyzers_and_visualizers() -> Tuple[List[BaseAnalyzer], List[BaseVisualizer]]:
+def create_analyzer_visualizer_pairs() -> List[Tuple[BaseAnalyzer, BaseVisualizer]]:
     """
-    Create and return lists of analyzers and visualizers.
+    Create and return a list of analyzer-visualizer pairs.
 
     Returns:
-        Tuple[List[BaseAnalyzer], List[BaseVisualizer]]: A tuple containing a list of analyzers and a list of visualizers.
+        List[Tuple[BaseAnalyzer, BaseVisualizer]]: A list of tuples, each containing an analyzer and its corresponding visualizer.
     """
-    analyzers = [
-        MissingDataAnalyzer(),
-        CorrelationAnalyzer(),
-        SummaryStatisticsAnalyzer(),
-        ClassAnalyzer(data_config.TARGET_COLUMN),
-        FeatureImportanceAnalyzer(data_config.TARGET_COLUMN),
-        MulticollinearityAnalyzer(),
-        NumericalDistributionAnalyzer(),
-        OutlierAnalyzer()
+    return [
+        (MissingDataAnalyzer(), MissingDataVisualizer()),
+        (CorrelationAnalyzer(), CorrelationVisualizer()),
+        (SummaryStatisticsAnalyzer(), SummaryStatisticsVisualizer()),
+        (ClassAnalyzer(data_config.TARGET_COLUMN), ClassVisualizer()),
+        (FeatureImportanceAnalyzer(data_config.TARGET_COLUMN), FeatureImportanceVisualizer()),
+        (MulticollinearityAnalyzer(), MulticollinearityVisualizer()),
+        (NumericalDistributionAnalyzer(), NumericalDistributionVisualizer()),
+        (OutlierAnalyzer(), OutlierVisualizer())
     ]
-    visualizers = [
-        MissingDataVisualizer(),
-        CorrelationVisualizer(),
-        SummaryStatisticsVisualizer(),
-        ClassVisualizer(),
-        FeatureImportanceVisualizer(),
-        MulticollinearityVisualizer(),
-        NumericalDistributionVisualizer(),
-        OutlierVisualizer()
-    ]
-    return analyzers, visualizers
 
 def main() -> None:
     """
     Main function to run the statistics creation process.
 
-    This function initializes the data loader, creates analyzers and visualizers,
+    This function initializes the data loader, creates analyzer-visualizer pairs,
     runs the analysis, and saves the results.
     """
     data_loader = DataLoader()
-    analyzers, visualizers = create_analyzers_and_visualizers()
+    analyzer_visualizer_pairs = create_analyzer_visualizer_pairs()
 
-    statistics_creator = StatisticsCreator(data_loader, analyzers, visualizers)
+    statistics_creator = StatisticsCreator(data_loader, analyzer_visualizer_pairs)
     results = statistics_creator.run_analysis(data_config.PATH)
 
     logger.info(f"Analysis completed successfully. Summary: {summarize_results(results)}")

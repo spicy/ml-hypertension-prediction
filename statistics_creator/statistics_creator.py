@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Tuple
 from data_loader import DataLoader
 from analyzers.base_analyzer import BaseAnalyzer
 from visualizers.base_visualizer import BaseVisualizer
@@ -9,18 +9,16 @@ class StatisticsCreator:
     A class to create statistics by running analyzers and visualizers on data.
     """
 
-    def __init__(self, data_loader: DataLoader, analyzers: List[BaseAnalyzer], visualizers: List[BaseVisualizer]):
+    def __init__(self, data_loader: DataLoader, analyzer_visualizer_pairs: List[Tuple[BaseAnalyzer, BaseVisualizer]]):
         """
         Initialize the StatisticsCreator with data loader, analyzers, and visualizers.
 
         Args:
             data_loader (DataLoader): An instance of DataLoader.
-            analyzers (List[BaseAnalyzer]): A list of analyzer instances.
-            visualizers (List[BaseVisualizer]): A list of visualizer instances.
+            analyzer_visualizer_pairs (List[Tuple[BaseAnalyzer, BaseVisualizer]]): A list of pairs of analyzer and visualizer instances.
         """
         self.data_loader = data_loader
-        self.analyzers = analyzers
-        self.visualizers = visualizers
+        self.analyzer_visualizer_pairs = analyzer_visualizer_pairs
         self.statistics_folder = self.data_loader.create_statistics_folder()
 
     @log_execution_time
@@ -37,11 +35,9 @@ class StatisticsCreator:
         df = self.data_loader.load_data(data_path)
         results = {}
 
-        for analyzer in self.analyzers:
+        for analyzer, visualizer in self.analyzer_visualizer_pairs:
             result = analyzer.analyze(df)
             results[analyzer.__class__.__name__] = result
-
-        for visualizer in self.visualizers:
-            visualizer.visualize(results[visualizer.__class__.__name__.replace("Visualizer", "Analyzer")], self.statistics_folder)
+            visualizer.visualize(result, self.statistics_folder)
 
         return results

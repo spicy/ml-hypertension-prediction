@@ -17,7 +17,7 @@ class FeatureImportanceAnalyzer(BaseAnalyzer):
 
         # Remove rows with NaN values in the target column
         df_clean = df.dropna(subset=[self.target_column])
-        
+
         X = df_clean.drop(columns=[self.target_column])
         y = df_clean[self.target_column]
 
