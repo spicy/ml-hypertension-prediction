@@ -545,13 +545,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "PAQ620",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ620",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ620",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -565,10 +577,18 @@
           "description": "Range of Values"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ620",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ620",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -577,6 +597,7 @@
       "label": "Minutes vigorous-intensity work",
       "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
       "target": "Both males and females 18 YEARS - 150 YEARS",
+      "Suggested-MET-Score": "8.0",
       "mappings": {
         "10-840": {
           "description": "Range of Values"
@@ -599,13 +620,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "PAQ635",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ635",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ635",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -619,10 +652,18 @@
           "description": "Range of Values"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ635",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ635",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -631,6 +672,7 @@
       "label": "Minutes moderate-intensity work",
       "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
       "target": "Both males and females 18 YEARS - 150 YEARS",
+      "Suggested-MET-Score": "4.0",
       "mappings": {
         "10-900": {
           "description": "Range of Values"
@@ -653,13 +695,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "PAQ650",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ650",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ650",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -673,10 +727,18 @@
           "description": "Range of Values"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ650",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ650",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -685,6 +747,7 @@
       "label": "Minutes walk/bicycle for transportation",
       "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
       "target": "Both males and females 18 YEARS - 150 YEARS",
+      "Suggested-MET-Score": "4.0",
       "mappings": {
         "10-840": {
           "description": "Range of Values"
@@ -707,13 +770,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "PAQ665",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ665",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ665",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -727,10 +802,18 @@
           "description": "Range of Values"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ665",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ665",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -739,6 +822,7 @@
       "label": "Minutes vigorous recreational activities",
       "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
       "target": "Both males and females 18 YEARS - 150 YEARS",
+      "Suggested-MET-Score": "8.0",
       "mappings": {
         "10-480": {
           "description": "Range of Values"
@@ -761,13 +845,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "PAQ680",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "PAQ680",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "PAQ680",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -793,6 +889,7 @@
       "label": "Minutes moderate recreational activities",
       "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
       "target": "Both males and females 18 YEARS - 150 YEARS",
+      "Suggested-MET-Score": "4.0",
       "mappings": {
         "10-600": {
           "description": "Range of Values"
@@ -824,7 +921,8 @@
     }
   },
 
-  "smoking": {
+
+  "smoking_cigarette_use": {
 
     "SMQ020": {
       "label": "Smoked at least 100 cigarettes in life",
@@ -835,13 +933,25 @@
           "description": "Yes"
         },
         "2": {
-          "description": "No"
+          "description": "No",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -872,19 +982,35 @@
       "target": "Both males and females 18 YEARS - 150 YEARS",
       "mappings": {
         "1": {
-          "description": "Every day"
+          "description": "Every day",
+          "skip": {
+            "destination": "SMQ078",
+            "auto_fill": {}
+          }
         },
         "2": {
-          "description": "Some days"
+          "description": "Some days",
+          "skip": {
+            "destination": "SMD641",
+            "auto_fill": {}
+          }
         },
         "3": {
           "description": "Not at all"
         },
         "7": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "9": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -1099,10 +1225,18 @@
       "target": "Both males and females 18 YEARS - 150 YEARS",
       "mappings": {
         "1": {
-          "description": "I have never smoked, not even a puff"
+          "description": "I have never smoked, not even a puff",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "2": {
-          "description": "1 or more puffs but never a whole cigarette"
+          "description": "1 or more puffs but never a whole cigarette",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "3": {
           "description": "1 cigarette"
@@ -1123,10 +1257,18 @@
           "description": "100 or more cigarettes"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         }
       }
     },
@@ -1143,16 +1285,24 @@
           "description": "6 years or less"
         },
         "77": {
-          "description": "Refused"
+          "description": "Refused",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         },
         "99": {
-          "description": "Don't know"
+          "description": "Don't know",
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {}
+          }
         }
       }
     }
   },
 
-  "diet": {
+  "diet_behavior_and_nutrition": {
 
     "DBQ700": {
       "label": "How healthy is the diet",
