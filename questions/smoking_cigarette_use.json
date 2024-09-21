@@ -1,0 +1,378 @@
+{
+  "SMQ020": {
+    "label": "Smoked at least 100 cigarettes in life",
+    "text": "These next questions are about cigarette smoking and other tobacco use. {Have you/Has SP} smoked at least 100 cigarettes in {your/his/her} entire life?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      }
+    }
+  },
+
+  "SMD030": {
+    "label": "Age started smoking cigarettes regularly",
+    "text": "How old {were you/was SP} when {you/s/he} first started to smoke cigarettes fairly regularly?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "7-76": {
+        "description": "Range of Values"
+      },
+      "0": {
+        "description": "Never smoked cigarettes regularly"
+      },
+      "777": {
+        "description": "Refused"
+      },
+      "999": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMQ040": {
+    "label": "Do you now smoke cigarettes?",
+    "text": "{Do you/Does SP} now smoke cigarettes?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Every day",
+        "skip": {
+          "destination": "SMQ078",
+          "auto_fill": {}
+        }
+      },
+      "2": {
+        "description": "Some days",
+        "skip": {
+          "destination": "SMD641",
+          "auto_fill": {}
+        }
+      },
+      "3": {
+        "description": "Not at all"
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      }
+    }
+  },
+
+  "SMQ050Q": {
+    "label": "How long since quit smoking cigarettes",
+    "text": "How long has it been since {you/SP} quit smoking cigarettes?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1-366": {
+        "description": "Range of Values"
+      },
+      "66666": {
+        "description": "50 or more years"
+      },
+      "77777": {
+        "description": "Refused"
+      },
+      "99999": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMQ050U": {
+    "label": "Unit of measure (day/week/month/year)",
+    "text": "Unit of Measure",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Days"
+      },
+      "2": {
+        "description": "Weeks"
+      },
+      "3": {
+        "description": "Months"
+      },
+      "4": {
+        "description": "Years"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMD057": {
+    "label": "# cigarettes smoked per day when quit",
+    "text": "At that time, about how many cigarettes did {you/SP} usually smoke per day?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "2-90": {
+        "description": "Range of Values"
+      },
+      "1": {
+        "description": "1 cigarette or less"
+      },
+      "95": {
+        "description": "95 cigarettes or more"
+      },
+      "777": {
+        "description": "Refused"
+      },
+      "999": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMQ078": {
+    "label": "How soon after waking do you smoke",
+    "text": "How soon after you wake up do you smoke? Would you say...",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Within 5 minutes"
+      },
+      "2": {
+        "description": "From 6 to 30 minutes"
+      },
+      "3": {
+        "description": "From more than 30 minutes to one hour"
+      },
+      "4": {
+        "description": "From more than 1 hour to 2 hours"
+      },
+      "5": {
+        "description": "From more than 2 hours to 3 hours"
+      },
+      "6": {
+        "description": "From more than 3 hours to 4 hours"
+      },
+      "7": {
+        "description": "More than 4 hours"
+      },
+      "77": {
+        "description": "Refused"
+      },
+      "99": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMD641": {
+    "label": "# days smoked cigs during past 30 days",
+    "text": "On how many of the past 30 days did {you/SP} smoke a cigarette?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0-30": {
+        "description": "Range of Values"
+      },
+      "77": {
+        "description": "Refused"
+      },
+      "99": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMD650": {
+    "label": "Avg # cigarettes/day during past 30 days",
+    "text": "During the past 30 days, on the days that {you/SP} smoked, about how many cigarettes did {you/s/he} smoke per day?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "2-60": {
+        "description": "Range of Values"
+      },
+      "1": {
+        "description": "1 cigarette or less"
+      },
+      "95": {
+        "description": "95 cigarettes or more"
+      },
+      "777": {
+        "description": "Refused"
+      },
+      "999": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMD100FL": {
+    "label": "Cigarette Filter type",
+    "text": "Do you usually smoke filtered or non-filtered cigarettes?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Non-filtered"
+      },
+      "1": {
+        "description": "Filtered"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMD100MN": {
+    "label": "Cigarette Menthol indicator",
+    "text": "Do you usually smoke menthol or non-menthol cigarettes?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Non-menthol"
+      },
+      "1": {
+        "description": "Menthol"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMQ670": {
+    "label": "Tried to quit smoking",
+    "text": "During the past 12 months, {have you/has SP} stopped smoking for longer than a day because {you were/he was/she was} trying to quit smoking?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SMQ621": {
+    "label": "Cigarettes smoked in entire life",
+    "text": "The following questions are about cigarette smoking and other tobacco use. Do not include cigars or marijuana. About how many cigarettes have you smoked in your entire life?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "I have never smoked, not even a puff",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "2": {
+        "description": "1 or more puffs but never a whole cigarette",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "3": {
+        "description": "1 cigarette"
+      },
+      "4": {
+        "description": "2 to 5 cigarettes"
+      },
+      "5": {
+        "description": "6 to 15 cigarettes"
+      },
+      "6": {
+        "description": "16 to 25 cigarettes"
+      },
+      "7": {
+        "description": "26 to 99 cigarettes"
+      },
+      "8": {
+        "description": "100 or more cigarettes"
+      },
+      "77": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "99": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      }
+    }
+  },
+
+  "SMD630": {
+    "label": "Age first smoked whole cigarette",
+    "text": "How old were you when you smoked a whole cigarette for the first time?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "8-17": {
+        "description": "Range of Values"
+      },
+      "6": {
+        "description": "6 years or less"
+      },
+      "77": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "99": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      }
+    }
+  }
+}
