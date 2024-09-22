@@ -2,8 +2,18 @@ import unittest
 from unittest.mock import Mock, patch
 from statistics_creator.main import StatisticsCreator, create_analyzers_and_visualizers
 from statistics_creator.data_loader import DataLoader
-from statistics_creator.analyzers import MissingDataAnalyzer, CorrelationAnalyzer, SummaryStatisticsAnalyzer, ClassDistributionAnalyzer, NumericalDistributionAnalyzer, MulticollinearityAnalyzer
-from statistics_creator.visualizers import MissingDataVisualizer, CorrelationVisualizer, SummaryStatisticsVisualizer, ClassDistributionVisualizer, NumericalDistributionVisualizer, FeatureImportanceVisualizer
+from statistics_creator.analyzers.missing_data_analyzer import MissingDataAnalyzer
+from statistics_creator.analyzers.correlation_analyzer import CorrelationAnalyzer
+from statistics_creator.analyzers.summary_statistics_analyzer import SummaryStatisticsAnalyzer
+from statistics_creator.analyzers.class_analyzer import ClassAnalyzer
+from statistics_creator.analyzers.numerical_distribution_analyzer import NumericalDistributionAnalyzer
+from statistics_creator.analyzers.multicollinearity_analyzer import MulticollinearityAnalyzer
+from statistics_creator.visualizers.missing_data_visualizer import MissingDataVisualizer
+from statistics_creator.visualizers.correlation_visualizer import CorrelationVisualizer
+from statistics_creator.visualizers.summary_statistics_visualizer import SummaryStatisticsVisualizer
+from statistics_creator.visualizers.class_visualizer import ClassVisualizer
+from statistics_creator.visualizers.numerical_distribution_visualizer import NumericalDistributionVisualizer
+from statistics_creator.visualizers.feature_importance_visualizer import FeatureImportanceVisualizer
 import pandas as pd
 import numpy as np
 
@@ -41,7 +51,7 @@ class TestCreateAnalyzersAndVisualizers(unittest.TestCase):
         self.assertIsInstance(analyzers[0], MissingDataAnalyzer)
         self.assertIsInstance(analyzers[1], CorrelationAnalyzer)
         self.assertIsInstance(analyzers[2], SummaryStatisticsAnalyzer)
-        self.assertIsInstance(analyzers[3], ClassDistributionAnalyzer)
+        self.assertIsInstance(analyzers[3], ClassAnalyzer)
         self.assertIsInstance(analyzers[4], NumericalDistributionAnalyzer)
         self.assertIsInstance(analyzers[5], MulticollinearityAnalyzer)
 
@@ -49,7 +59,7 @@ class TestCreateAnalyzersAndVisualizers(unittest.TestCase):
         self.assertIsInstance(visualizers[0], MissingDataVisualizer)
         self.assertIsInstance(visualizers[1], CorrelationVisualizer)
         self.assertIsInstance(visualizers[2], SummaryStatisticsVisualizer)
-        self.assertIsInstance(visualizers[3], ClassDistributionVisualizer)
+        self.assertIsInstance(visualizers[3], ClassVisualizer)
         self.assertIsInstance(visualizers[4], NumericalDistributionVisualizer)
         self.assertIsInstance(visualizers[5], FeatureImportanceVisualizer)
 
