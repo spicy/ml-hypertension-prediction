@@ -5,8 +5,31 @@ from .base_analyzer import BaseAnalyzer
 from logger import logger, log_execution_time
 
 class NumericalDistributionAnalyzer(BaseAnalyzer):
+    """
+    A class for analyzing the numerical distribution of data in a DataFrame.
+    """
+
     @log_execution_time
     def analyze(self, df: pd.DataFrame) -> dict[str, dict[str, float]]:
+        """
+        Analyze the numerical distribution of data in the input DataFrame.
+
+        It computes various statistical measures for each numerical column
+        in the DataFrame, including mean, median, standard deviation, skewness,
+        kurtosis, minimum, maximum, and quartiles.
+
+        Args:
+            df (pd.DataFrame): The input DataFrame to analyze.
+
+        Returns:
+            dict[str, dict[str, float]]: A dictionary where keys are column names and
+            values are dictionaries containing the computed statistical measures.
+
+        Note:
+            - Only numerical columns are analyzed.
+            - NaN values are dropped before computing the statistics.
+            - Columns with no non-NaN values will be excluded from the results.
+        """
         numeric_columns = df.select_dtypes(include=[np.number]).columns
         results = {}
 

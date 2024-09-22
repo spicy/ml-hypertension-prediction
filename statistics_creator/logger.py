@@ -35,7 +35,7 @@ def log_execution_time(func: Callable[..., Any]) -> Callable[..., Any]:
         func (Callable[..., Any]): The function to be decorated.
 
     Returns:
-        Callable[..., Any]: The wrapped function.
+        Callable[..., Any]: The wrapped function that logs its execution time.
     """
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:

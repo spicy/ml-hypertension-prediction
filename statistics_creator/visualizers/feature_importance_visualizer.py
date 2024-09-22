@@ -7,16 +7,25 @@ from config import feature_importance_config as config
 from logger import logger, log_execution_time
 
 class FeatureImportanceVisualizer(BaseVisualizer):
-    """A visualizer for feature importance."""
+    """
+    A visualizer for creating and saving feature importance plots.
+    """
 
     @log_execution_time
     def visualize(self, feature_importances: pd.Series, output_path: str) -> None:
         """
-        Visualize the feature importances as a horizontal bar plot.
+        Visualize the feature importances as a horizontal bar plot and save it.
 
         Args:
             feature_importances (pd.Series): The feature importances to visualize.
-            output_path (str): The path to save the visualization.
+                Index should be feature names and values should be importance scores.
+            output_path (str): The directory path where the visualization will be saved.
+
+        Returns:
+            None
+
+        Raises:
+            IOError: If there's an error saving the plot to the specified path.
         """
         logger.info("Plotting feature importances...")
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
@@ -34,6 +43,11 @@ class FeatureImportanceVisualizer(BaseVisualizer):
 
         # Save the plot
         png_path = os.path.join(output_path, 'feature_importance.png')
-        plt.savefig(png_path, dpi=config.DPI, bbox_inches='tight')
-        plt.close()
-        logger.info(f"Feature importance plot saved to: {png_path}")
+        try:
+            plt.savefig(png_path, dpi=config.DPI, bbox_inches='tight')
+            logger.info(f"Feature importance plot saved to: {png_path}")
+        except IOError as e:
+            logger.error(f"Error saving feature importance plot: {e}")
+            raise
+        finally:
+            plt.close()

@@ -7,16 +7,25 @@ from config import correlation_config as config
 from logger import logger, log_execution_time
 
 class CorrelationVisualizer(BaseVisualizer):
-    """A visualizer for correlation matrices."""
+    """
+    A visualizer for creating and saving correlation matrix heatmaps.
+    """
 
     @log_execution_time
     def visualize(self, correlation_matrix: pd.DataFrame, output_path: str) -> None:
         """
-        Visualize the correlation matrix as a heatmap.
+        Visualize the correlation matrix as a heatmap and save it to a file.
 
         Args:
             correlation_matrix (pd.DataFrame): The correlation matrix to visualize.
-            output_path (str): The path to save the visualization.
+                Should be a square DataFrame with correlation values.
+            output_path (str): The directory path where the visualization will be saved.
+
+        Returns:
+            None
+
+        Raises:
+            IOError: If there's an error saving the plot to the specified path.
         """
         logger.info("Plotting correlation matrix...")
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))

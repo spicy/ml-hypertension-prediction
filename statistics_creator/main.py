@@ -32,8 +32,13 @@ def main() -> None:
     """
     Main function to run the statistics creation process.
 
-    This function initializes the data loader, creates analyzer-visualizer pairs,
-    runs the analysis, and saves the results.
+    It performs the following steps:
+    1. Initializes the data loader
+    2. Creates analyzer-visualizer pairs
+    3. Initializes the StatisticsCreator with the data loader and analyzer-visualizer pairs
+    4. Runs the analysis on the data specified in the configuration
+    5. Logs a summary of the analysis results
+    6. Saves the detailed results to a file
     """
     data_loader = DataLoader()
     analyzer_visualizer_pairs = create_analyzer_visualizer_pairs()

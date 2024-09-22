@@ -7,8 +7,26 @@ from config import multicollinearity_config as config
 from logger import logger, log_execution_time
 
 class MulticollinearityVisualizer(BaseVisualizer):
+    """
+    A visualizer class for creating and saving multicollinearity plots using Variance Inflation Factor (VIF).
+    """
+
     @log_execution_time
     def visualize(self, vif_data: pd.DataFrame, output_path: str) -> None:
+        """
+        Visualize the multicollinearity of features using Variance Inflation Factor (VIF) and save the plot.
+
+        Args:
+            vif_data (pd.DataFrame): A DataFrame containing VIF values for each feature.
+                It should have 'Feature' and 'VIF' columns.
+            output_path (str): The directory path where the visualization plot will be saved.
+
+        Returns:
+            None
+
+        Raises:
+            IOError: If there's an error saving the plot to the specified path.
+        """
         if vif_data.empty:
             logger.warning("No data to visualize for multicollinearity.")
             return
@@ -31,6 +49,11 @@ class MulticollinearityVisualizer(BaseVisualizer):
 
         # Save the plot
         png_path = os.path.join(output_path, 'multicollinearity_vif.png')
-        plt.savefig(png_path, dpi=config.DPI)
-        plt.close()
-        logger.info(f"Multicollinearity (VIF) plot saved to: {png_path}")
+        try:
+            plt.savefig(png_path, dpi=config.DPI)
+            logger.info(f"Multicollinearity (VIF) plot saved to: {png_path}")
+        except IOError as e:
+            logger.error(f"Error saving multicollinearity plot: {e}")
+            raise
+        finally:
+            plt.close()

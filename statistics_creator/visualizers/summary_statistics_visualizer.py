@@ -7,16 +7,26 @@ from config import summary_statistics_config as config
 from logger import logger, log_execution_time
 
 class SummaryStatisticsVisualizer(BaseVisualizer):
-    """A visualizer for summary statistics."""
+    """
+    A visualizer that creates and saves a heatmap visualization
+    of summary statistics for a given dataset.
+    """
 
     @log_execution_time
     def visualize(self, summary_statistics: pd.DataFrame, output_path: str) -> None:
         """
-        Visualize the summary statistics as a heatmap.
+        Visualize the summary statistics as a heatmap and save it to a file.
 
         Args:
             summary_statistics (pd.DataFrame): The summary statistics to visualize.
-            output_path (str): The path to save the visualization.
+                This should be a DataFrame containing the statistics for each variable.
+            output_path (str): The directory path where the visualization will be saved.
+
+        Returns:
+            None
+
+        Raises:
+            IOError: If there's an error saving the plot to the specified path.
         """
         logger.info("Plotting summary statistics...")
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
@@ -29,6 +39,11 @@ class SummaryStatisticsVisualizer(BaseVisualizer):
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
         png_path = os.path.join(output_path, 'summary_statistics_heatmap.png')
-        plt.savefig(png_path, dpi=config.DPI)
-        plt.close()
-        logger.info(f"Summary statistics plot saved to: {png_path}")
+        try:
+            plt.savefig(png_path, dpi=config.DPI)
+            logger.info(f"Summary statistics plot saved to: {png_path}")
+        except IOError as e:
+            logger.error(f"Error saving summary statistics plot: {e}")
+            raise
+        finally:
+            plt.close()

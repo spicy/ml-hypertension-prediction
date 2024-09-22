@@ -4,10 +4,37 @@ from pathlib import Path
 from typing import List, Optional
 import logging
 
+# Constants
+SEQN_COLUMN = 'SEQN'
+DATA_DIR = Path('data') / '2017-2020'
+RAW_DATA_DIR = DATA_DIR / 'raw'
+QUESTIONS_DIR = Path('questions')
+UNFILTERED_DATA_FILENAME = 'UnfilteredCombinedData.csv'
+FILTERED_DATA_FILENAME = 'FilteredCombinedData.csv'
+
 class DataCombiner:
-    OUTPUT_DIR = Path('data') / '2017-2020' / 'processed'
+    """
+    A class for combining and filtering data from multiple CSV files.
+
+    Attributes:
+        OUTPUT_DIR (Path): The directory where processed data will be saved.
+        input_files (List[Path]): List of input CSV file paths.
+        combined_df (Optional[pd.DataFrame]): The combined DataFrame.
+        filtered_df (Optional[pd.DataFrame]): The filtered DataFrame.
+    """
+
+    OUTPUT_DIR = DATA_DIR / 'processed'
 
     def __init__(self, input_files: List[Path]):
+        """
+        Initialize the DataCombiner with a list of input files.
+
+        Args:
+            input_files (List[Path]): List of input CSV file paths.
+
+        Raises:
+            ValueError: If the input files list is empty.
+        """
         if not input_files:
             raise ValueError("Input files list cannot be empty.")
         self.input_files = input_files
@@ -15,12 +42,18 @@ class DataCombiner:
         self.filtered_df: Optional[pd.DataFrame] = None
 
     def combine_data(self) -> None:
+        """
+        Combine data from all input files into a single DataFrame.
+
+        Raises:
+            ValueError: If no valid dataframes are available to combine.
+        """
         dfs = []
         for file in self.input_files:
             try:
                 df = pd.read_csv(file)
-                if 'SEQN' not in df.columns:
-                    raise ValueError(f"File {file} does not contain 'SEQN' column.")
+                if SEQN_COLUMN not in df.columns:
+                    raise ValueError(f"File {file} does not contain '{SEQN_COLUMN}' column.")
                 dfs.append(df)
             except Exception as e:
                 logging.error(f"Error reading file {file}: {str(e)}")
@@ -32,11 +65,30 @@ class DataCombiner:
         self.combined_df = self.combined_df.loc[:, ~self.combined_df.columns.duplicated()]
 
     def filter_data(self, data_filter: 'DataFilter') -> None:
+        """
+        Apply a filter to the combined data.
+
+        Args:
+            data_filter (DataFilter): The filter to apply to the data.
+
+        Raises:
+            ValueError: If data has not been combined before filtering.
+        """
         if self.combined_df is None:
             raise ValueError("Data must be combined before filtering.")
         self.filtered_df = data_filter.apply(self.combined_df)
 
     def save_data(self, data: pd.DataFrame, filename: str) -> None:
+        """
+        Save a DataFrame to a CSV file.
+
+        Args:
+            data (pd.DataFrame): The DataFrame to save.
+            filename (str): The name of the file to save the data to.
+
+        Raises:
+            ValueError: If the DataFrame is empty.
+        """
         if data.empty:
             raise ValueError("Cannot save empty DataFrame.")
         output_path = self.OUTPUT_DIR / filename
@@ -47,23 +99,68 @@ class DataCombiner:
         except Exception as e:
             logging.error(f"Error saving data to {output_path}: {str(e)}")
 
-    def save_combined_data(self, filename: str = 'UnfilteredCombinedData.csv') -> None:
+    def save_combined_data(self, filename: str = UNFILTERED_DATA_FILENAME) -> None:
+        """
+        Save the combined data to a CSV file.
+
+        Args:
+            filename (str, optional): The name of the file to save the combined data to.
+                Defaults to UNFILTERED_DATA_FILENAME.
+
+        Raises:
+            ValueError: If no combined data is available to save.
+        """
         if self.combined_df is None:
             raise ValueError("No combined data to save.")
         self.save_data(self.combined_df, filename)
 
-    def save_filtered_data(self, filename: str = 'FilteredCombinedData.csv') -> None:
+    def save_filtered_data(self, filename: str = FILTERED_DATA_FILENAME) -> None:
+        """
+        Save the filtered data to a CSV file.
+
+        Args:
+            filename (str, optional): The name of the file to save the filtered data to.
+                Defaults to FILTERED_DATA_FILENAME.
+
+        Raises:
+            ValueError: If no filtered data is available to save.
+        """
         if self.filtered_df is None:
             raise ValueError("No filtered data to save.")
         self.save_data(self.filtered_df, filename)
 
 class DataFilter:
+    """
+    A class for filtering data based on relevant columns.
+
+    Attributes:
+        relevant_columns (List[str]): List of column names to keep in the filtered data.
+    """
+
     def __init__(self, relevant_columns: List[str]):
+        """
+        Initialize the DataFilter with a list of relevant columns.
+
+        Args:
+            relevant_columns (List[str]): List of column names to keep in the filtered data.
+
+        Raises:
+            ValueError: If the relevant columns list is empty.
+        """
         if not relevant_columns:
             raise ValueError("Relevant columns list cannot be empty.")
         self.relevant_columns = relevant_columns
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Apply the filter to a DataFrame.
+
+        Args:
+            df (pd.DataFrame): The DataFrame to filter.
+
+        Returns:
+            pd.DataFrame: The filtered DataFrame.
+        """
         missing_columns = set(self.relevant_columns) - set(df.columns)
         if missing_columns:
             print(f"Warning: The following columns are missing from the DataFrame: {missing_columns}")
@@ -71,13 +168,21 @@ class DataFilter:
         return df[existing_columns]
 
 def get_relevant_columns() -> List[str]:
-    questions_dir = Path('questions')
-    if not questions_dir.exists():
-        raise FileNotFoundError(f"Questions directory not found: {questions_dir}")
+    """
+    Get a list of relevant columns from JSON files in the questions directory.
 
-    relevant_columns = set(["SEQN"])
+    Returns:
+        List[str]: A list of relevant column names.
 
-    for json_file in questions_dir.glob('*.json'):
+    Raises:
+        FileNotFoundError: If the questions directory is not found.
+    """
+    if not QUESTIONS_DIR.exists():
+        raise FileNotFoundError(f"Questions directory not found: {QUESTIONS_DIR}")
+
+    relevant_columns = set([SEQN_COLUMN])
+
+    for json_file in QUESTIONS_DIR.glob('*.json'):
         try:
             with json_file.open('r') as f:
                 data = json.load(f)
@@ -93,10 +198,13 @@ def get_relevant_columns() -> List[str]:
     return list(relevant_columns)
 
 def main():
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    """
+    Main function to execute the data combining and filtering process.
 
-    DATA_DIR = Path('data') / '2017-2020'
-    RAW_DATA_DIR = DATA_DIR / 'raw'
+    Raises:
+        FileNotFoundError: If the raw data directory or CSV files are not found.
+    """
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     if not RAW_DATA_DIR.exists():
         raise FileNotFoundError(f"Raw data directory not found: {RAW_DATA_DIR}")
