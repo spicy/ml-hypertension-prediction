@@ -23,23 +23,23 @@ class MissingDataConfig(BaseConfig):
     YLIM_MULTIPLIER: float = 1.15
 
 @dataclass
-class CorrelationConfig(BaseConfig):
-    """Configuration for correlation visualization."""
-    WIDTH: int = 40
-    HEIGHT: int = 30
-    X_TICK_FONT_SIZE: int = 10
-    Y_TICK_FONT_SIZE: int = 10
-    TIGHT_LAYOUT_PAD: float = 3.0
-    ANNOT_FONT_SIZE: int = 8
-
-@dataclass
-class SummaryStatisticsConfig(BaseConfig):
-    """Configuration for summary statistics visualization."""
-    WIDTH: int = 60
-    HEIGHT: int = 20
-    X_TICK_FONT_SIZE: int = 10
-    Y_TICK_FONT_SIZE: int = 14
-    TIGHT_LAYOUT_PAD: float = 10.0
+class CorrelationMulticollinearityConfig(BaseConfig):
+    """Configuration for correlation and multicollinearity visualization."""
+    # Correlation specific settings
+    CORR_WIDTH: int = 40
+    CORR_HEIGHT: int = 30
+    CORR_X_TICK_FONT_SIZE: int = 10
+    CORR_Y_TICK_FONT_SIZE: int = 10
+    CORR_TIGHT_LAYOUT_PAD: float = 3.0
+    CORR_ANNOT_FONT_SIZE: int = 8
+    
+    # Multicollinearity specific settings
+    VIF_WIDTH: int = 40
+    VIF_HEIGHT: int = 30
+    VIF_LABEL_FONT_SIZE: int = 16
+    VIF_LEGEND_FONT_SIZE: int = 12
+    VIF_TICK_FONT_SIZE: int = 10
+    VIF_THRESHOLD: float = 5.0
 
 @dataclass
 class ClassDistributionConfig(BaseConfig):
@@ -53,25 +53,6 @@ class DataConfig:
     """Configuration for data file path and target column."""
     PATH: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
     TARGET_COLUMN: str = "BPQ020"
-
-@dataclass
-class MulticollinearityConfig(BaseConfig):
-    """Configuration for multicollinearity visualization."""
-    WIDTH: int = 40
-    HEIGHT: int = 30
-    LABEL_FONT_SIZE: int = 16
-    LEGEND_FONT_SIZE: int = 12
-    TICK_FONT_SIZE: int = 10
-    VIF_THRESHOLD: float = 5.0
-
-@dataclass
-class NumericalDistributionConfig(BaseConfig):
-    """Configuration for numerical distribution visualization."""
-    WIDTH: int = 40
-    HEIGHT: int = 30
-    LABEL_FONT_SIZE: int = 16
-    LEGEND_FONT_SIZE: int = 12
-    HIST_BINS: int = 30
 
 @dataclass
 class FeatureImportanceConfig(BaseConfig):
@@ -91,12 +72,21 @@ class OutlierConfig(BaseConfig):
     LEGEND_FONT_SIZE: int = 12
     TICK_FONT_SIZE: int = 10
 
+@dataclass
+class ComprehensiveNumericalConfig(BaseConfig):
+    """Configuration for comprehensive numerical analysis visualization."""
+    WIDTH: int = 60
+    HEIGHT: int = 40
+    LABEL_FONT_SIZE: int = 16
+    LEGEND_FONT_SIZE: int = 12
+    HIST_BINS: int = 30
+    HEATMAP_ANNOT_SIZE: int = 8
+    BOXPLOT_WIDTH: float = 0.5
+
 missing_data_config = MissingDataConfig()
-correlation_config = CorrelationConfig()
-summary_statistics_config = SummaryStatisticsConfig()
+correlation_multicollinearity_config = CorrelationMulticollinearityConfig()
 class_distribution_config = ClassDistributionConfig()
-multicollinearity_config = MulticollinearityConfig()
-numerical_distribution_config = NumericalDistributionConfig()
 data_config = DataConfig()
 feature_importance_config = FeatureImportanceConfig()
 outlier_config = OutlierConfig()
+comprehensive_numerical_config = ComprehensiveNumericalConfig()
