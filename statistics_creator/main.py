@@ -3,19 +3,19 @@ from data_loader import DataLoader
 from analyzers.base_analyzer import BaseAnalyzer
 from visualizers.base_visualizer import BaseVisualizer
 from analyzers import (
-    MissingDataAnalyzer, 
-    CorrelationMulticollinearityAnalyzer, 
-    ComprehensiveNumericalAnalyzer, 
-    ClassAnalyzer, 
-    FeatureImportanceAnalyzer, 
+    MissingDataAnalyzer,
+    CorrelationMulticollinearityAnalyzer,
+    ComprehensiveNumericalAnalyzer,
+    ClassAnalyzer,
+    FeatureImportanceAnalyzer,
     OutlierAnalyzer
 )
 from visualizers import (
-    MissingDataVisualizer, 
-    CorrelationMulticollinearityVisualizer, 
-    ComprehensiveNumericalVisualizer, 
-    ClassVisualizer, 
-    FeatureImportanceVisualizer, 
+    MissingDataVisualizer,
+    CorrelationMulticollinearityVisualizer,
+    ComprehensiveNumericalVisualizer,
+    ClassVisualizer,
+    FeatureImportanceVisualizer,
     OutlierVisualizer
 )
 from config import data_config

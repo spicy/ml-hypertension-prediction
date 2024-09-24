@@ -32,7 +32,7 @@ class CorrelationMulticollinearityConfig(BaseConfig):
     CORR_Y_TICK_FONT_SIZE: int = 10
     CORR_TIGHT_LAYOUT_PAD: float = 3.0
     CORR_ANNOT_FONT_SIZE: int = 8
-    
+
     # Multicollinearity specific settings
     VIF_WIDTH: int = 40
     VIF_HEIGHT: int = 30
