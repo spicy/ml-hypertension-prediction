@@ -3,7 +3,7 @@ import pandas as pd
 from logger import logger, log_execution_time
 
 class DataLoader:
-    DEFAULT_STATISTICS_FOLDER = 'statistics-graphics'
+    DEFAULT_STATISTICS_FOLDER = 'statistics'
 
     @staticmethod
     def create_statistics_folder(folder_path: str = None) -> str:

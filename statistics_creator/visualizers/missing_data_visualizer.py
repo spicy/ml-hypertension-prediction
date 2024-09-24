@@ -11,6 +11,11 @@ class MissingDataVisualizer(BaseVisualizer):
     A visualizer for creating and saving missing data percentage plots.
     """
 
+    PLOT_TITLE = 'Percentage of Missing Data by Column'
+    X_LABEL = 'Columns'
+    Y_LABEL = 'Percentage of Missing Data'
+    PLOT_FILENAME = 'missing_data_percentage.png'
+
     @log_execution_time
     def visualize(self, missing_percentage_sorted: pd.Series, output_path: str) -> None:
         """
@@ -32,9 +37,9 @@ class MissingDataVisualizer(BaseVisualizer):
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
         ax = sns.barplot(x=missing_percentage_sorted.index, y=missing_percentage_sorted.values)
 
-        plt.title('Percentage of Missing Data by Column', fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
-        plt.xlabel('Columns', fontsize=config.X_LABEL_FONT_SIZE, labelpad=config.LABEL_PAD)
-        plt.ylabel('Percentage of Missing Data', fontsize=config.Y_LABEL_FONT_SIZE, labelpad=config.LABEL_PAD)
+        plt.title(self.PLOT_TITLE, fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
+        plt.xlabel(self.X_LABEL, fontsize=config.X_LABEL_FONT_SIZE, labelpad=config.LABEL_PAD)
+        plt.ylabel(self.Y_LABEL, fontsize=config.Y_LABEL_FONT_SIZE, labelpad=config.LABEL_PAD)
         plt.xticks(rotation=90, fontsize=config.X_TICK_FONT_SIZE)
         plt.yticks(fontsize=config.Y_TICK_FONT_SIZE)
 
@@ -44,13 +49,12 @@ class MissingDataVisualizer(BaseVisualizer):
         plt.ylim(0, max(missing_percentage_sorted) * config.YLIM_MULTIPLIER)
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-        png_path = os.path.join(output_path, 'missing_data_percentage.png')
+        png_path = os.path.join(output_path, self.PLOT_FILENAME)
         try:
             plt.savefig(png_path, dpi=config.DPI)
             logger.info(f"Missing data plot saved to: {png_path}")
         except IOError as e:
             logger.error(f"Error saving missing data plot: {e}")
             raise
-        plt.savefig(png_path, dpi=config.DPI)
-        plt.close()
-        logger.info(f"Missing data plot saved to: {png_path}")
+        finally:
+            plt.close()

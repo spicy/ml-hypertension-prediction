@@ -7,6 +7,11 @@ class ClassAnalyzer(BaseAnalyzer):
     A class for analyzing the distribution of classes in a target column of a DataFrame.
     """
 
+    DISTRIBUTION_KEY = "distribution"
+    MAJORITY_CLASS_KEY = "majority_class"
+    MINORITY_CLASS_KEY = "minority_class"
+    IMBALANCE_RATIO_KEY = "imbalance_ratio"
+
     def __init__(self, target_column: str):
         """
         Initialize the ClassAnalyzer.
@@ -56,8 +61,8 @@ class ClassAnalyzer(BaseAnalyzer):
 
         logger.info(f"Class analysis completed for column '{self.target_column}'")
         return pd.Series({
-            "distribution": distribution,
-            "majority_class": majority_class,
-            "minority_class": minority_class,
-            "imbalance_ratio": imbalance_ratio
+            self.DISTRIBUTION_KEY: distribution,
+            self.MAJORITY_CLASS_KEY: majority_class,
+            self.MINORITY_CLASS_KEY: minority_class,
+            self.IMBALANCE_RATIO_KEY: imbalance_ratio
         })

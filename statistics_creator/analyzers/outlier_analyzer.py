@@ -8,6 +8,10 @@ class OutlierAnalyzer(BaseAnalyzer):
     A class for analyzing and detecting outliers in a DataFrame.
     """
 
+    LOWER_QUANTILE = 0.25
+    UPPER_QUANTILE = 0.75
+    IQR_MULTIPLIER = 1.5
+
     @log_execution_time
     def analyze(self, df: pd.DataFrame) -> dict:
         """
@@ -34,11 +38,11 @@ class OutlierAnalyzer(BaseAnalyzer):
         outliers = {}
 
         for column in numeric_columns:
-            Q1 = df[column].quantile(0.25)
-            Q3 = df[column].quantile(0.75)
+            Q1 = df[column].quantile(self.LOWER_QUANTILE)
+            Q3 = df[column].quantile(self.UPPER_QUANTILE)
             IQR = Q3 - Q1
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
+            lower_bound = Q1 - self.IQR_MULTIPLIER * IQR
+            upper_bound = Q3 + self.IQR_MULTIPLIER * IQR
 
             outliers[column] = {
                 'lower_bound': lower_bound,

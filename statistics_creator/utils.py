@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 from logger import logger
 
+RESULTS_FILENAME = "analysis_results.json"
+
 def summarize_results(results: dict[str, Any]) -> str:
     """
     Summarize the analysis results.
@@ -52,7 +54,7 @@ def save_results(results: dict[str, Any], folder: str) -> None:
             return int(obj) if isinstance(obj, np.int64) else float(obj)
         raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
 
-    results_file = Path(folder) / "analysis_results.json"
+    results_file = Path(folder) / RESULTS_FILENAME
     with open(results_file, "w") as f:
         json.dump(results, f, indent=2, default=serialize_results)
     logger.info(f"Results saved to {results_file}")

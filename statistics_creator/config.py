@@ -25,7 +25,6 @@ class MissingDataConfig(BaseConfig):
 @dataclass
 class CorrelationMulticollinearityConfig(BaseConfig):
     """Configuration for correlation and multicollinearity visualization."""
-    # Correlation specific settings
     CORR_WIDTH: int = 40
     CORR_HEIGHT: int = 30
     CORR_X_TICK_FONT_SIZE: int = 10
@@ -33,7 +32,6 @@ class CorrelationMulticollinearityConfig(BaseConfig):
     CORR_TIGHT_LAYOUT_PAD: float = 3.0
     CORR_ANNOT_FONT_SIZE: int = 8
 
-    # Multicollinearity specific settings
     VIF_WIDTH: int = 40
     VIF_HEIGHT: int = 30
     VIF_LABEL_FONT_SIZE: int = 16

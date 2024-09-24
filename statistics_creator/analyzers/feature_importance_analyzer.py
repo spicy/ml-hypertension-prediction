@@ -10,6 +10,9 @@ class FeatureImportanceAnalyzer(BaseAnalyzer):
     A class for analyzing feature importance in a DataFrame using Random Forest.
     """
 
+    N_ESTIMATORS = 100
+    RANDOM_STATE = 42
+
     def __init__(self, target_column: str):
         """
         Initialize the FeatureImportanceAnalyzer.
@@ -59,7 +62,7 @@ class FeatureImportanceAnalyzer(BaseAnalyzer):
             y = le.fit_transform(y)
 
         # Train a Random Forest classifier
-        rf = RandomForestClassifier(n_estimators=100, random_state=42)
+        rf = RandomForestClassifier(n_estimators=self.N_ESTIMATORS, random_state=self.RANDOM_STATE)
         rf.fit(X, y)
 
         # Get feature importances

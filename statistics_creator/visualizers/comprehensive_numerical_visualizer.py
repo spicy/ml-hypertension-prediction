@@ -12,6 +12,9 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
     including distribution plots and summary statistics heatmap.
     """
 
+    DISTRIBUTION_PLOT_FILENAME = 'numerical_distribution_{}.png'
+    SUMMARY_HEATMAP_FILENAME = 'summary_statistics_heatmap.png'
+
     @log_execution_time
     def visualize(self, data: dict, output_path: str) -> None:
         """
@@ -50,7 +53,7 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
 
             plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-            png_path = os.path.join(output_path, f'numerical_distribution_{column}.png')
+            png_path = os.path.join(output_path, self.DISTRIBUTION_PLOT_FILENAME.format(column))
             plt.savefig(png_path, dpi=config.DPI)
             plt.close()
 
@@ -68,7 +71,7 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
 
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-        png_path = os.path.join(output_path, 'summary_statistics_heatmap.png')
+        png_path = os.path.join(output_path, self.SUMMARY_HEATMAP_FILENAME)
         plt.savefig(png_path, dpi=config.DPI)
         plt.close()
 
