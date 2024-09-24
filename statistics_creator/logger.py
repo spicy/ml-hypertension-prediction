@@ -3,7 +3,7 @@ import time
 import os
 from functools import wraps
 from typing import Callable, Any
-from .config import logger_config
+from config import logger_config
 
 def setup_logger() -> logging.Logger:
     """

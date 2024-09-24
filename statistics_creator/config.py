@@ -5,8 +5,8 @@ import os
 @dataclass
 class BaseConfig:
     """Base configuration class with common plot settings."""
-    WIDTH: int = 30
-    HEIGHT: int = 24
+    WIDTH: int = 15
+    HEIGHT: int = 10
     TITLE_FONT_SIZE: int = 24
     TITLE_PAD: int = 20
     X_LABEL_FONT_SIZE: int = 20
@@ -57,9 +57,11 @@ class CorrelationMulticollinearityConfig(BaseConfig):
 @dataclass
 class ClassDistributionConfig(BaseConfig):
     """Configuration for class distribution visualization and analysis."""
-    PIE_TEXT_FONT_SIZE: int = 24
-    TITLE_PAD: int = 60
-    TEXT_FONT_SIZE: int = 20
+    WIDTH: int = 10
+    HEIGHT: int = 6
+    PIE_TEXT_FONT_SIZE: int = 12
+    TITLE_PAD: int = 30
+    TEXT_FONT_SIZE: int = 10
     PLOT_FILENAME: str = 'class_analysis.png'
     SUBPLOT_LAYOUT: tuple = (1, 2)
     PIE_CHART_POSITION: tuple = (1, 1)
@@ -89,9 +91,9 @@ class FeatureImportanceConfig(BaseConfig):
     """Configuration for feature importance visualization and analysis."""
     WIDTH: int = 12
     HEIGHT: int = 8
-    LABEL_FONT_SIZE: int = 12
-    TICK_FONT_SIZE: int = 10
-    TIGHT_LAYOUT_PAD: float = 1.5
+    LABEL_FONT_SIZE: int = 10
+    TICK_FONT_SIZE: int = 8
+    TIGHT_LAYOUT_PAD: float = 1.0
     PLOT_TITLE: str = 'Feature Importance'
     X_LABEL: str = 'Importance'
     Y_LABEL: str = 'Features'
@@ -103,11 +105,11 @@ class FeatureImportanceConfig(BaseConfig):
 @dataclass
 class OutlierConfig(BaseConfig):
     """Configuration for outlier visualization and analysis."""
-    WIDTH: int = 40
-    HEIGHT: int = 30
-    LABEL_FONT_SIZE: int = 16
-    LEGEND_FONT_SIZE: int = 12
-    TICK_FONT_SIZE: int = 10
+    WIDTH: int = 8
+    HEIGHT: int = 5
+    LABEL_FONT_SIZE: int = 10
+    LEGEND_FONT_SIZE: int = 8
+    TICK_FONT_SIZE: int = 6
     LOWER_BOUND_COLOR: str = 'r'
     UPPER_BOUND_COLOR: str = 'g'
     BOUND_LINESTYLE: str = '--'
@@ -122,12 +124,12 @@ class OutlierConfig(BaseConfig):
 @dataclass
 class ComprehensiveNumericalConfig(BaseConfig):
     """Configuration for comprehensive numerical analysis visualization and analysis."""
-    WIDTH: int = 60
-    HEIGHT: int = 40
-    LABEL_FONT_SIZE: int = 16
-    LEGEND_FONT_SIZE: int = 12
-    HIST_BINS: int = 30
-    HEATMAP_ANNOT_SIZE: int = 8
+    WIDTH: int = 20
+    HEIGHT: int = 14
+    LABEL_FONT_SIZE: int = 12
+    LEGEND_FONT_SIZE: int = 10
+    HIST_BINS: int = 20
+    HEATMAP_ANNOT_SIZE: int = 6
     BOXPLOT_WIDTH: float = 0.5
     DISTRIBUTION_PLOT_FILENAME: str = 'numerical_distribution_{}.png'
     SUMMARY_HEATMAP_FILENAME: str = 'summary_statistics_heatmap.png'
