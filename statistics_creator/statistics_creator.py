@@ -3,8 +3,7 @@ from data_loader import DataLoader
 from analyzers.base_analyzer import BaseAnalyzer
 from visualizers.base_visualizer import BaseVisualizer
 from logger import log_execution_time
-
-DEFAULT_STATISTICS_FOLDER = 'statistics'
+from config import data_config
 
 class StatisticsCreator:
     """
@@ -29,7 +28,7 @@ class StatisticsCreator:
         """
         self.data_loader = data_loader
         self.analyzer_visualizer_pairs = analyzer_visualizer_pairs
-        self.statistics_folder = self.data_loader.create_statistics_folder(DEFAULT_STATISTICS_FOLDER)
+        self.statistics_folder = self.data_loader.create_statistics_folder(data_config.DEFAULT_STATISTICS_FOLDER)
 
     @log_execution_time
     def run_analysis(self, data_path: str) -> dict[str, Any]:

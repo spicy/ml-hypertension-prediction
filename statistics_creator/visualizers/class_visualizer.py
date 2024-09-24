@@ -10,17 +10,6 @@ class ClassVisualizer(BaseVisualizer):
     A visualizer for class distributions and balance.
     """
 
-    PLOT_FILENAME = 'class_analysis.png'
-    SUBPLOT_LAYOUT = (1, 2)
-    PIE_CHART_POSITION = (1, 1)
-    INFO_TEXT_POSITION = (1, 2)
-    PIE_CHART_AUTOPCT = '%1.1f%%'
-    PIE_CHART_START_ANGLE = 90
-    TEXT_BOX_POSITION = (0.5, 0.5)
-    TEXT_BOX_ALIGNMENT = ('center', 'center')
-    TEXT_BOX_FACECOLOR = 'white'
-    TEXT_BOX_ALPHA = 0.5
-
     @log_execution_time
     def visualize(self, class_analysis: pd.Series, output_path: str) -> None:
         """
@@ -49,28 +38,28 @@ class ClassVisualizer(BaseVisualizer):
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
 
         # Pie chart for distribution
-        plt.subplot(*self.SUBPLOT_LAYOUT, self.PIE_CHART_POSITION)
+        plt.subplot(*config.SUBPLOT_LAYOUT, config.PIE_CHART_POSITION)
         distribution = class_analysis['distribution']
-        plt.pie(distribution.values, labels=distribution.index, autopct=self.PIE_CHART_AUTOPCT, 
-                startangle=self.PIE_CHART_START_ANGLE, textprops={'fontsize': config.PIE_TEXT_FONT_SIZE})
+        plt.pie(distribution.values, labels=distribution.index, autopct=config.PIE_CHART_AUTOPCT,
+                startangle=config.PIE_CHART_START_ANGLE, textprops={'fontsize': config.PIE_TEXT_FONT_SIZE})
         plt.title('Class Distribution', fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
 
         # Text information for class balance
-        plt.subplot(*self.SUBPLOT_LAYOUT, self.INFO_TEXT_POSITION)
+        plt.subplot(*config.SUBPLOT_LAYOUT, config.INFO_TEXT_POSITION)
         plt.axis('off')
         info_text = (
             f"Majority Class: {class_analysis['majority_class']}\n"
             f"Minority Class: {class_analysis['minority_class']}\n"
             f"Imbalance Ratio: {class_analysis['imbalance_ratio']:.2f}"
         )
-        plt.text(*self.TEXT_BOX_POSITION, info_text, ha=self.TEXT_BOX_ALIGNMENT[0], 
-                 va=self.TEXT_BOX_ALIGNMENT[1], fontsize=config.TEXT_FONT_SIZE,
-                 bbox=dict(facecolor=self.TEXT_BOX_FACECOLOR, alpha=self.TEXT_BOX_ALPHA))
+        plt.text(*config.TEXT_BOX_POSITION, info_text, ha=config.TEXT_BOX_ALIGNMENT[0],
+                 va=config.TEXT_BOX_ALIGNMENT[1], fontsize=config.TEXT_FONT_SIZE,
+                 bbox=dict(facecolor=config.TEXT_BOX_FACECOLOR, alpha=config.TEXT_BOX_ALPHA))
         plt.title('Class Balance Information', fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
 
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-        png_path = os.path.join(output_path, self.PLOT_FILENAME)
+        png_path = os.path.join(output_path, config.PLOT_FILENAME)
         try:
             plt.savefig(png_path, dpi=config.DPI)
             logger.info(f"Class analysis plot saved to: {png_path}")

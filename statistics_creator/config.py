@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import numpy as np
 import os
 
 @dataclass
@@ -18,13 +19,21 @@ class BaseConfig:
 
 @dataclass
 class MissingDataConfig(BaseConfig):
-    """Configuration for missing data visualization."""
+    """Configuration for missing data visualization and analysis."""
     TEXT_FONT_SIZE: int = 5
     YLIM_MULTIPLIER: float = 1.15
+    PLOT_TITLE: str = 'Percentage of Missing Data by Column'
+    X_LABEL: str = 'Columns'
+    Y_LABEL: str = 'Percentage of Missing Data'
+    PLOT_FILENAME: str = 'missing_data_percentage.png'
+
+    # New constants moved from MissingDataAnalyzer
+    PERCENTAGE_MULTIPLIER: int = 100
+    MISSING_DATA_LOG_MESSAGE: str = "Missing data analysis completed."
 
 @dataclass
 class CorrelationMulticollinearityConfig(BaseConfig):
-    """Configuration for correlation and multicollinearity visualization."""
+    """Configuration for correlation and multicollinearity visualization and analysis."""
     CORR_WIDTH: int = 40
     CORR_HEIGHT: int = 30
     CORR_X_TICK_FONT_SIZE: int = 10
@@ -39,40 +48,80 @@ class CorrelationMulticollinearityConfig(BaseConfig):
     VIF_TICK_FONT_SIZE: int = 10
     VIF_THRESHOLD: float = 5.0
 
+    CORRELATION_PLOT_FILENAME: str = 'correlation_matrix_heatmap.png'
+    MULTICOLLINEARITY_PLOT_FILENAME: str = 'multicollinearity_vif.png'
+
+    IMPUTER_STRATEGY: str = 'mean'
+    VIF_SORT_ASCENDING: bool = False
+
 @dataclass
 class ClassDistributionConfig(BaseConfig):
-    """Configuration for class distribution visualization."""
+    """Configuration for class distribution visualization and analysis."""
     PIE_TEXT_FONT_SIZE: int = 24
     TITLE_PAD: int = 60
     TEXT_FONT_SIZE: int = 20
+    PLOT_FILENAME: str = 'class_analysis.png'
+    SUBPLOT_LAYOUT: tuple = (1, 2)
+    PIE_CHART_POSITION: tuple = (1, 1)
+    INFO_TEXT_POSITION: tuple = (1, 2)
+    PIE_CHART_AUTOPCT: str = '%1.1f%%'
+    PIE_CHART_START_ANGLE: int = 90
+    TEXT_BOX_POSITION: tuple = (0.5, 0.5)
+    TEXT_BOX_ALIGNMENT: tuple = ('center', 'center')
+    TEXT_BOX_FACECOLOR: str = 'white'
+    TEXT_BOX_ALPHA: float = 0.5
+
+    DISTRIBUTION_KEY: str = "distribution"
+    MAJORITY_CLASS_KEY: str = "majority_class"
+    MINORITY_CLASS_KEY: str = "minority_class"
+    IMBALANCE_RATIO_KEY: str = "imbalance_ratio"
 
 @dataclass
 class DataConfig:
     """Configuration for data file path and target column."""
     PATH: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', '2017-2020', 'processed', 'FilteredCombinedData.csv')
     TARGET_COLUMN: str = "BPQ020"
+    RESULTS_FILENAME: str = "analysis_results.json"
+    DEFAULT_STATISTICS_FOLDER: str = 'statistics'
 
 @dataclass
 class FeatureImportanceConfig(BaseConfig):
-    """Configuration for feature importance visualization."""
+    """Configuration for feature importance visualization and analysis."""
     WIDTH: int = 12
     HEIGHT: int = 8
     LABEL_FONT_SIZE: int = 12
     TICK_FONT_SIZE: int = 10
     TIGHT_LAYOUT_PAD: float = 1.5
+    PLOT_TITLE: str = 'Feature Importance'
+    X_LABEL: str = 'Importance'
+    Y_LABEL: str = 'Features'
+    PLOT_FILENAME: str = 'feature_importance.png'
+
+    N_ESTIMATORS: int = 100
+    RANDOM_STATE: int = 42
 
 @dataclass
 class OutlierConfig(BaseConfig):
-    """Configuration for outlier visualization."""
+    """Configuration for outlier visualization and analysis."""
     WIDTH: int = 40
     HEIGHT: int = 30
     LABEL_FONT_SIZE: int = 16
     LEGEND_FONT_SIZE: int = 12
     TICK_FONT_SIZE: int = 10
+    LOWER_BOUND_COLOR: str = 'r'
+    UPPER_BOUND_COLOR: str = 'g'
+    BOUND_LINESTYLE: str = '--'
+    PLOT_FILE_PREFIX: str = 'outliers_'
+    PLOT_FILE_EXTENSION: str = '.png'
+
+    # New constants moved from OutlierAnalyzer
+    LOWER_QUANTILE: float = 0.25
+    UPPER_QUANTILE: float = 0.75
+    IQR_MULTIPLIER: float = 1.5
 
 @dataclass
 class ComprehensiveNumericalConfig(BaseConfig):
-    """Configuration for comprehensive numerical analysis visualization."""
+    """Configuration for comprehensive numerical analysis visualization and analysis."""
     WIDTH: int = 60
     HEIGHT: int = 40
     LABEL_FONT_SIZE: int = 16
@@ -80,6 +129,20 @@ class ComprehensiveNumericalConfig(BaseConfig):
     HIST_BINS: int = 30
     HEATMAP_ANNOT_SIZE: int = 8
     BOXPLOT_WIDTH: float = 0.5
+    DISTRIBUTION_PLOT_FILENAME: str = 'numerical_distribution_{}.png'
+    SUMMARY_HEATMAP_FILENAME: str = 'summary_statistics_heatmap.png'
+
+    NUMERIC_DTYPES = [np.number]
+    SKEWNESS_KEY: str = 'skewness'
+    KURTOSIS_KEY: str = 'kurtosis'
+
+@dataclass
+class LoggerConfig:
+    """Configuration for logger settings."""
+    LOGGER_NAME: str = 'statistics_creator'
+    LOG_FORMAT: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    LOGS_FOLDER: str = 'logs'
+    LOG_FILE_NAME: str = 'statistics_creator.log'
 
 missing_data_config = MissingDataConfig()
 correlation_multicollinearity_config = CorrelationMulticollinearityConfig()
@@ -88,3 +151,4 @@ data_config = DataConfig()
 feature_importance_config = FeatureImportanceConfig()
 outlier_config = OutlierConfig()
 comprehensive_numerical_config = ComprehensiveNumericalConfig()
+logger_config = LoggerConfig()

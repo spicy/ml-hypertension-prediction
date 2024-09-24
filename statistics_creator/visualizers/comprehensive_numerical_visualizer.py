@@ -2,18 +2,15 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from .base_visualizer import BaseVisualizer
 from config import comprehensive_numerical_config as config
 from logger import logger, log_execution_time
 
+from .base_visualizer import BaseVisualizer
 class ComprehensiveNumericalVisualizer(BaseVisualizer):
     """
     A visualizer class for creating and saving comprehensive numerical analysis plots,
     including distribution plots and summary statistics heatmap.
     """
-
-    DISTRIBUTION_PLOT_FILENAME = 'numerical_distribution_{}.png'
-    SUMMARY_HEATMAP_FILENAME = 'summary_statistics_heatmap.png'
 
     @log_execution_time
     def visualize(self, data: dict, output_path: str) -> None:
@@ -53,7 +50,7 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
 
             plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-            png_path = os.path.join(output_path, self.DISTRIBUTION_PLOT_FILENAME.format(column))
+            png_path = os.path.join(output_path, config.DISTRIBUTION_PLOT_FILENAME.format(column))
             plt.savefig(png_path, dpi=config.DPI)
             plt.close()
 
@@ -63,7 +60,7 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
         summary_df = pd.DataFrame(data).T
 
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
-        sns.heatmap(summary_df, annot=True, fmt='.2f', cmap='YlGnBu', 
+        sns.heatmap(summary_df, annot=True, fmt='.2f', cmap='YlGnBu',
                     annot_kws={"size": config.HEATMAP_ANNOT_SIZE})
         plt.title('Summary Statistics Heatmap', fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
         plt.xticks(rotation=45, ha='right', fontsize=config.X_TICK_FONT_SIZE)
@@ -71,7 +68,7 @@ class ComprehensiveNumericalVisualizer(BaseVisualizer):
 
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
-        png_path = os.path.join(output_path, self.SUMMARY_HEATMAP_FILENAME)
+        png_path = os.path.join(output_path, config.SUMMARY_HEATMAP_FILENAME)
         plt.savefig(png_path, dpi=config.DPI)
         plt.close()
 

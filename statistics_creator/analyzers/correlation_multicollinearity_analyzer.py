@@ -5,6 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import r2_score
 from .base_analyzer import BaseAnalyzer
+from config import correlation_multicollinearity_config as config
 from logger import logger, log_execution_time
 
 class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
@@ -14,9 +15,6 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
     This analyzer calculates the correlation matrix and Variance Inflation Factor (VIF)
     for numeric variables in the input DataFrame.
     """
-
-    IMPUTER_STRATEGY = 'mean'
-    VIF_SORT_ASCENDING = False
 
     @log_execution_time
     def analyze(self, df: pd.DataFrame) -> dict:
@@ -48,7 +46,7 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
         correlation_matrix = numeric_df.corr()
 
         # Impute missing values and scale features (for VIF calculation)
-        imputer = SimpleImputer(strategy=self.IMPUTER_STRATEGY)
+        imputer = SimpleImputer(strategy=config.IMPUTER_STRATEGY)
         X_imputed = imputer.fit_transform(numeric_df)
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X_imputed)
@@ -57,7 +55,7 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
         vif_data = pd.DataFrame()
         vif_data["Feature"] = numeric_df.columns
         vif_data["VIF"] = [self._calculate_vif(X_scaled, i) for i in range(X_scaled.shape[1])]
-        vif_data = vif_data.sort_values("VIF", ascending=self.VIF_SORT_ASCENDING).reset_index(drop=True)
+        vif_data = vif_data.sort_values("VIF", ascending=config.VIF_SORT_ASCENDING).reset_index(drop=True)
 
         logger.info("Correlation and multicollinearity analysis completed.")
         return {

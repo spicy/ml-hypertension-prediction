@@ -1,7 +1,7 @@
 import pandas as pd
-import numpy as np
 from scipy import stats
 from .base_analyzer import BaseAnalyzer
+from config import comprehensive_numerical_config as config
 from logger import logger, log_execution_time
 
 class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
@@ -9,10 +9,6 @@ class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
     A class for performing comprehensive numerical analysis on a DataFrame,
     including basic descriptive statistics, skewness, and kurtosis.
     """
-
-    NUMERIC_DTYPES = [np.number]
-    SKEWNESS_KEY = 'skewness'
-    KURTOSIS_KEY = 'kurtosis'
 
     @log_execution_time
     def analyze(self, df: pd.DataFrame) -> dict:
@@ -37,7 +33,7 @@ class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
         """
         logger.info("Starting comprehensive numerical analysis...")
 
-        numeric_columns = df.select_dtypes(include=self.NUMERIC_DTYPES).columns
+        numeric_columns = df.select_dtypes(include=config.NUMERIC_DTYPES).columns
         results = {}
 
         for column in numeric_columns:
@@ -45,8 +41,8 @@ class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
             if len(column_data) > 0:
                 stats_dict = column_data.describe().to_dict()
                 stats_dict.update({
-                    self.SKEWNESS_KEY: stats.skew(column_data),
-                    self.KURTOSIS_KEY: stats.kurtosis(column_data),
+                    config.SKEWNESS_KEY: stats.skew(column_data),
+                    config.KURTOSIS_KEY: stats.kurtosis(column_data),
                 })
                 results[column] = stats_dict
 

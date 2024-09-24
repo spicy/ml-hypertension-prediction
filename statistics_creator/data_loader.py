@@ -1,10 +1,9 @@
 import os
 import pandas as pd
 from logger import logger, log_execution_time
+from config import data_config
 
 class DataLoader:
-    DEFAULT_STATISTICS_FOLDER = 'statistics'
-
     @staticmethod
     def create_statistics_folder(folder_path: str = None) -> str:
         """
@@ -18,7 +17,7 @@ class DataLoader:
             str: The path of the created statistics folder.
         """
         if folder_path is None:
-            folder_path = os.path.join(os.getcwd(), DataLoader.DEFAULT_STATISTICS_FOLDER)
+            folder_path = os.path.join(os.getcwd(), data_config.DEFAULT_STATISTICS_FOLDER)
 
         logger.info("Creating statistics folder...")
         os.makedirs(folder_path, exist_ok=True)

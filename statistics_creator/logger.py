@@ -3,11 +3,7 @@ import time
 import os
 from functools import wraps
 from typing import Callable, Any
-
-LOGGER_NAME = 'statistics_creator'
-LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-LOGS_FOLDER = 'logs'
-LOG_FILE_NAME = 'statistics_creator.log'
+from .config import logger_config
 
 def setup_logger() -> logging.Logger:
     """
@@ -16,16 +12,16 @@ def setup_logger() -> logging.Logger:
     Returns:
         logging.Logger: The configured logger instance.
     """
-    logger = logging.getLogger(LOGGER_NAME)
+    logger = logging.getLogger(logger_config.LOGGER_NAME)
     logger.setLevel(logging.INFO)
-    formatter = logging.Formatter(LOG_FORMAT)
+    formatter = logging.Formatter(logger_config.LOG_FORMAT)
 
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    os.makedirs(LOGS_FOLDER, exist_ok=True)
-    file_handler = logging.FileHandler(os.path.join(LOGS_FOLDER, LOG_FILE_NAME))
+    os.makedirs(logger_config.LOGS_FOLDER, exist_ok=True)
+    file_handler = logging.FileHandler(os.path.join(logger_config.LOGS_FOLDER, logger_config.LOG_FILE_NAME))
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 

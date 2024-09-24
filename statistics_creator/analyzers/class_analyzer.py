@@ -1,16 +1,12 @@
 import pandas as pd
 from .base_analyzer import BaseAnalyzer
+from config import class_distribution_config as config
 from logger import logger, log_execution_time
 
 class ClassAnalyzer(BaseAnalyzer):
     """
     A class for analyzing the distribution of classes in a target column of a DataFrame.
     """
-
-    DISTRIBUTION_KEY = "distribution"
-    MAJORITY_CLASS_KEY = "majority_class"
-    MINORITY_CLASS_KEY = "minority_class"
-    IMBALANCE_RATIO_KEY = "imbalance_ratio"
 
     def __init__(self, target_column: str):
         """
@@ -61,8 +57,8 @@ class ClassAnalyzer(BaseAnalyzer):
 
         logger.info(f"Class analysis completed for column '{self.target_column}'")
         return pd.Series({
-            self.DISTRIBUTION_KEY: distribution,
-            self.MAJORITY_CLASS_KEY: majority_class,
-            self.MINORITY_CLASS_KEY: minority_class,
-            self.IMBALANCE_RATIO_KEY: imbalance_ratio
+            config.DISTRIBUTION_KEY: distribution,
+            config.MAJORITY_CLASS_KEY: majority_class,
+            config.MINORITY_CLASS_KEY: minority_class,
+            config.IMBALANCE_RATIO_KEY: imbalance_ratio
         })

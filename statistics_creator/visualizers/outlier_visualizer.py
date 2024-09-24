@@ -11,12 +11,6 @@ class OutlierVisualizer(BaseVisualizer):
     A visualizer class for creating and saving outlier plots.
     """
 
-    LOWER_BOUND_COLOR = 'r'
-    UPPER_BOUND_COLOR = 'g'
-    BOUND_LINESTYLE = '--'
-    PLOT_FILE_PREFIX = 'outliers_'
-    PLOT_FILE_EXTENSION = '.png'
-
     @log_execution_time
     def visualize(self, outlier_data: dict, output_path: str) -> None:
         """
@@ -47,14 +41,14 @@ class OutlierVisualizer(BaseVisualizer):
             plt.yticks(fontsize=config.TICK_FONT_SIZE)
 
             # Add lines for lower and upper bounds
-            plt.axhline(y=data['lower_bound'], color=self.LOWER_BOUND_COLOR, linestyle=self.BOUND_LINESTYLE, label='Lower Bound')
-            plt.axhline(y=data['upper_bound'], color=self.UPPER_BOUND_COLOR, linestyle=self.BOUND_LINESTYLE, label='Upper Bound')
+            plt.axhline(y=data['lower_bound'], color=config.LOWER_BOUND_COLOR, linestyle=config.BOUND_LINESTYLE, label='Lower Bound')
+            plt.axhline(y=data['upper_bound'], color=config.UPPER_BOUND_COLOR, linestyle=config.BOUND_LINESTYLE, label='Upper Bound')
             plt.legend(fontsize=config.LEGEND_FONT_SIZE)
 
             plt.tight_layout()
 
             # Save the plot
-            png_path = os.path.join(output_path, f'{self.PLOT_FILE_PREFIX}{column}{self.PLOT_FILE_EXTENSION}')
+            png_path = os.path.join(output_path, f'{config.PLOT_FILE_PREFIX}{column}{config.PLOT_FILE_EXTENSION}')
             try:
                 plt.savefig(png_path, dpi=config.DPI)
             except IOError as e:

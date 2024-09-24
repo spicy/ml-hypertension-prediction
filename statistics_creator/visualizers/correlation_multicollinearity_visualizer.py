@@ -11,9 +11,6 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
     A visualizer for creating and saving correlation matrix heatmaps and multicollinearity plots.
     """
 
-    CORRELATION_PLOT_FILENAME = 'correlation_matrix_heatmap.png'
-    MULTICOLLINEARITY_PLOT_FILENAME = 'multicollinearity_vif.png'
-
     @log_execution_time
     def visualize(self, data: dict, output_path: str) -> None:
         """
@@ -55,7 +52,7 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
 
         plt.tight_layout(pad=config.CORR_TIGHT_LAYOUT_PAD)
 
-        png_path = os.path.join(output_path, self.CORRELATION_PLOT_FILENAME)
+        png_path = os.path.join(output_path, config.CORRELATION_PLOT_FILENAME)
         plt.savefig(png_path, dpi=config.DPI)
         plt.close()
         logger.info(f"Correlation matrix plot saved to: {png_path}")
@@ -81,7 +78,7 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
 
         plt.tight_layout()
 
-        png_path = os.path.join(output_path, self.MULTICOLLINEARITY_PLOT_FILENAME)
+        png_path = os.path.join(output_path, config.MULTICOLLINEARITY_PLOT_FILENAME)
         try:
             plt.savefig(png_path, dpi=config.DPI)
             logger.info(f"Multicollinearity (VIF) plot saved to: {png_path}")
