@@ -11,7 +11,16 @@
         "description": "No",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "ALQ121": "0",
+            "ALQ130": "0",
+            "ALQ142": "0",
+            "ALQ270": "0",
+            "ALQ280": "0",
+            "ALQ290": "0",
+            "ALQ151": "2",
+            "ALQ170": "0"
+          }
         }
       },
       "7": {
@@ -32,7 +41,13 @@
         "description": "Never in the last year",
         "skip": {
           "destination": "ALQ151",
-          "auto_fill": {}
+          "auto_fill": {
+            "ALQ130": "0",
+            "ALQ142": "0",
+            "ALQ270": "0",
+            "ALQ280": "0",
+            "ALQ290": "0"
+          }
         }
       },
       "1": {
@@ -79,6 +94,9 @@
     "text": "During the past 12 months, on those days that {you/SP} drank alcoholic beverages, on the average, how many drinks did {you/he/she} have? By a drink, I mean a 12 oz. beer, a 5 oz. glass of wine, or one and a half ounces of liquor.)",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "mappings": {
+      "0": {
+        "description": "None"
+      },
       "1-13": {
         "description": "Range of Values"
       },
@@ -145,7 +163,47 @@
     "label": "# times 4-5 drinks in 2hrs/past 12 mos",
     "text": "During the past 12 months, about how often did {you/SP} have {DISPLAY NUMBER} or more drinks in a period of two hours or less?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "mappings": {}
+    "mappings": {
+      "0": {
+        "description": "Never in the last year"
+      },
+      "1": {
+        "description": "Every day"
+      },
+      "2": {
+        "description": "Nearly every day"
+      },
+      "3": {
+        "description": "3 to 4 times a week"
+      },
+      "4": {
+        "description": "2 times a week"
+      },
+      "5": {
+        "description": "Once a week"
+      },
+      "6": {
+        "description": "2 to 3 times a month"
+      },
+      "7": {
+        "description": "Once a month"
+      },
+      "8": {
+        "description": "7 to 11 times in the last year"
+      },
+      "9": {
+        "description": "3 to 6 times in the last year"
+      },
+      "10": {
+        "description": "1 to 2 times in the last year"
+      },
+      "77": {
+        "description": "Refused"
+      },
+      "99": {
+        "description": "Don't know"
+      }
+    }
   },
 
   "ALQ280": {
@@ -157,7 +215,9 @@
         "description": "Never in the last year",
         "skip": {
           "destination": "ALQ151",
-          "auto_fill": {}
+          "auto_fill": {
+            "ALQ290": "0"
+          }
         }
       },
       "1": {

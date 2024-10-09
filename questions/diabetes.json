@@ -1,1 +1,103 @@
-{}
+{
+    "DIQ010": {
+        "label": "Doctor told you have diabetes",
+        "text": "The next questions are about specific medical conditions. {Other than during pregnancy, {have you/has SP}/{Have you/Has SP}} ever been told by a doctor or health professional that {you have/{he/she/SP} has} diabetes or sugar diabetes?",
+        "target": "Both males and females 1 YEAR - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "3": {
+                "description": "Borderline"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "DID040": {
+        "label": "Age when first told you had diabetes",
+        "text": "How old {was SP/were you} when a doctor or other health professional first told {you/him/her} that {you/he/she} had diabetes or sugar diabetes?",
+        "target": "Both males and females 1 YEAR - 150 YEARS",
+        "mappings": {
+            "1-79": {
+                "description": "Range of Values"
+            },
+            "80": {
+                "description": "80 years or older"
+            },
+            "666": {
+                "description": "Less than 1 year"
+            },
+            "777": {
+                "description": "Refused"
+            },
+            "999": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "DIQ050": {
+        "label": "Taking insulin now",
+        "text": "{Is SP/Are you} now taking insulin",
+        "target": "Both males and females 1 YEAR - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "DIQ070": {
+        "label": "Taking diabetes pills to lower blood sugar",
+        "text": "Are you now taking diabetic pills to lower your blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.",
+        "target": "Both males and females 1 YEAR - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "DIQ160": {
+        "label": "Ever told you have prediabetes",
+        "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes, impaired fasting glucose, impaired glucose tolerance, borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?",
+        "target": "Both males and females 1 YEAR - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    }
+}

@@ -1,1 +1,35 @@
-{}
+{
+  "WTSAFPRP": {
+    "label": "Fasting Subsample Weight",
+    "text": "Fasting Subsample Weight",
+    "target": "Both males and females 12 YEARS - 150 YEARS",
+    "mappings": {
+      "4808-741259": {
+        "description": "Range of Values"
+      },
+      "0": {
+        "description": "No Lab Result"
+      }
+    }
+  },
+  "LBXTR": {
+    "label": "Triglyceride (mg/dL)",
+    "text": "Triglyceride (mg/dL)",
+    "target": "Both males and females 12 YEARS - 150 YEARS",
+    "mappings": {
+      "10-2684": {
+        "description": "Range of Values"
+      }
+    }
+  },
+  "LBDLDLN": {
+    "label": "LDL-Cholesterol, NIH equation 2 (mg/dL)",
+    "text": "LBDLDLN = (LBXTC/0.948 – LBDHDD/0.971 – (LBXTR/8.56 + (LBXTR * (LBXTC – LBDHDD))/2140 – LBXTR^2/16100) – 9.44), round 0 decimal places) for LBXTR less than 800 mg/dL, and missing for LBXTR GE 800 mg/dL. ^2 stands for power=2, or squared. LBDHDD from public release file P_HDL",
+    "target": "Both males and females 12 YEARS - 150 YEARS",
+    "mappings": {
+      "14-359": {
+        "description": "Range of Values"
+      }
+    }
+  }
+}

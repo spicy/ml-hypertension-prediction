@@ -1,1 +1,163 @@
-{}
+{
+    "CDQ001": {
+        "label": "SP ever had pain or discomfort in chest",
+        "text": "{Have you/Has SP} ever had any pain or discomfort in {your/her/his} chest?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No",
+                "skip_to": "CDQ010"
+            },
+            "7": {
+                "description": "Refused",
+                "skip_to": "CDQ010"
+            },
+            "9": {
+                "description": "Don't know",
+                "skip_to": "CDQ010"
+            }
+        }
+    },
+    "CDQ002": {
+        "label": "SP get it walking uphill or in a hurry",
+        "text": "{Do you/Does she/Does he} get it when {you/she/he} walk uphill or hurry?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No",
+                "skip_to": "CDQ008"
+            },
+            "3": {
+                "description": "Never walks uphill or hurries"
+            },
+            "7": {
+                "description": "Refused",
+                "skip_to": "CDQ008"
+            },
+            "9": {
+                "description": "Don't know",
+                "skip_to": "CDQ008"
+            }
+        }
+    },
+    "CDQ003": {
+        "label": "During an ordinary pace on level ground",
+        "text": "{Do you/Does she/Does he} get it when {you/she/he} walk at an ordinary pace on level ground?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "CDQ004": {
+        "label": "If so does SP continue or slow down",
+        "text": "What {do you/does she/does he} do if {you/she/he} get it while {you/she/he} are walking? {Do you/Does she/Does he} stop or slow down or continue at the same pace?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Stop or slow down"
+            },
+            "2": {
+                "description": "Continue at the same pace"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "CDQ005": {
+        "label": "Does standing relieve pain/discomfort",
+        "text": "If {you/she/he} stand still, what happens to it? Is the pain or discomfort relieved or not relieved?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Relieved"
+            },
+            "2": {
+                "description": "Not relieved"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "CDQ006": {
+        "label": "How soon is the pain relieved",
+        "text": "How soon is the pain relieved? Would you say...",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "10 minutes or less"
+            },
+            "2": {
+                "description": "More than 10 minutes"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "CDQ008": {
+        "label": "Severe pain in chest lasting more than half hour",
+        "text": "Was the pain in {your/her/his} chest severe, lasting for half an hour or more?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    },
+    "CDQ010": {
+        "label": "Shortness of breath on stairs/inclines",
+        "text": "{Do you/Does she/Does he} get short of breath when walking uphill or climbing stairs?",
+        "target": "Both males and females 40 YEARS - 150 YEARS",
+        "mappings": {
+            "1": {
+                "description": "Yes"
+            },
+            "2": {
+                "description": "No"
+            },
+            "7": {
+                "description": "Refused"
+            },
+            "9": {
+                "description": "Don't know"
+            }
+        }
+    }
+}

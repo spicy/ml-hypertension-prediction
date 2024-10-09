@@ -1,1 +1,62 @@
-{}
+{
+    "BPXOSY1": {
+        "label": "Systolic Blood Pressure (mm Hg) - 1st measurement",
+        "text": "First systolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-300": {
+                "description": "Range of Values"
+            }
+        }
+    },
+    "BPXOSY2": {
+        "label": "Systolic Blood Pressure (mm Hg) - 2nd measurement",
+        "text": "Second systolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-300": {
+                "description": "Range of Values"
+            }
+        }
+    },
+    "BPXOSY3": {
+        "label": "Systolic Blood Pressure (mm Hg) - 3rd measurement",
+        "text": "Third systolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-300": {
+                "description": "Range of Values"
+            }
+        }
+    },
+    "BPXODI1": {
+        "label": "Diastolic Blood Pressure (mm Hg) - 1st measurement",
+        "text": "First diastolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-200": {
+                "description": "Range of Values"
+            }
+        }
+    },
+    "BPXODI2": {
+        "label": "Diastolic Blood Pressure (mm Hg) - 2nd measurement",
+        "text": "Second diastolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-200": {
+                "description": "Range of Values"
+            }
+        }
+    },
+    "BPXODI3": {
+        "label": "Diastolic Blood Pressure (mm Hg) - 3rd measurement",
+        "text": "Third diastolic blood pressure reading (in mm Hg).",
+        "target": "Both males and females 0 YEARS - 150 YEARS",
+        "mappings": {
+            "0-200": {
+                "description": "Range of Values"
+            }
+        }
+    }
+}
