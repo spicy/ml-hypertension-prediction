@@ -1,1 +1,291 @@
-{}
+  {
+  "DPQ010": {
+    "label": "Have little interest in doing things",
+    "text": "Over the last 2 weeks, how often have you been bothered by the following problems: little interest or pleasure in doing things? Would you say...",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ020": {
+    "label": "Feeling down, depressed, or hopeless",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] feeling down, depressed, or hopeless?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ030": {
+    "label": "Trouble sleeping or sleeping too much",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] trouble falling or staying asleep, or sleeping too much?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ040": {
+    "label": "Feeling tired or having little energy",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] feeling tired or having little energy?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ050": {
+    "label": "Poor appetite or overeating",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] poor appetite or overeating?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ060": {
+    "label": "Feeling bad about yourself",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] feeling bad about yourself - or that you are a failure or have let yourself or your family down?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+  "DPQ070": {
+    "label": "Feeling bad about yourself",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] trouble concentrating on things, such as reading the newspaper or watching TV?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+"DPQ080": {
+    "label": "Moving or speaking slowly or too fast",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+"DPQ090": {
+    "label": "Thoughts you would be better off dead",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] Thoughts that you would be better off dead or of hurting yourself in some way?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+
+"DPQ100": {
+    "label": "Thoughts you would be better off dead",
+    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] Thoughts that you would be better off dead or of hurting yourself in some way?",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "mappings": {
+      "0": {
+        "description": "Not at all",
+      },
+      "1": {
+        "description": "Several days"
+      },
+      "2": {
+        "description": "More than half the days"
+      },
+      "3": {
+        "description": "Nearly every day"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  }
+}
