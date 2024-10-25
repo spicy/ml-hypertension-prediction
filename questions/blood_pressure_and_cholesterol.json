@@ -3,6 +3,7 @@
     "label": "Ever told you had high blood pressure",
     "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension, also called high blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -38,6 +39,7 @@
     "label": "Told had high blood pressure - 2+ times",
     "text": "{Were you/Was SP} told on 2 or more different visits that {you/s/he} had hypertension, also called high blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -58,6 +60,7 @@
     "label": "Taking prescription for hypertension",
     "text": "Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to . . . take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -90,6 +93,7 @@
     "label": "Now taking prescribed medicine for HBP",
     "text": "{Are you/Is SP} now taking prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -110,6 +114,7 @@
     "label": "Doctor told you - high cholesterol level",
     "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes",
@@ -134,6 +139,7 @@
     "label": "Ever had blood cholesterol checked",
     "text": "{Have you/Has SP} ever had {your/his/her} blood cholesterol checked?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -166,6 +172,7 @@
     "label": "When blood cholesterol last checked",
     "text": "About how long has it been since {you/SP} last had {your/his/her} blood cholesterol checked? Has it been...",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Less than 1 year ago"
@@ -192,6 +199,7 @@
     "label": "Told to take prescription for cholesterol",
     "text": "[To lower (your/his/her) blood cholesterol, (have/has) (you/SP) ever been told by a doctor or other health professional]... to take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -224,6 +232,7 @@
     "label": "Now taking prescribed medicine",
     "text": "(Are you/Is SP) now following this advice to take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"

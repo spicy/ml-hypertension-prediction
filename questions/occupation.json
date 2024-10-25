@@ -1,192 +1,192 @@
 {
-    "OCD150": {
-      "label": "Type of work done last week",
-      "text": "(SP Interview Version) In this part of the survey I will ask you questions about {your/SP's} work experience. Which of the following {were you/was SP} doing last week . .",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Working at a job or business,",
-          "skip": {
-            "destination": "OCQ180",
-            "auto_fill": {}
-          }
-        },
-        "2": {
-          "description": "With a job or business but not at work,",
-          "skip": {
-            "destination": "OCQ210",
-            "auto_fill": {}
-          }
-        },
-        "3": {
-          "description": "Looking for work, or",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        "4": {
-          "description": "Not working at a job or business?",
-          "skip": {
-            "destination": "OCD383",
-            "auto_fill": {}
-          }
-        },
-        "7": {
-          "description": "Refused",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        "9": {
-          "description": "Don't know",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        ".": {
-          "description": "Missing"
+  "OCD150": {
+    "label": "Type of work done last week",
+    "text": "(SP Interview Version) In this part of the survey I will ask you questions about {your/SP's} work experience. Which of the following {were you/was SP} doing last week . .",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Working at a job or business,",
+        "skip": {
+          "destination": "OCQ180",
+          "auto_fill": {}
         }
-      }
-    },
-
-"OCQ180": {
-      "label": "Hours worked last week in total all jobs",
-      "text": "How many hours did {you/SP} work last week in total at all jobs or businesses?",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "6 to 78": {
-          "description": "Range of Values"
-        },
-        "5": {
-          "description": "1-5 Hours"
-        },
-        "80": {
-          "description": "80 Hours or More"
-        },
-        "77777": {
-          "description": "Refused"
-        },
-        "99999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "2": {
+        "description": "With a job or business but not at work,",
+        "skip": {
+          "destination": "OCQ210",
+          "auto_fill": {}
         }
-      }
-    },
-
-"OCQ200": {
-      "text": "BOX 1. CHECK ITEM OCQ200: IF HOURS IN OCQ180 <= 34, OR REFUSED (CODE 77777), OR DON'T KNOW (CODE 99999), CONTINUE. OTHERWISE, GO TO OCQ670."
-    },
-
-"OCQ210": {
-      "label": "Usually work 35 or more hours per week",
-      "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Yes"
-        },
-        "2": {
-          "description": "No"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "3": {
+        "description": "Looking for work, or",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
         }
-      }
-    },
-
-"OCQ670": {
-      "label": "Overall work schedule past 3 months",
-      "text": "Which of the following best describes your overall work schedule (include all jobs) for the last three months?",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Traditional 9 AM to 5 PM day",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        "2": {
-          "description": "Evening or nights",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        "3": {
-            "description": "Early mornings",
-            "skip": {
-              "destination": "End of Section",
-              "auto_fill": {}
-            }
-          },
-        "5": {
-            "description": "Variable (early mornings, days, and nights)",
-            "skip": {
-              "destination": "End of Section",
-              "auto_fill": {}
-            }
-          },
-        "7": {
-          "description": "Refused",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        "9": {
-          "description": "Don't know",
-          "skip": {
-            "destination": "End of Section",
-            "auto_fill": {}
-          }
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "4": {
+        "description": "Not working at a job or business?",
+        "skip": {
+          "destination": "OCD383",
+          "auto_fill": {}
         }
-      }
-    },
-
-"OCD383": {
-      "label": "Main reason did not work last week",
-      "text": "What is the main reason {you/SP} did not work last week?",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Taking care of house or family"
-        },
-        "2": {
-          "description": "Going to school"
-        },
-        "3": {
-            "description": "Retired"
-        },
-        "4": {
-            "description": "Unable to work for health reasons/Disabled"
-        },
-        "7": {
-            "description": "Other"
-        },
-        "77": {
-          "description": "Refused"
-        },
-        "99": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
         }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      ".": {
+        "description": "Missing"
       }
     }
+  },
+  "OCQ180": {
+    "label": "Hours worked last week in total all jobs",
+    "text": "How many hours did {you/SP} work last week in total at all jobs or businesses?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "6 to 78": {
+        "description": "Range of Values"
+      },
+      "5": {
+        "description": "1-5 Hours"
+      },
+      "80": {
+        "description": "80 Hours or More"
+      },
+      "77777": {
+        "description": "Refused"
+      },
+      "99999": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+  "OCQ200": {
+    "text": "BOX 1. CHECK ITEM OCQ200: IF HOURS IN OCQ180 <= 34, OR REFUSED (CODE 77777), OR DON'T KNOW (CODE 99999), CONTINUE. OTHERWISE, GO TO OCQ670."
+  },
+  "OCQ210": {
+    "label": "Usually work 35 or more hours per week",
+    "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+  "OCQ670": {
+    "label": "Overall work schedule past 3 months",
+    "text": "Which of the following best describes your overall work schedule (include all jobs) for the last three months?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Traditional 9 AM to 5 PM day",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "2": {
+        "description": "Evening or nights",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "3": {
+        "description": "Early mornings",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "5": {
+        "description": "Variable (early mornings, days, and nights)",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  },
+  "OCD383": {
+    "label": "Main reason did not work last week",
+    "text": "What is the main reason {you/SP} did not work last week?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Taking care of house or family"
+      },
+      "2": {
+        "description": "Going to school"
+      },
+      "3": {
+        "description": "Retired"
+      },
+      "4": {
+        "description": "Unable to work for health reasons/Disabled"
+      },
+      "7": {
+        "description": "Other"
+      },
+      "77": {
+        "description": "Refused"
+      },
+      "99": {
+        "description": "Don't know"
+      },
+      ".": {
+        "description": "Missing"
+      }
+    }
+  }
 }

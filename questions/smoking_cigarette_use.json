@@ -3,6 +3,7 @@
     "label": "Smoked at least 100 cigarettes in life",
     "text": "These next questions are about cigarette smoking and other tobacco use. {Have you/Has SP} smoked at least 100 cigarettes in {your/his/her} entire life?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -35,6 +36,7 @@
     "label": "Age started smoking cigarettes regularly",
     "text": "How old {were you/was SP} when {you/s/he} first started to smoke cigarettes fairly regularly?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "7-76": {
         "description": "Range of Values"
@@ -55,6 +57,7 @@
     "label": "Do you now smoke cigarettes?",
     "text": "{Do you/Does SP} now smoke cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Every day",
@@ -94,6 +97,7 @@
     "label": "How long since quit smoking cigarettes",
     "text": "How long has it been since {you/SP} quit smoking cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-366": {
         "description": "Range of Values"
@@ -114,6 +118,7 @@
     "label": "Unit of measure (day/week/month/year)",
     "text": "Unit of Measure",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Days"
@@ -140,6 +145,7 @@
     "label": "# cigarettes smoked per day when quit",
     "text": "At that time, about how many cigarettes did {you/SP} usually smoke per day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "2-90": {
         "description": "Range of Values"
@@ -163,6 +169,7 @@
     "label": "How soon after waking do you smoke",
     "text": "How soon after you wake up do you smoke? Would you say...",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Within 5 minutes"
@@ -198,6 +205,7 @@
     "label": "# days smoked cigs during past 30 days",
     "text": "On how many of the past 30 days did {you/SP} smoke a cigarette?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0-30": {
         "description": "Range of Values"
@@ -215,6 +223,7 @@
     "label": "Avg # cigarettes/day during past 30 days",
     "text": "During the past 30 days, on the days that {you/SP} smoked, about how many cigarettes did {you/s/he} smoke per day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "2-60": {
         "description": "Range of Values"
@@ -238,6 +247,7 @@
     "label": "Cigarette Filter type",
     "text": "Do you usually smoke filtered or non-filtered cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Non-filtered"
@@ -258,6 +268,7 @@
     "label": "Cigarette Menthol indicator",
     "text": "Do you usually smoke menthol or non-menthol cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Non-menthol"
@@ -278,6 +289,7 @@
     "label": "Tried to quit smoking",
     "text": "During the past 12 months, {have you/has SP} stopped smoking for longer than a day because {you were/he was/she was} trying to quit smoking?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -298,6 +310,7 @@
     "label": "Cigarettes smoked in entire life",
     "text": "The following questions are about cigarette smoking and other tobacco use. Do not include cigars or marijuana. About how many cigarettes have you smoked in your entire life?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "I have never smoked, not even a puff",
@@ -352,6 +365,7 @@
     "label": "Age first smoked whole cigarette",
     "text": "How old were you when you smoked a whole cigarette for the first time?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "8-17": {
         "description": "Range of Values"

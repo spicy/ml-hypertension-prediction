@@ -3,6 +3,7 @@
     "label": "Ever had a drink of any kind of alcohol",
     "text": "The next questions are about drinking alcoholic beverages. Included are liquor (such as whiskey or gin), beer, wine, wine coolers, and any other type of alcoholic beverage. In {your/SP's} entire life, {have you/has he/has she} had at least 1 drink of any kind of alcohol, not counting small tastes or sips? By a drink, I mean a 12 oz. beer, a 5 oz. glass of wine, or one and a half ounces of liquor.",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -36,6 +37,7 @@
     "label": "Past 12 mo how often drink alcoholic bev",
     "text": "During the past 12 months, about how often did {you/SP} drink any type of alcoholic beverage? PROBE: How many days per week, per month, or per year did {you/SP} drink?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Never in the last year",
@@ -93,6 +95,7 @@
     "label": "Avg # alcoholic drinks/day - past 12 mos",
     "text": "During the past 12 months, on those days that {you/SP} drank alcoholic beverages, on the average, how many drinks did {you/he/she} have? By a drink, I mean a 12 oz. beer, a 5 oz. glass of wine, or one and a half ounces of liquor.)",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "None"
@@ -116,6 +119,7 @@
     "label": "# days have 4 or 5 drinks/past 12 mos",
     "text": "During the past 12 months, about how often did {you/SP} have {DISPLAY NUMBER} or more drinks of any alcoholic beverage? PROBE: How many days per week, per month, or per year did {you/SP} have {DISPLAY NUMBER} or more drinks in a single day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Never in the last year"
@@ -163,6 +167,7 @@
     "label": "# times 4-5 drinks in 2hrs/past 12 mos",
     "text": "During the past 12 months, about how often did {you/SP} have {DISPLAY NUMBER} or more drinks in a period of two hours or less?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Never in the last year"
@@ -210,6 +215,7 @@
     "label": "# times 8+ drinks in 1 day/past 12 mos",
     "text": "During the past 12 months, about how often did {you/SP} have 8 or more drinks in a single day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Never in the last year",
@@ -263,6 +269,7 @@
     "label": "# times 12+ drinks in 1 day/past 12 mos",
     "text": "During the past 12 months, about how often did {you/SP} have 12 or more drinks in a single day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0": {
         "description": "Never in the last year"
@@ -310,6 +317,7 @@
     "label": "Ever have 4/5 or more drinks every day?",
     "text": "Was there ever a time or times in {your/SP's} life when {you/he/she} drank {DISPLAY NUMBER} or more drinks of any kind of alcoholic beverage almost every day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -330,6 +338,7 @@
     "label": "Past 30 days # times 4-5 drinks on an oc",
     "text": "Considering all types of alcoholic beverages, during the past 30 days, how many times did you have {5/4} or more drinks on an occasion?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0-20": {
         "description": "Range of Values"

@@ -3,6 +3,7 @@
     "label": "Vigorous work activity",
     "text": "Next I am going to ask you about the time {you spend/SP spends} doing different types of physical activity in a typical week. Think first about the time {you spend/he spends/she spends} doing work. Think of work as the things that {you have/he has/she has} to do such as paid or unpaid work, household chores, and yard work. Does {your/SP's} work involve vigorous-intensity activity that causes large increases in breathing or heart rate like carrying or lifting heavy loads, digging or construction work for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -35,6 +36,7 @@
     "label": "Number of days vigorous work",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-7": {
         "description": "Range of Values"
@@ -60,6 +62,7 @@
     "label": "Minutes vigorous-intensity work",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "Suggested-MET-Score": "8.0",
     "mappings": {
       "10-840": {
@@ -78,6 +81,7 @@
     "label": "Moderate work activity",
     "text": "Does {your/SP's} work involve moderate-intensity activity that causes small increases in breathing or heart rate such as brisk walking or carrying light loads for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -110,6 +114,7 @@
     "label": "Number of days moderate work",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-7": {
         "description": "Range of Values"
@@ -135,6 +140,7 @@
     "label": "Minutes moderate-intensity work",
     "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "Suggested-MET-Score": "4.0",
     "mappings": {
       "10-900": {
@@ -153,6 +159,7 @@
     "label": "PAQ635",
     "text": "The next questions exclude the physical activity at work that you have already mentioned. Now I would like to ask you about the usual way {you travel/SP travels} to and from places. For example to school, for shopping, to work. In a typical week {do you/does SP} walk or use a bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -185,6 +192,7 @@
     "label": "Number of days walk or bicycle",
     "text": "In a typical week, on how many days {do you/does SP} walk or bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-7": {
         "description": "Range of Values"
@@ -210,6 +218,7 @@
     "label": "Minutes walk/bicycle for transportation",
     "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "Suggested-MET-Score": "4.0",
     "mappings": {
       "10-840": {
@@ -228,6 +237,7 @@
     "label": "Vigorous recreational activities",
     "text": "The next questions exclude the work and transport activities that you have already mentioned. Now I would like to ask you about sports, fitness and recreational activities. In a typical week {do you/does SP} do any vigorous-intensity sports, fitness, or recreational activities that cause large increases in breathing or heart rate like running or basketball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -260,6 +270,7 @@
     "label": "Days vigorous recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-7": {
         "description": "Range of Values"
@@ -285,6 +296,7 @@
     "label": "Minutes vigorous recreational activities",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "Suggested-MET-Score": "8.0",
     "mappings": {
       "10-480": {
@@ -303,6 +315,7 @@
     "label": "Moderate recreational activities",
     "text": "In a typical week {do you/does SP} do any moderate-intensity sports, fitness, or recreational activities that cause a small increase in breathing or heart rate such as brisk walking, bicycling, swimming, or volleyball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -335,6 +348,7 @@
     "label": "Days moderate recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1-7": {
         "description": "Range of Values"
@@ -352,6 +366,7 @@
     "label": "Minutes moderate recreational activities",
     "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "Suggested-MET-Score": "4.0",
     "mappings": {
       "10-600": {
@@ -370,6 +385,7 @@
     "label": "Minutes sedentary activity",
     "text": "The following question is about sitting at school, at home, getting to and from places, or with friends including time spent sitting at a desk, traveling in a car or bus, reading, playing cards, watching television, or using a computer. Do not include time spent sleeping. How much time {do you/does SP} usually spend sitting on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "0-1320": {
         "description": "Range of Values"

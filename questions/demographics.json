@@ -1,31 +1,33 @@
 {
-    "RIDAGEYR": {
-        "label": "Age in years at screening",
-        "text": "Age of the participant at the time of screening.",
-        "target": "Both males and females 0 YEARS - 150 YEARS",
-        "mappings": {
-            "0-150": {
-                "description": "Range of Values"
-            },
-            "77777": {
-                "description": "Refused"
-            },
-            "99999": {
-                "description": "Don't know"
-            }
-        }
-    },
-    "RIAGENDR": {
-        "label": "Gender",
-        "text": "Gender of the participant.",
-        "target": "Both males and females",
-        "mappings": {
-            "1": {
-                "description": "Male"
-            },
-            "2": {
-                "description": "Female"
-            }
-        }
+  "RIDAGEYR": {
+    "label": "Age in years at screening",
+    "text": "Age of the participant at the time of screening.",
+    "target": "Both males and females 0 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "0-150": {
+        "description": "Range of Values"
+      },
+      "77777": {
+        "description": "Refused"
+      },
+      "99999": {
+        "description": "Don't know"
+      }
     }
+  },
+  "RIAGENDR": {
+    "label": "Gender",
+    "text": "Gender of the participant.",
+    "target": "Both males and females",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Male"
+      },
+      "2": {
+        "description": "Female"
+      }
+    }
+  }
 }

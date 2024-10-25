@@ -3,6 +3,7 @@
     "label": "Direct HDL-Cholesterol (mg/dL)",
     "text": "Direct HDL-Cholesterol (mg/dL)",
     "target": "Both males and females 6 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "5-189": {
         "description": "Range of Values"

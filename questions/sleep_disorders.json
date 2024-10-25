@@ -1,232 +1,91 @@
 {
-    "SEQN": {
-      "label": "Respondent sequence number",
-      "text": "Respondent sequence number.",
-      "target": "Both males and females 16 YEARS - 150 YEARS"
-    },
-    
-    "SLQ300": {
-      "label": "Usual sleep time on weekdays or workdays",
-      "text": "What time do you usually fall asleep on weekdays or workdays?",
-      "instructions": "Character variable 'HH:MM' ('00:00' to '23:30')",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "77777": {
-          "description": "Refused"
-        },
-        "99999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+  "SLD010H": {
+    "label": "How much sleep do you get (hours)?",
+    "text": "The next set of questions is about your sleeping habits. How much sleep {do you/does SP} usually get at night on weekdays or workdays?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "0",
+    "mappings": {
+      "2-11": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "SLQ050",
+          "auto_fill": {
+            "SLD012": "VALUE"
+          }
         }
-      }
-    },
-  
-    "SLQ310": {
-      "label": "Usual wake time on weekdays or workdays",
-      "text": "What time do you usually wake up on weekdays or workdays?",
-      "instructions": "Character variable 'HH:MM' ('00:00' to '23:30')",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "77777": {
-          "description": "Refused"
-        },
-        "99999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "12": {
+        "description": "12 hours or more",
+        "skip": {
+          "destination": "SLQ050",
+          "auto_fill": {
+            "SLD012": "12"
+          }
         }
-      }
-    },
-  
-    "SLD012": {
-      "label": "Sleep hours - weekdays or workdays",
-      "text": "Number of hours usually sleep on weekdays or workdays.",
-      "instructions": "Derived from SLQ300 and SLQ310",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "2": {
-          "description": "Less than 3 hours"
-        },
-        "14": {
-          "description": "14 hours or more"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "77": {
+        "description": "Refused",
+        "skip": {
+          "destination": "SLQ050",
+          "auto_fill": {
+            "SLD012": "77"
+          }
         }
-      }
-    },
-  
-    "SLQ320": {
-      "label": "Usual sleep time on weekends",
-      "text": "What time do you usually fall asleep on weekends or non-workdays?",
-      "instructions": "Character variable 'HH:MM' ('00:00' to '23:30')",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "77777": {
-          "description": "Refused"
-        },
-        "99999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLQ330": {
-      "label": "Usual wake time on weekends",
-      "text": "What time do you usually wake up on weekends or non-workdays?",
-      "instructions": "Character variable 'HH:MM' ('00:00' to '23:30')",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "77777": {
-          "description": "Refused"
-        },
-        "99999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLD013": {
-      "label": "Sleep hours - weekends",
-      "text": "Number of hours usually sleep on weekends or non-workdays.",
-      "instructions": "Derived from SLQ320 and SLQ330",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "2": {
-          "description": "Less than 3 hours"
-        },
-        "14": {
-          "description": "14 hours or more"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLQ030": {
-      "label": "How often do you snore?",
-      "text": "In the past 12 months, how often did you snore while sleeping?",
-      "instructions": "INTERVIEWER INSTRUCTION: IF R SAYS 'DON'T KNOW', PROBE IF ANYONE HAS TOLD THEM THEY SNORE.",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "0": {
-          "description": "Never"
-        },
-        "1": {
-          "description": "Rarely - 1-2 nights a week"
-        },
-        "2": {
-          "description": "Occasionally - 3-4 nights a week"
-        },
-        "3": {
-          "description": "Frequently - 5 or more nights a week"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLQ040": {
-      "label": "How often do you snort or stop breathing?",
-      "text": "In the past 12 months, how often did you snort, gasp, or stop breathing while asleep?",
-      "instructions": "INTERVIEWER INSTRUCTION: PROBE IF ANYONE TOLD THEM THAT THEY DO THIS.",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "0": {
-          "description": "Never"
-        },
-        "1": {
-          "description": "Rarely - 1-2 nights a week"
-        },
-        "2": {
-          "description": "Occasionally - 3-4 nights a week"
-        },
-        "3": {
-          "description": "Frequently - 5 or more nights a week"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLQ050": {
-      "label": "Ever told doctor had trouble sleeping?",
-      "text": "Have you ever told a doctor or health professional that you have trouble sleeping?",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Yes"
-        },
-        "2": {
-          "description": "No"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SLQ120": {
-      "label": "How often feel overly sleepy during the day?",
-      "text": "In the past month, how often did you feel excessively or overly sleepy during the day?",
-      "instructions": "HAND CARD SLQ1",
-      "target": "Both males and females 16 YEARS - 150 YEARS",
-      "mappings": {
-        "0": {
-          "description": "Never"
-        },
-        "1": {
-          "description": "Rarely - 1 time a month"
-        },
-        "2": {
-          "description": "Sometimes - 2-4 times a month"
-        },
-        "3": {
-          "description": "Often - 5-15 times a month"
-        },
-        "4": {
-          "description": "Almost always - 16-30 times a month"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
+      },
+      "99": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "SLQ050",
+          "auto_fill": {
+            "SLD012": "99"
+          }
         }
       }
     }
+  },
+
+  "SLD012": {
+    "label": "Sleep hours - weekdays or workdays",
+    "text": "Number of hours usually slept on weekdays or workdays.",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "3-13": {
+        "description": "Hours slept"
+      },
+      "2": {
+        "description": "Less than 3 hours"
+      },
+      "14": {
+        "description": "14 hours or more"
+      },
+      "77": {
+        "description": "Refused"
+      },
+      "99": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "SLQ050": {
+    "label": "Ever told doctor had trouble sleeping?",
+    "text": "Have you ever told a doctor or other health professional that you have trouble sleeping?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
   }
-  
+}
