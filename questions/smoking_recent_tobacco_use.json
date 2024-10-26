@@ -1,10 +1,4 @@
 {
-    "SEQN": {
-      "label": "Respondent sequence number",
-      "text": "Respondent sequence number.",
-      "target": "Both males and females 12 YEARS - 150 YEARS"
-    },
-  
     "SMQ681": {
       "label": "Smoked tobacco last 5 days?",
       "text": "During the past 5 days, including today, did you smoke cigarettes, pipes, cigars, little cigars or cigarillos, water pipes, hookahs, or e-cigarettes?",
@@ -15,91 +9,6 @@
         },
         "2": {
           "description": "No"
-        },
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SMQ690A": {
-      "label": "Used last 5 days - Cigarettes",
-      "text": "Which of these products did you use? (Check all that apply)",
-      "target": "Both males and females 12 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Cigarettes"
-        },
-        "77": {
-          "description": "Refused"
-        },
-        "99": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SMQ710": {
-      "label": "# days smoked cigarettes last 5 days",
-      "text": "During the past 5 days, including today, on how many days did you smoke cigarettes?",
-      "target": "Both males and females 12 YEARS - 150 YEARS",
-      "instructions": "Enter number of days. Range: 1 to 5",
-      "mappings": {
-        "7": {
-          "description": "Refused"
-        },
-        "9": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SMQ720": {
-      "label": "# cigarettes smoked per day",
-      "text": "During the past 5 days, on the days you smoked, how many cigarettes did you smoke each day?",
-      "target": "Both males and females 12 YEARS - 150 YEARS",
-      "instructions": "Enter number of cigarettes. If 95 or more, enter 95.",
-      "mappings": {
-        "95": {
-          "description": "95 or more"
-        },
-        "777": {
-          "description": "Refused"
-        },
-        "999": {
-          "description": "Don't know"
-        },
-        ".": {
-          "description": "Missing"
-        }
-      }
-    },
-  
-    "SMQ725": {
-      "label": "When did respondent smoke last cigarette?",
-      "text": "When did you smoke your last cigarette?",
-      "target": "Both males and females 12 YEARS - 150 YEARS",
-      "mappings": {
-        "1": {
-          "description": "Today"
-        },
-        "2": {
-          "description": "Yesterday"
-        },
-        "3": {
-          "description": "3 to 5 days ago"
         },
         "7": {
           "description": "Refused"

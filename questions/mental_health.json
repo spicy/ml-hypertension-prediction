@@ -1,4 +1,4 @@
-  {
+{
   "DPQ010": {
     "label": "Have little interest in doing things",
     "text": "Over the last 2 weeks, how often have you been bothered by the following problems: little interest or pleasure in doing things? Would you say...",
@@ -142,9 +142,6 @@
       },
       "9": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
@@ -172,9 +169,6 @@
       },
       "9": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
@@ -202,99 +196,33 @@
       },
       "9": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
 
-"DPQ080": {
-    "label": "Moving or speaking slowly or too fast",
-    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?",
+  "DPQ100": {
+    "label": "Difficulty these problems have caused",
+    "text": "How difficult have these problems made it for you to do your work, take care of things at home, or get along with people?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
       "0": {
-        "description": "Not at all"
+        "description": "Not at all difficult"
       },
       "1": {
-        "description": "Several days"
+        "description": "Somewhat difficult"
       },
       "2": {
-        "description": "More than half the days"
+        "description": "Very difficult"
       },
       "3": {
-        "description": "Nearly every day"
+        "description": "Extremely difficult"
       },
       "7": {
         "description": "Refused"
       },
       "9": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
-      }
-    }
-  },
-
-"DPQ090": {
-    "label": "Thoughts you would be better off dead",
-    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] Thoughts that you would be better off dead or of hurting yourself in some way?",
-    "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "0": {
-        "description": "Not at all"
-      },
-      "1": {
-        "description": "Several days"
-      },
-      "2": {
-        "description": "More than half the days"
-      },
-      "3": {
-        "description": "Nearly every day"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
-      }
-    }
-  },
-
-"DPQ100": {
-    "label": "Thoughts you would be better off dead",
-    "text": "[Over the last 2 weeks, how often have you been bothered by the following problems:] Thoughts that you would be better off dead or of hurting yourself in some way?",
-    "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "0": {
-        "description": "Not at all"
-      },
-      "1": {
-        "description": "Several days"
-      },
-      "2": {
-        "description": "More than half the days"
-      },
-      "3": {
-        "description": "Nearly every day"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   }

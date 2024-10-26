@@ -147,25 +147,5 @@
         "description": "Don't know"
       }
     }
-  },
-  "CDQ010": {
-    "label": "Shortness of breath on stairs/inclines",
-    "text": "{Do you/Does she/Does he} get short of breath when walking uphill or climbing stairs?",
-    "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "1": {
-        "description": "Yes"
-      },
-      "2": {
-        "description": "No"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
-      }
-    }
   }
 }

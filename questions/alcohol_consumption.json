@@ -3,7 +3,7 @@
     "label": "Ever had a drink of any kind of alcohol",
     "text": "The next questions are about drinking alcoholic beverages. Included are liquor (such as whiskey or gin), beer, wine, wine coolers, and any other type of alcoholic beverage. In {your/SP's} entire life, {have you/has he/has she} had at least 1 drink of any kind of alcohol, not counting small tastes or sips? By a drink, I mean a 12 oz. beer, a 5 oz. glass of wine, or one and a half ounces of liquor.",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -17,10 +17,7 @@
             "ALQ130": "0",
             "ALQ142": "0",
             "ALQ270": "0",
-            "ALQ280": "0",
-            "ALQ290": "0",
-            "ALQ151": "2",
-            "ALQ170": "0"
+            "ALQ280": "0"
           }
         }
       },
@@ -42,13 +39,12 @@
       "0": {
         "description": "Never in the last year",
         "skip": {
-          "destination": "ALQ151",
+          "destination": "End of section",
           "auto_fill": {
             "ALQ130": "0",
             "ALQ142": "0",
             "ALQ270": "0",
-            "ALQ280": "0",
-            "ALQ290": "0"
+            "ALQ280": "0"
           }
         }
       },
@@ -218,60 +214,6 @@
     "include": "1",
     "mappings": {
       "0": {
-        "description": "Never in the last year",
-        "skip": {
-          "destination": "ALQ151",
-          "auto_fill": {
-            "ALQ290": "0"
-          }
-        }
-      },
-      "1": {
-        "description": "Every day"
-      },
-      "2": {
-        "description": "Nearly every day"
-      },
-      "3": {
-        "description": "3 to 4 times a week"
-      },
-      "4": {
-        "description": "2 times a week"
-      },
-      "5": {
-        "description": "Once a week"
-      },
-      "6": {
-        "description": "2 to 3 times a month"
-      },
-      "7": {
-        "description": "Once a month"
-      },
-      "8": {
-        "description": "7 to 11 times in the last year"
-      },
-      "9": {
-        "description": "3 to 6 times in the last year"
-      },
-      "10": {
-        "description": "1 to 2 times in the last year"
-      },
-      "77": {
-        "description": "Refused"
-      },
-      "99": {
-        "description": "Don't know"
-      }
-    }
-  },
-
-  "ALQ290": {
-    "label": "# times 12+ drinks in 1 day/past 12 mos",
-    "text": "During the past 12 months, about how often did {you/SP} have 12 or more drinks in a single day?",
-    "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "0": {
         "description": "Never in the last year"
       },
       "1": {
@@ -308,48 +250,6 @@
         "description": "Refused"
       },
       "99": {
-        "description": "Don't know"
-      }
-    }
-  },
-
-  "ALQ151": {
-    "label": "Ever have 4/5 or more drinks every day?",
-    "text": "Was there ever a time or times in {your/SP's} life when {you/he/she} drank {DISPLAY NUMBER} or more drinks of any kind of alcoholic beverage almost every day?",
-    "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "1": {
-        "description": "Yes"
-      },
-      "2": {
-        "description": "No"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
-      }
-    }
-  },
-
-  "ALQ170": {
-    "label": "Past 30 days # times 4-5 drinks on an oc",
-    "text": "Considering all types of alcoholic beverages, during the past 30 days, how many times did you have {5/4} or more drinks on an occasion?",
-    "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "0-20": {
-        "description": "Range of Values"
-      },
-      "30": {
-        "description": "More than 20 times a month"
-      },
-      "777": {
-        "description": "Refused"
-      },
-      "999": {
         "description": "Don't know"
       }
     }

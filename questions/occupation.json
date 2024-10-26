@@ -6,28 +6,28 @@
     "include": "1",
     "mappings": {
       "1": {
-        "description": "Working at a job or business,",
+        "description": "Working at a job or business",
         "skip": {
           "destination": "OCQ180",
           "auto_fill": {}
         }
       },
       "2": {
-        "description": "With a job or business but not at work,",
+        "description": "With a job or business but not at work",
         "skip": {
           "destination": "OCQ210",
           "auto_fill": {}
         }
       },
       "3": {
-        "description": "Looking for work, or",
+        "description": "Looking for work",
         "skip": {
           "destination": "End of Section",
           "auto_fill": {}
         }
       },
       "4": {
-        "description": "Not working at a job or business?",
+        "description": "Not working at a job or business",
         "skip": {
           "destination": "OCD383",
           "auto_fill": {}
@@ -72,15 +72,10 @@
       },
       "99999": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
-  "OCQ200": {
-    "text": "BOX 1. CHECK ITEM OCQ200: IF HOURS IN OCQ180 <= 34, OR REFUSED (CODE 77777), OR DON'T KNOW (CODE 99999), CONTINUE. OTHERWISE, GO TO OCQ670."
-  },
+
   "OCQ210": {
     "label": "Usually work 35 or more hours per week",
     "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
@@ -98,12 +93,10 @@
       },
       "9": {
         "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
+
   "OCQ670": {
     "label": "Overall work schedule past 3 months",
     "text": "Which of the following best describes your overall work schedule (include all jobs) for the last three months?",
@@ -151,41 +144,6 @@
           "destination": "End of Section",
           "auto_fill": {}
         }
-      },
-      ".": {
-        "description": "Missing"
-      }
-    }
-  },
-  "OCD383": {
-    "label": "Main reason did not work last week",
-    "text": "What is the main reason {you/SP} did not work last week?",
-    "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "1": {
-        "description": "Taking care of house or family"
-      },
-      "2": {
-        "description": "Going to school"
-      },
-      "3": {
-        "description": "Retired"
-      },
-      "4": {
-        "description": "Unable to work for health reasons/Disabled"
-      },
-      "7": {
-        "description": "Other"
-      },
-      "77": {
-        "description": "Refused"
-      },
-      "99": {
-        "description": "Don't know"
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   }
