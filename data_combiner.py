@@ -33,7 +33,17 @@ class DataCombiner:
         file_data = []  # Store tuples of (df, file_path)
         for file in self.input_files:
             try:
+                # Read CSV and convert numeric columns to Int64 (nullable integer type)
                 df = pd.read_csv(file)
+                # Convert numeric columns to Int64 where possible
+                for col in df.columns:
+                    if pd.api.types.is_numeric_dtype(df[col]):
+                        try:
+                            df[col] = df[col].astype("Int64")
+                        except (ValueError, TypeError):
+                            # Keep as float if conversion fails
+                            pass
+
                 if SEQN_COLUMN not in df.columns:
                     raise ValueError(
                         f"File {file} does not contain '{SEQN_COLUMN}' column."

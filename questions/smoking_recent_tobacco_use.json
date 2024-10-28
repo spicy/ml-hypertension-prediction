@@ -21,7 +21,7 @@
         }
       }
     },
-  
+
     "SMQ690B": {
       "label": "Used last 5 days - Pipes",
       "text": "Which of these products did you use? (Check all that apply)",
@@ -35,7 +35,7 @@
         }
       }
     },
-  
+
     "SMQ740": {
       "label": "# days smoked pipe over last 5 days",
       "text": "During the past 5 days, on how many days did you smoke a pipe?",
