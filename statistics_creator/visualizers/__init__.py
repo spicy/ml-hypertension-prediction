@@ -1,11 +1,15 @@
 from .missing_data_visualizer import MissingDataVisualizer
-from .correlation_visualizer import CorrelationVisualizer
-from .summary_statistics_visualizer import SummaryStatisticsVisualizer
-from .class_distribution_visualizer import ClassDistributionVisualizer
+from .correlation_multicollinearity_visualizer import CorrelationMulticollinearityVisualizer
+from .comprehensive_numerical_visualizer import ComprehensiveNumericalVisualizer
+from .class_visualizer import ClassVisualizer
+from .feature_importance_visualizer import FeatureImportanceVisualizer
+from .outlier_visualizer import OutlierVisualizer
 
 __all__ = [
     'MissingDataVisualizer',
-    'CorrelationVisualizer',
-    'SummaryStatisticsVisualizer',
-    'ClassDistributionVisualizer'
+    'CorrelationMulticollinearityVisualizer',
+    'ComprehensiveNumericalVisualizer',
+    'ClassVisualizer',
+    'FeatureImportanceVisualizer',
+    'OutlierVisualizer'
 ]
