@@ -170,3 +170,4 @@ cython_debug/
 *.history/
 /data/processed
 */data/processed
+.DS_Store
