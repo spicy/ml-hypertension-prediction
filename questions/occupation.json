@@ -6,49 +6,56 @@
     "include": "1",
     "mappings": {
       "1": {
-        "description": "Working at a job or business",
-        "skip": {
-          "destination": "OCQ180",
-          "auto_fill": {}
-        }
+        "description": "Working at a job or business"
       },
       "2": {
         "description": "With a job or business but not at work",
         "skip": {
           "destination": "OCQ210",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCQ180": "0"
+          }
         }
       },
       "3": {
         "description": "Looking for work",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCQ180": "0",
+            "OCQ210": "0"
+          }
         }
       },
       "4": {
         "description": "Not working at a job or business",
         "skip": {
           "destination": "OCD383",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCQ180": "0",
+            "OCQ210": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCQ180": "77777",
+            "OCQ210": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCQ180": "99999",
+            "OCQ210": "9"
+          }
         }
-      },
-      ".": {
-        "description": "Missing"
       }
     }
   },
@@ -58,14 +65,29 @@
     "target": "Both males and females 16 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "6 to 78": {
+      "0": {
+        "description": "0 Hours"
+      },
+      "1-34": {
         "description": "Range of Values"
       },
-      "5": {
-        "description": "1-5 Hours"
+      "35-79": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ210": "1"
+          }
+        }
       },
       "80": {
-        "description": "80 Hours or More"
+        "description": "80 Hours or More",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ210": "1"
+          }
+        }
       },
       "77777": {
         "description": "Refused"
@@ -75,13 +97,15 @@
       }
     }
   },
-
   "OCQ210": {
     "label": "Usually work 35 or more hours per week",
     "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
       "1": {
         "description": "Yes"
       },
@@ -93,57 +117,6 @@
       },
       "9": {
         "description": "Don't know"
-      }
-    }
-  },
-
-  "OCQ670": {
-    "label": "Overall work schedule past 3 months",
-    "text": "Which of the following best describes your overall work schedule (include all jobs) for the last three months?",
-    "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "1": {
-        "description": "Traditional 9 AM to 5 PM day",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
-      },
-      "2": {
-        "description": "Evening or nights",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
-      },
-      "3": {
-        "description": "Early mornings",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
-      },
-      "5": {
-        "description": "Variable (early mornings, days, and nights)",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
-      },
-      "7": {
-        "description": "Refused",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
-      },
-      "9": {
-        "description": "Don't know",
-        "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
-        }
       }
     }
   }

@@ -10,15 +10,45 @@
       },
       "2": {
         "description": "No",
-        "skip_to": "CDQ010"
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "2",
+            "CDQ003": "2",
+            "CDQ004": "3",
+            "CDQ005": "3",
+            "CDQ006": "3",
+            "CDQ008": "3"
+          }
+        }
       },
       "7": {
         "description": "Refused",
-        "skip_to": "CDQ010"
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "7",
+            "CDQ003": "7",
+            "CDQ004": "7",
+            "CDQ005": "7",
+            "CDQ006": "7",
+            "CDQ008": "7"
+          }
+        }
       },
       "9": {
         "description": "Don't know",
-        "skip_to": "CDQ010"
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "9",
+            "CDQ003": "9",
+            "CDQ004": "9",
+            "CDQ005": "9",
+            "CDQ006": "9",
+            "CDQ008": "9"
+          }
+        }
       }
     }
   },
@@ -33,18 +63,42 @@
       },
       "2": {
         "description": "No",
-        "skip_to": "CDQ008"
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "2",
+            "CDQ004": "3",
+            "CDQ005": "3",
+            "CDQ006": "3"
+          }
+        }
       },
       "3": {
         "description": "Never walks uphill or hurries"
       },
       "7": {
         "description": "Refused",
-        "skip_to": "CDQ008"
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "7",
+            "CDQ004": "7",
+            "CDQ005": "7",
+            "CDQ006": "7"
+          }
+        }
       },
       "9": {
         "description": "Don't know",
-        "skip_to": "CDQ008"
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "9",
+            "CDQ004": "9",
+            "CDQ005": "9",
+            "CDQ006": "9"
+          }
+        }
       }
     }
   },
@@ -80,6 +134,9 @@
       "2": {
         "description": "Continue at the same pace"
       },
+      "3": {
+        "description": "Not applicable"
+      },
       "7": {
         "description": "Refused"
       },
@@ -99,6 +156,9 @@
       },
       "2": {
         "description": "Not relieved"
+      },
+      "3": {
+        "description": "Not applicable"
       },
       "7": {
         "description": "Refused"
@@ -120,6 +180,9 @@
       "2": {
         "description": "More than 10 minutes"
       },
+      "3": {
+        "description": "Not applicable"
+      },
       "7": {
         "description": "Refused"
       },
@@ -139,6 +202,9 @@
       },
       "2": {
         "description": "No"
+      },
+      "3": {
+        "description": "Not applicable"
       },
       "7": {
         "description": "Refused"

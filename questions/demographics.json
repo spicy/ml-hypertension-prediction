@@ -1,21 +1,4 @@
 {
-  "RIDAGEYR": {
-    "label": "Age in years at screening",
-    "text": "Age of the participant at the time of screening.",
-    "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "0-150": {
-        "description": "Range of Values"
-      },
-      "77777": {
-        "description": "Refused"
-      },
-      "99999": {
-        "description": "Don't know"
-      }
-    }
-  },
   "RIAGENDR": {
     "label": "Gender",
     "text": "Gender of the participant.",
@@ -27,6 +10,21 @@
       },
       "2": {
         "description": "Female"
+      }
+    }
+  },
+
+  "RIDAGEYR": {
+    "label": "Age in years at screening",
+    "text": "Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.",
+    "target": "Both males and females 0 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "0-79": {
+        "description": "Range of Values"
+      },
+      "80": {
+        "description": "80 years of age and over"
       }
     }
   }

@@ -14,7 +14,6 @@
           "destination": "BPQ080",
           "auto_fill": {
             "BPQ030": "2",
-            "BPD035": "777",
             "BPQ040A": "2",
             "BPQ050A": "2"
           }
@@ -26,7 +25,6 @@
           "destination": "BPQ080",
           "auto_fill": {
             "BPQ030": "7",
-            "BPD035": "777",
             "BPQ040A": "7",
             "BPQ050A": "7"
           }
@@ -38,7 +36,6 @@
           "destination": "BPQ080",
           "auto_fill": {
             "BPQ030": "9",
-            "BPD035": "999",
             "BPQ040A": "9",
             "BPQ050A": "9"
           }
@@ -159,7 +156,7 @@
     "label": "Ever had blood cholesterol checked",
     "text": "{Have you/Has SP} ever had {your/his/her} blood cholesterol checked?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -169,9 +166,9 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ070": "7",
-            "BPQ090D": "7",
-            "BPQ100D": "7"
+            "BPQ070": "5",
+            "BPQ090D": "2",
+            "BPQ100D": "2"
           }
         }
       },
@@ -180,7 +177,7 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ070": "7",
+             "BPQ070": "7",
             "BPQ090D": "7",
             "BPQ100D": "7"
           }
@@ -191,7 +188,7 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ070": "9",
+             "BPQ070": "9",
             "BPQ090D": "9",
             "BPQ100D": "9"
           }
@@ -217,6 +214,9 @@
       },
       "4": {
         "description": "5 years or more"
+      },
+      "5": {
+        "description": "Never"
       },
       "7": {
         "description": "Refused"

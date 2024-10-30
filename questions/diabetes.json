@@ -9,16 +9,44 @@
         "description": "Yes"
       },
       "2": {
-        "description": "No"
+        "description": "No",
+        "skip": {
+          "destination": "DIQ160",
+          "auto_fill": {
+            "DID040": "0",
+            "DIQ050": "2",
+            "DIQ070": "2"
+          }
+        }
       },
       "3": {
-        "description": "Borderline"
+        "description": "Borderline",
+        "skip": {
+          "destination": "DIQ160",
+          "auto_fill": {
+            "DID040": "0",
+            "DIQ050": "2",
+            "DIQ070": "2"
+          }
+        }
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "DIQ160",
+          "auto_fill": {
+            "DID040": "777"
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "DIQ160",
+          "auto_fill": {
+            "DID040": "999"
+          }
+        }
       }
     }
   },
@@ -28,19 +56,60 @@
     "target": "Both males and females 1 YEAR - 150 YEARS",
     "include": "1",
     "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
       "1-79": {
-        "description": "Range of Values"
+        "description": "Range of Values",
+        "skip": {
+          "destination": "DIQ050",
+          "auto_fill": {
+            "DIQ160": "2"
+          }
+        }
       },
       "80": {
-        "description": "80 years or older"
+        "description": "80 years or older",
+        "skip": {
+          "destination": "DIQ050",
+          "auto_fill": {
+            "DIQ160": "2"
+          }
+        }
       },
       "666": {
-        "description": "Less than 1 year"
+        "description": "Less than 1 year",
+        "skip": {
+          "destination": "DIQ050",
+          "auto_fill": {
+            "DIQ160": "2"
+          }
+        }
       },
       "777": {
         "description": "Refused"
       },
       "999": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "DIQ160": {
+    "label": "Ever told you have prediabetes",
+    "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes, impaired fasting glucose, impaired glucose tolerance, borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?",
+    "target": "Both males and females 1 YEAR - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
         "description": "Don't know"
       }
     }
@@ -68,26 +137,6 @@
   "DIQ070": {
     "label": "Taking diabetes pills to lower blood sugar",
     "text": "Are you now taking diabetic pills to lower your blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.",
-    "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
-    "mappings": {
-      "1": {
-        "description": "Yes"
-      },
-      "2": {
-        "description": "No"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
-      }
-    }
-  },
-  "DIQ160": {
-    "label": "Ever told you have prediabetes",
-    "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes, impaired fasting glucose, impaired glucose tolerance, borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
     "include": "1",
     "mappings": {

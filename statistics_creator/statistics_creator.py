@@ -1,9 +1,11 @@
-from typing import List, Any, Tuple
-from data_loader import DataLoader
+from typing import Any, List, Tuple
+
 from analyzers.base_analyzer import BaseAnalyzer
-from visualizers.base_visualizer import BaseVisualizer
-from logger import log_execution_time
 from config import data_config
+from data_loader import DataLoader
+from logger import log_execution_time
+from visualizers.base_visualizer import BaseVisualizer
+
 
 class StatisticsCreator:
     """
@@ -15,10 +17,14 @@ class StatisticsCreator:
     Attributes:
         data_loader (DataLoader): An instance of DataLoader for loading the data.
         analyzer_visualizer_pairs (List[Tuple[BaseAnalyzer, BaseVisualizer]]): A list of analyzer-visualizer pairs.
-        statistics_folder (str): The folder where statistics and visualizations will be saved.
+        _statistics_folder (str): The folder where statistics and visualizations will be saved.
     """
 
-    def __init__(self, data_loader: DataLoader, analyzer_visualizer_pairs: List[Tuple[BaseAnalyzer, BaseVisualizer]]):
+    def __init__(
+        self,
+        data_loader: DataLoader,
+        analyzer_visualizer_pairs: List[Tuple[BaseAnalyzer, BaseVisualizer]],
+    ):
         """
         Initialize the StatisticsCreator with data loader, analyzers, and visualizers.
 
@@ -28,7 +34,19 @@ class StatisticsCreator:
         """
         self.data_loader = data_loader
         self.analyzer_visualizer_pairs = analyzer_visualizer_pairs
-        self.statistics_folder = self.data_loader.create_statistics_folder(data_config.DEFAULT_STATISTICS_FOLDER)
+        self._statistics_folder = None
+
+    @property
+    def statistics_folder(self) -> str:
+        if self._statistics_folder is None:
+            self._statistics_folder = self.data_loader.create_statistics_folder(
+                data_config.DEFAULT_STATISTICS_FOLDER
+            )
+        return self._statistics_folder
+
+    @statistics_folder.setter
+    def statistics_folder(self, value: str):
+        self._statistics_folder = value
 
     @log_execution_time
     def run_analysis(self, data_path: str) -> dict[str, Any]:

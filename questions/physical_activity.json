@@ -3,7 +3,7 @@
     "label": "Vigorous work activity",
     "text": "Next I am going to ask you about the time {you spend/SP spends} doing different types of physical activity in a typical week. Think first about the time {you spend/he spends/she spends} doing work. Think of work as the things that {you have/he has/she has} to do such as paid or unpaid work, household chores, and yard work. Does {your/SP's} work involve vigorous-intensity activity that causes large increases in breathing or heart rate like carrying or lifting heavy loads, digging or construction work for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -12,21 +12,30 @@
         "description": "No",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ610": "0",
+            "PAD615": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ610": "77",
+            "PAD615": "7777"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ610": "99",
+            "PAD615": "9999"
+          }
         }
       }
     }
@@ -38,21 +47,25 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-7": {
+      "0-7": {
         "description": "Range of Values"
       },
       "77": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD615": "7777"
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD615": "9999"
+          }
         }
       }
     }
@@ -63,9 +76,8 @@
     "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
-    "Suggested-MET-Score": "8.0",
     "mappings": {
-      "10-840": {
+      "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
@@ -81,7 +93,7 @@
     "label": "Moderate work activity",
     "text": "Does {your/SP's} work involve moderate-intensity activity that causes small increases in breathing or heart rate such as brisk walking or carrying light loads for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -90,21 +102,30 @@
         "description": "No",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ625": "0",
+            "PAD630": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ625": "77",
+            "PAD630": "7777"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ625": "99",
+            "PAD630": "9999"
+          }
         }
       }
     }
@@ -116,21 +137,25 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-7": {
+      "0-7": {
         "description": "Range of Values"
       },
       "77": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD630": "7777"
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD630": "9999"
+          }
         }
       }
     }
@@ -141,9 +166,8 @@
     "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
-    "Suggested-MET-Score": "4.0",
     "mappings": {
-      "10-900": {
+      "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
@@ -168,21 +192,30 @@
         "description": "No",
         "skip": {
           "destination": "PAQ650",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ640": "0",
+            "PAD645": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ650",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ640": "77",
+            "PAD645": "7777"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ650",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ640": "99",
+            "PAD645": "9999"
+          }
         }
       }
     }
@@ -194,7 +227,7 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-7": {
+      "0-7": {
         "description": "Range of Values"
       },
       "77": {
@@ -219,9 +252,8 @@
     "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
-    "Suggested-MET-Score": "4.0",
     "mappings": {
-      "10-840": {
+      "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
@@ -246,21 +278,30 @@
         "description": "No",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ655": "0",
+            "PAD660": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ655": "77",
+            "PAD660": "7777"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ655": "99",
+            "PAD660": "9999"
+          }
         }
       }
     }
@@ -272,21 +313,25 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-7": {
+      "0-7": {
         "description": "Range of Values"
       },
       "77": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD660": "7777"
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAD660": "9999"
+          }
         }
       }
     }
@@ -297,9 +342,8 @@
     "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
-    "Suggested-MET-Score": "8.0",
     "mappings": {
-      "10-480": {
+      "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
@@ -324,21 +368,30 @@
         "description": "No",
         "skip": {
           "destination": "PAQ680",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ670": "0",
+            "PAD675": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "PAQ680",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ670": "77",
+            "PAD675": "7777"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ680",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ670": "99",
+            "PAD675": "9999"
+          }
         }
       }
     }
@@ -350,7 +403,7 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-7": {
+      "0-7": {
         "description": "Range of Values"
       },
       "77": {
@@ -367,9 +420,8 @@
     "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
-    "Suggested-MET-Score": "4.0",
     "mappings": {
-      "10-600": {
+      "0-1200": {
         "description": "Range of Values"
       },
       "7777": {

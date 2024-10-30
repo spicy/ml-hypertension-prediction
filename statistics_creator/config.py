@@ -1,5 +1,6 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from pathlib import Path
 
 import numpy as np
 
@@ -88,16 +89,21 @@ class ClassDistributionConfig(BaseConfig):
     IMBALANCE_RATIO_KEY: str = "imbalance_ratio"
 
 
+def get_project_root() -> Path:
+    """Get the project root directory."""
+    return Path(__file__).parent.parent
+
+
 @dataclass
 class DataConfig:
     """Configuration for data file path and target column."""
 
-    PATH: str = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)),
-        "data",
-        "processed",
-        "FilteredCombinedData_2017-2020.csv",
+    PROJECT_ROOT: Path = field(default_factory=get_project_root)
+    DATA_DIR: Path = field(default_factory=lambda: get_project_root() / "data")
+    PROCESSED_DIR: Path = field(
+        default_factory=lambda: get_project_root() / "data" / "processed"
     )
+    FILTERED_DATA_PATTERN: str = "FilteredCombinedData_*.csv"
     TARGET_COLUMN: str = "BPQ020"
     RESULTS_FILENAME: str = "analysis_results.json"
     DEFAULT_STATISTICS_FOLDER: str = "statistics"
@@ -163,12 +169,23 @@ class ComprehensiveNumericalConfig(BaseConfig):
 
 @dataclass
 class LoggerConfig:
-    """Configuration for logger settings."""
+    """Configuration for logging settings."""
 
     LOGGER_NAME: str = "statistics_creator"
-    LOG_FORMAT: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    LOG_FORMAT: str = (
+        "%(log_color)s%(asctime)s - %(name)s - %(levelname)s - %(message)s%(reset)s"
+    )
     LOGS_FOLDER: str = "logs"
     LOG_FILE_NAME: str = "statistics_creator.log"
+    LOG_COLORS: dict = field(
+        default_factory=lambda: {
+            "DEBUG": "cyan",
+            "INFO": "green",
+            "WARNING": "yellow",
+            "ERROR": "red",
+            "CRITICAL": "red,bg_white",
+        }
+    )
 
 
 missing_data_config = MissingDataConfig()
