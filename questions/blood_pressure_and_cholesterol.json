@@ -13,8 +13,9 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "PAD630-EXAMPLE-QUESTION-TO-POPULATE": "VALUE-TO-POPULATE-PAD630-WITH-WHEN-ANSWER-IS-2",
-            "PAD631-EXAMPLE-QUESTION-TO-POPULATE": "VALUE-TO-POPULATE-PAD631-WITH-WHEN-ANSWER-IS-2"
+            "BPQ030": "2",
+            "BPQ040A": "2",
+            "BPQ050A": "2"
           }
         }
       },
@@ -22,14 +23,22 @@
         "description": "Refused",
         "skip": {
           "destination": "BPQ080",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ030": "7",
+            "BPQ040A": "7",
+            "BPQ050A": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "BPQ080",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ030": "9",
+            "BPQ040A": "9",
+            "BPQ050A": "9"
+          }
         }
       }
     }
@@ -69,21 +78,27 @@
         "description": "No",
         "skip": {
           "destination": "BPQ080",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ050A": "2"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "BPQ080",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ050A": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "BPQ080",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ050A": "9"
+          }
         }
       }
     }
@@ -120,7 +135,9 @@
         "description": "Yes",
         "skip": {
           "destination": "BPQ070",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ060": "1"
+          }
         }
       },
       "2": {
@@ -139,7 +156,7 @@
     "label": "Ever had blood cholesterol checked",
     "text": "{Have you/Has SP} ever had {your/his/her} blood cholesterol checked?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -148,21 +165,33 @@
         "description": "No",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ070": "5",
+            "BPQ090D": "2",
+            "BPQ100D": "2"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+             "BPQ070": "7",
+            "BPQ090D": "7",
+            "BPQ100D": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+             "BPQ070": "9",
+            "BPQ090D": "9",
+            "BPQ100D": "9"
+          }
         }
       }
     }
@@ -186,6 +215,9 @@
       "4": {
         "description": "5 years or more"
       },
+      "5": {
+        "description": "Never"
+      },
       "7": {
         "description": "Refused"
       },
@@ -208,21 +240,27 @@
         "description": "No",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ100D": "2"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ100D": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "BPQ100D": "9"
+          }
         }
       }
     }

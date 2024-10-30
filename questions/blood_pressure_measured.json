@@ -3,7 +3,7 @@
     "label": "Systolic Blood Pressure (mm Hg) - 1st measurement",
     "text": "First systolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-300": {
         "description": "Range of Values"
@@ -14,7 +14,7 @@
     "label": "Systolic Blood Pressure (mm Hg) - 2nd measurement",
     "text": "Second systolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-300": {
         "description": "Range of Values"
@@ -25,7 +25,7 @@
     "label": "Systolic Blood Pressure (mm Hg) - 3rd measurement",
     "text": "Third systolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-300": {
         "description": "Range of Values"
@@ -36,7 +36,7 @@
     "label": "Diastolic Blood Pressure (mm Hg) - 1st measurement",
     "text": "First diastolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-200": {
         "description": "Range of Values"
@@ -47,7 +47,7 @@
     "label": "Diastolic Blood Pressure (mm Hg) - 2nd measurement",
     "text": "Second diastolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-200": {
         "description": "Range of Values"
@@ -58,11 +58,37 @@
     "label": "Diastolic Blood Pressure (mm Hg) - 3rd measurement",
     "text": "Third diastolic blood pressure reading (in mm Hg).",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-200": {
         "description": "Range of Values"
       }
     }
+  },
+
+  "BPXOSYSUM": {
+    "label": "Sum Systolic Blood Pressures",
+    "include": "0",
+    "formula": "##BPXOSY1 + ##BPXOSY2 + ##BPXOSY3"
+  },
+
+  "BPXOSYAVG": {
+    "label": "Average Systolic Blood Pressure (mm Hg)",
+    "text": "Average systolic blood pressure reading (in mm Hg).",
+    "include": "1",
+    "formula": "##BPXOSYSUM / 3"
+  },
+
+  "BPXODISUM": {
+    "label": "Sum Diastolic Blood Pressures",
+    "include": "0",
+    "formula": "##BPXODI1 + ##BPXODI2 + ##BPXODI3"
+  },
+
+  "BPXODIAVG": {
+    "label": "Average Diastolic Blood Pressure (mm Hg)",
+    "text": "Average diastolic blood pressure reading (in mm Hg).",
+    "include": "1",
+    "formula": "##BPXODISUM / 3"
   }
 }

@@ -12,21 +12,54 @@
         "description": "No",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMD030": "0",
+            "SMQ040": "3",
+            "SMQ050Q": "0",
+            "SMQ050U": "0",
+            "SMD057": "0",
+            "SMD641": "0",
+            "SMD650": "1",
+            "SMD100FL": "2",
+            "SMD100MN": "2",
+            "SMQ670": "0"
+          }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMD030": "777",
+            "SMQ040": "7",
+            "SMQ050Q": "77777",
+            "SMQ050U": "7",
+            "SMD057": "777",
+            "SMD641": "77",
+            "SMD650": "777",
+            "SMD100FL": "7",
+            "SMD100MN": "7",
+            "SMQ670": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMD030": "999",
+            "SMQ040": "9",
+            "SMQ050Q": "99999",
+            "SMQ050U": "9",
+            "SMD057": "999",
+            "SMD641": "99",
+            "SMD650": "999",
+            "SMD100FL": "9",
+            "SMD100MN": "9",
+            "SMQ670": "9"
+          }
         }
       }
     }
@@ -62,15 +95,23 @@
       "1": {
         "description": "Every day",
         "skip": {
-          "destination": "SMQ078",
-          "auto_fill": {}
+          "destination": "SMD641",
+          "auto_fill": {
+            "SMQ050Q": "0",
+            "SMQ050U": "0",
+            "SMD057": "0"
+          }
         }
       },
       "2": {
         "description": "Some days",
         "skip": {
           "destination": "SMD641",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMQ050Q": "0",
+            "SMQ050U": "0",
+            "SMD057": "0"
+          }
         }
       },
       "3": {
@@ -80,14 +121,32 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMQ050Q": "77777",
+            "SMQ050U": "7",
+            "SMD057": "777",
+            "SMD641": "77",
+            "SMD650": "777",
+            "SMD100FL": "7",
+            "SMD100MN": "7",
+            "SMQ670": "7"
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "SMQ050Q": "99999",
+            "SMQ050U": "9",
+            "SMD057": "999",
+            "SMD641": "99",
+            "SMD650": "999",
+            "SMD100FL": "9",
+            "SMD100MN": "9",
+            "SMQ670": "9"
+          }
         }
       }
     }
@@ -99,7 +158,10 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
-      "1-366": {
+      "0": {
+        "description": "Not Applicable"
+      },
+      "1-400": {
         "description": "Range of Values"
       },
       "66666": {
@@ -120,6 +182,9 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
       "1": {
         "description": "Days"
       },
@@ -147,6 +212,9 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
       "2-90": {
         "description": "Range of Values"
       },
@@ -219,6 +287,9 @@
       "1": {
         "description": "Filtered"
       },
+      "2": {
+        "description": "Not Applicable"
+      },
       "7": {
         "description": "Refused"
       },
@@ -240,6 +311,9 @@
       "1": {
         "description": "Menthol"
       },
+      "2": {
+        "description": "Not Applicable"
+      },
       "7": {
         "description": "Refused"
       },
@@ -255,6 +329,9 @@
     "target": "Both males and females 18 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
       "1": {
         "description": "Yes"
       },
