@@ -1,12 +1,14 @@
-import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
-from sklearn.impute import SimpleImputer
-from sklearn.metrics import r2_score
-from .base_analyzer import BaseAnalyzer
+import pandas as pd
 from config import correlation_multicollinearity_config as config
-from logger import logger, log_execution_time
+from logger import log_execution_time, logger
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import StandardScaler
+
+from .base_analyzer import BaseAnalyzer
+
 
 class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
     """
@@ -54,20 +56,22 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
         # Calculate VIF
         vif_data = pd.DataFrame()
         vif_data["Feature"] = numeric_df.columns
-        vif_data["VIF"] = [self._calculate_vif(X_scaled, i) for i in range(X_scaled.shape[1])]
-        vif_data = vif_data.sort_values("VIF", ascending=config.VIF_SORT_ASCENDING).reset_index(drop=True)
+        vif_data["VIF"] = [
+            self._calculate_vif(X_scaled, i) for i in range(X_scaled.shape[1])
+        ]
+        vif_data = vif_data.sort_values(
+            "VIF", ascending=config.VIF_SORT_ASCENDING
+        ).reset_index(drop=True)
 
         logger.info("Correlation and multicollinearity analysis completed.")
-        return {
-            "correlation_matrix": correlation_matrix,
-            "vif_data": vif_data
-        }
+        return {"correlation_matrix": correlation_matrix, "vif_data": vif_data}
 
     def _calculate_vif(self, X: np.ndarray, idx: int) -> float:
         """
         Calculate the Variance Inflation Factor for a given feature.
 
         This method uses linear regression to calculate the VIF value for a specified feature.
+        If perfect multicollinearity is detected (R² = 1), returns infinity.
 
         Args:
             X (np.ndarray): The scaled feature matrix.
@@ -75,11 +79,26 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
 
         Returns:
             float: The calculated VIF value for the specified feature.
+                  Returns float('inf') if perfect multicollinearity is detected.
 
         Note:
             A higher VIF value indicates higher multicollinearity.
         """
-        y = X[:, idx]
-        X_without = np.delete(X, idx, axis=1)
-        r2 = r2_score(y, LinearRegression().fit(X_without, y).predict(X_without))
-        return 1 / (1 - r2)
+        try:
+            y = X[:, idx]
+            X_without = np.delete(X, idx, axis=1)
+
+            # Handle the case where there's only one feature left
+            if X_without.size == 0:
+                return 1.0
+
+            r2 = r2_score(y, LinearRegression().fit(X_without, y).predict(X_without))
+
+            # Handle perfect multicollinearity
+            if np.isclose(r2, 1.0):
+                return float("inf")
+
+            return 1 / (1 - r2)
+        except Exception as e:
+            logger.warning(f"Error calculating VIF: {str(e)}. Returning infinity.")
+            return float("inf")
