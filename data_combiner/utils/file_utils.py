@@ -6,7 +6,6 @@ import pandas as pd
 
 from ..config import config
 from ..logger import logger
-from .data_utils import convert_numeric_to_int64
 
 
 def read_and_validate_file(file_path: Path) -> pd.DataFrame:
@@ -14,11 +13,11 @@ def read_and_validate_file(file_path: Path) -> pd.DataFrame:
     if not file_path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")
 
-    df = pd.read_csv(file_path)
+    df = pd.read_csv(file_path, header=0, dtype_backend="numpy_nullable")
     if config.SEQN_COLUMN not in df.columns:
         raise ValueError(f"File {file_path} missing '{config.SEQN_COLUMN}' column")
 
-    return convert_numeric_to_int64(df)
+    return df
 
 
 def get_data_directories() -> List[Path]:
