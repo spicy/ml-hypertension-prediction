@@ -1,0 +1,31 @@
+{
+  "DBQ700": {
+    "label": "How healthy is the diet",
+    "text": "Next I have some questions about {your/SP?s} eating habits. In general, how healthy is {your/his/her} overall diet? Would you say...",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Excellent"
+      },
+      "2": {
+        "description": "Very good"
+      },
+      "3": {
+        "description": "Good"
+      },
+      "4": {
+        "description": "Fair"
+      },
+      "5": {
+        "description": "Poor"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  }
+}

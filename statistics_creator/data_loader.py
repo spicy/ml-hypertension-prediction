@@ -1,28 +1,65 @@
 import os
+
 import pandas as pd
-from logger import logger, log_execution_time
+from config import data_config
+from logger import log_execution_time, logger
 
-def create_statistics_folder() -> str:
-    logger.info("Creating statistics folder...")
-    statistics_folder = os.path.join(os.getcwd(), 'statistics')
-    os.makedirs(statistics_folder, exist_ok=True)
-    logger.info(f"Statistics folder created at: {statistics_folder}")
-    return statistics_folder
 
-@log_execution_time
-def load_data(file_path: str) -> pd.DataFrame:
-    logger.info(f"Loading data from {file_path}...")
-    if not os.path.exists(file_path):
-        logger.error(f"The file '{file_path}' does not exist.")
-        raise FileNotFoundError(f"Error: The file '{file_path}' does not exist.")
+class DataLoader:
+    @staticmethod
+    def create_statistics_folder(folder_path: str = None) -> str:
+        """
+        Create a folder to store statistics.
 
-    try:
-        df = pd.read_csv(file_path)
-        logger.info(f"Data loaded successfully. Shape: {df.shape}")
-        return df
-    except pd.errors.EmptyDataError:
-        logger.error(f"The file '{file_path}' is empty.")
-        raise ValueError(f"Error: The file '{file_path}' is empty.")
-    except pd.errors.ParserError:
-        logger.error(f"Unable to parse '{file_path}'. Please check if it's a valid CSV file.")
-        raise ValueError(f"Error: Unable to parse '{file_path}'. Please check if it's a valid CSV file.")
+        Args:
+            folder_path (str, optional): The path where the statistics folder should be created.
+                If None, it will be created in the current working directory.
+
+        Returns:
+            str: The path of the created statistics folder.
+        """
+        if folder_path is None:
+            folder_path = os.path.join(
+                os.getcwd(), data_config.DEFAULT_STATISTICS_FOLDER
+            )
+
+        logger.info(f"Creating statistics folder at {folder_path}...")
+        os.makedirs(folder_path, exist_ok=True)
+        logger.info(f"Statistics folder created at: {folder_path}")
+        return folder_path
+
+    @staticmethod
+    @log_execution_time
+    def load_data(file_path: str) -> pd.DataFrame:
+        """
+        Load data from a CSV file into a pandas DataFrame.
+
+        Args:
+            file_path (str): The path to the CSV file to be loaded.
+
+        Returns:
+            pd.DataFrame: The loaded data as a pandas DataFrame.
+
+        Raises:
+            FileNotFoundError: If the specified file does not exist.
+            ValueError: If the file is empty or cannot be parsed.
+        """
+        logger.info(f"Loading data from {file_path}...")
+
+        if not os.path.exists(file_path):
+            error_msg = f"The file '{file_path}' does not exist."
+            logger.error(error_msg)
+            raise FileNotFoundError(error_msg)
+
+        try:
+            df = pd.read_csv(file_path)
+            if df.empty:
+                error_msg = f"The file '{file_path}' is empty."
+                logger.error(error_msg)
+                raise ValueError(error_msg)
+            logger.info(f"Data loaded successfully. Shape: {df.shape}")
+            return df
+        except pd.errors.ParserError as e:
+            error_msg = f"Unable to parse '{file_path}': {e}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)

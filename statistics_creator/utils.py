@@ -1,34 +1,59 @@
-import os
+from typing import Any
+from pathlib import Path
+import json
 import pandas as pd
-from logger import logger, log_execution_time
+import numpy as np
+from logger import logger
+from config import data_config
 
-@log_execution_time
-def save_class_distribution(class_distribution: pd.Series, statistics_folder: str):
-    logger.info("Saving class distribution...")
-    class_distribution_df = pd.DataFrame({
-        'Class': class_distribution.index,
-        'Percentage': class_distribution.values
-    })
+def summarize_results(results: dict[str, Any]) -> str:
+    """
+    Summarize the analysis results.
 
-    csv_path = os.path.join(statistics_folder, 'class_distribution.csv')
-    class_distribution_df.to_csv(csv_path, index=False)
-    logger.info(f"Class distribution saved to: {csv_path}")
+    Args:
+        results (dict[str, Any]): A dictionary containing analysis results.
 
-@log_execution_time
-def save_missing_data_summary(missing_percentage: pd.Series, statistics_folder: str):
-    logger.info("Saving missing data summary...")
-    missing_summary = pd.DataFrame({
-        'Column': missing_percentage.index,
-        'Percentage Missing': missing_percentage.values
-    })
-    missing_summary = missing_summary.sort_values('Percentage Missing', ascending=False)
-    csv_path = os.path.join(statistics_folder, 'missing_data_summary.csv')
-    missing_summary.to_csv(csv_path, index=False)
-    logger.info(f"Missing data summary saved to: {csv_path}")
+    Returns:
+        str: A string summarizing the number of data points analyzed for each analyzer.
+    """
+    summary = []
+    for analyzer, result in results.items():
+        summary.append(f"{analyzer}: {len(result)} data points analyzed")
+    return ", ".join(summary)
 
-@log_execution_time
-def save_summary_statistics(summary_statistics: pd.DataFrame, statistics_folder: str):
-    logger.info("Saving summary statistics...")
-    csv_path = os.path.join(statistics_folder, 'summary_statistics.csv')
-    summary_statistics.to_csv(csv_path)
-    logger.info(f"Summary statistics saved to: {csv_path}")
+def save_results(results: dict[str, Any], folder: str) -> None:
+    """
+    Save analysis results to a JSON file.
+
+    Args:
+        results (dict[str, Any]): A dictionary containing analysis results.
+        folder (str): The folder path where the results will be saved.
+
+    Returns:
+        None
+    """
+    def serialize_results(obj):
+        """
+        Serialize objects for JSON dumping.
+
+        Args:
+            obj: The object to be serialized.
+
+        Returns:
+            A JSON-serializable representation of the object.
+
+        Raises:
+            TypeError: If the object type is not JSON serializable.
+        """
+        if isinstance(obj, (pd.Series, pd.DataFrame)):
+            return obj.to_dict()
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        if isinstance(obj, (np.int64, np.float64)):
+            return int(obj) if isinstance(obj, np.int64) else float(obj)
+        raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+
+    results_file = Path(folder) / data_config.RESULTS_FILENAME
+    with open(results_file, "w") as f:
+        json.dump(results, f, indent=2, default=serialize_results)
+    logger.info(f"Results saved to {results_file}")

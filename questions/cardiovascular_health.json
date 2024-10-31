@@ -1,0 +1,217 @@
+{
+  "CDQ001": {
+    "label": "SP ever had pain or discomfort in chest",
+    "text": "{Have you/Has SP} ever had any pain or discomfort in {your/her/his} chest?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "2",
+            "CDQ003": "2",
+            "CDQ004": "3",
+            "CDQ005": "3",
+            "CDQ006": "3",
+            "CDQ008": "3"
+          }
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "7",
+            "CDQ003": "7",
+            "CDQ004": "7",
+            "CDQ005": "7",
+            "CDQ006": "7",
+            "CDQ008": "7"
+          }
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "CDQ002": "9",
+            "CDQ003": "9",
+            "CDQ004": "9",
+            "CDQ005": "9",
+            "CDQ006": "9",
+            "CDQ008": "9"
+          }
+        }
+      }
+    }
+  },
+  "CDQ002": {
+    "label": "SP get it walking uphill or in a hurry",
+    "text": "{Do you/Does she/Does he} get it when {you/she/he} walk uphill or hurry?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No",
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "2",
+            "CDQ004": "3",
+            "CDQ005": "3",
+            "CDQ006": "3"
+          }
+        }
+      },
+      "3": {
+        "description": "Never walks uphill or hurries"
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "7",
+            "CDQ004": "7",
+            "CDQ005": "7",
+            "CDQ006": "7"
+          }
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "CDQ008",
+          "auto_fill": {
+            "CDQ003": "9",
+            "CDQ004": "9",
+            "CDQ005": "9",
+            "CDQ006": "9"
+          }
+        }
+      }
+    }
+  },
+  "CDQ003": {
+    "label": "During an ordinary pace on level ground",
+    "text": "{Do you/Does she/Does he} get it when {you/she/he} walk at an ordinary pace on level ground?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "CDQ004": {
+    "label": "If so does SP continue or slow down",
+    "text": "What {do you/does she/does he} do if {you/she/he} get it while {you/she/he} are walking? {Do you/Does she/Does he} stop or slow down or continue at the same pace?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Stop or slow down"
+      },
+      "2": {
+        "description": "Continue at the same pace"
+      },
+      "3": {
+        "description": "Not applicable"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "CDQ005": {
+    "label": "Does standing relieve pain/discomfort",
+    "text": "If {you/she/he} stand still, what happens to it? Is the pain or discomfort relieved or not relieved?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Relieved"
+      },
+      "2": {
+        "description": "Not relieved"
+      },
+      "3": {
+        "description": "Not applicable"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "CDQ006": {
+    "label": "How soon is the pain relieved",
+    "text": "How soon is the pain relieved? Would you say...",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "10 minutes or less"
+      },
+      "2": {
+        "description": "More than 10 minutes"
+      },
+      "3": {
+        "description": "Not applicable"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "CDQ008": {
+    "label": "Severe pain in chest lasting more than half hour",
+    "text": "Was the pain in {your/her/his} chest severe, lasting for half an hour or more?",
+    "target": "Both males and females 40 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "3": {
+        "description": "Not applicable"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  }
+}
