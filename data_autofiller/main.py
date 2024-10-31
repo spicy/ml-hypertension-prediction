@@ -7,14 +7,14 @@ sys.path.append(dirname(dirname(abspath(__file__))))
 import json
 from datetime import datetime
 
-from data_autofill.config import Config
-from data_autofill.core.autofiller import AutofillConfig
-from data_autofill.core.rule_engine import DefaultRuleEngine
-from data_autofill.infrastructure.data_reader import FileDataReader
-from data_autofill.infrastructure.repositories import FileQuestionRepository
-from data_autofill.logger import logger
-from data_autofill.services.autofill_service import AutofillService
-from data_autofill.utils.file_utils import get_data_files
+from data_autofiller.config import Config
+from data_autofiller.core.autofiller import AutofillConfig
+from data_autofiller.core.rule_engine import DefaultRuleEngine
+from data_autofiller.infrastructure.data_reader import FileDataReader
+from data_autofiller.infrastructure.repositories import FileQuestionRepository
+from data_autofiller.logger import logger
+from data_autofiller.services.autofill_service import AutofillService
+from data_autofiller.utils.file_utils import get_data_files
 
 
 def save_processing_report(result, output_dir: Path) -> None:
