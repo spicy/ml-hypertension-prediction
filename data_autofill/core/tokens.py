@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Callable, Optional
+from typing import Callable, Dict, Optional
 
 
 class AutofillToken(Enum):
@@ -11,17 +11,15 @@ class AutofillToken(Enum):
 class TokenProcessor:
     """Handles the processing of special autofill tokens."""
 
-    @staticmethod
-    def process_value(value: str) -> str:
-        """Direct value copy."""
-        return value
+    def __init__(self):
+        self._processors: Dict[AutofillToken, Callable] = {
+            AutofillToken.VALUE: str,
+        }
 
-    @classmethod
-    def get_processor(
-        cls, token: AutofillToken | str
-    ) -> Optional[Callable[[str], str]]:
+    def get_processor(self, token: str) -> Optional[Callable]:
         """Get the appropriate processor function for a token."""
-        processors = {AutofillToken.VALUE: cls.process_value}
-        if isinstance(token, str):
-            token = next((t for t in AutofillToken if t.value == token), token)
-        return processors.get(token)
+        try:
+            token_enum = AutofillToken(token)
+            return self._processors.get(token_enum)
+        except ValueError:
+            return None

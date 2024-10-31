@@ -1,73 +1,181 @@
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Optional
 
 import pandas as pd
 
-from ..config import config
-from ..logger import logger
-from .processor import RuleProcessor
+from ..core.exceptions import AutofillErrorCode, AutofillException
+from ..core.interfaces import DataReader, QuestionRepository, RuleEngine
+from ..logger import log_execution_time, logger
+
+
+@dataclass
+class AutofillConfig:
+    chunk_size: int
+    parallel_processing: bool
+    max_workers: int
+    allow_missing_columns: bool
+    seqn_column: str
+    questions_dir: Path
+    data_dir: Path
+    output_dir: Path
+
+    def __post_init__(self):
+        if self.chunk_size < 1:
+            raise ValueError("chunk_size must bes positive")
+        if self.parallel_processing and not self.max_workers:
+            raise ValueError("max_workers required when parallel_processing is enabled")
+        if not self.questions_dir.exists():
+            raise FileNotFoundError(
+                f"Questions directory not found: {self.questions_dir}"
+            )
+        if not any(self.questions_dir.glob("*.json")):
+            raise FileNotFoundError(
+                f"No JSON files found in questions directory: {self.questions_dir}"
+            )
+        if not self.data_dir.exists():
+            raise FileNotFoundError(f"Data directory not found: {self.data_dir}")
 
 
 class DataAutofiller:
-    """A class for applying autofill rules to survey data based on question definitions."""
-
-    def __init__(self, input_file: Path):
-        """Initialize the DataAutofiller with an input file."""
-        self.input_file = input_file
+    def __init__(
+        self,
+        data_reader: DataReader,
+        question_repository: QuestionRepository,
+        rule_engine: RuleEngine,
+        config: AutofillConfig,
+    ):
+        self.data_reader = data_reader
+        self.question_repository = question_repository
+        self.rule_engine = rule_engine
+        self.config = config
         self.data_df: Optional[pd.DataFrame] = None
-        self.questions_data: Dict = {}
         self.autofill_counts: Dict[str, int] = {}
-        self.rule_processor = RuleProcessor()
-        self._load_questions_data()
 
-    def _load_questions_data(self) -> None:
-        """Load all question definitions from JSON files."""
-        if not config.QUESTIONS_DIR.exists():
-            raise FileNotFoundError(
-                f"Questions directory not found: {config.QUESTIONS_DIR}"
+    def process_file(self, input_file: Path, output_file: Path) -> None:
+        self._load_data(input_file)
+        self._validate_data()
+        self._process_rules()
+        self._save_results(output_file)
+
+    def _load_data(self, input_file: Path) -> None:
+        try:
+            self.data_df = self.data_reader.read_csv(input_file)
+            logger.info(f"Loaded {len(self.data_df)} records from {input_file}")
+        except Exception as e:
+            raise AutofillException(
+                AutofillErrorCode.FILE_ERROR,
+                f"Failed to load data: {str(e)}",
+                source_file=input_file,
             )
 
-        for json_file in config.QUESTIONS_DIR.glob("*.json"):
-            if result := self._load_single_json(json_file):
-                self.questions_data.update(result)
-
-        if not self.questions_data:
-            raise ValueError("No question definitions loaded")
-        logger.info(f"Loaded {len(self.questions_data)} question definitions")
-
-    def load_data(self) -> None:
-        """Load the input CSV data into a DataFrame."""
-        try:
-            self.data_df = pd.read_csv(self.input_file)
-        except Exception as e:
-            logger.error(f"Error reading file {self.input_file}: {str(e)}")
-            raise
-
-    def apply_autofill_rules(self) -> None:
-        """Apply autofill rules to the entire dataset."""
+    def _validate_data(self) -> None:
         if self.data_df is None:
-            raise ValueError("Data must be loaded before applying autofill rules")
+            raise AutofillException(
+                AutofillErrorCode.VALIDATION_ERROR, "No data loaded"
+            )
 
-        logger.info(f"Starting autofill process for {len(self.data_df)} records")
-        chunk_size = 1000
-        for question_id in self.questions_data:
-            if question_id in self.data_df.columns:
-                for start_idx in range(0, len(self.data_df), chunk_size):
-                    chunk = self.data_df.iloc[start_idx : start_idx + chunk_size]
-                    self._process_chunk(question_id, chunk, start_idx)
+        if (
+            self.config.seqn_column not in self.data_df.columns
+            and not self.config.allow_missing_columns
+        ):
+            raise AutofillException(
+                AutofillErrorCode.VALIDATION_ERROR,
+                f"Missing required column: {self.config.seqn_column}",
+            )
 
-        self._log_autofill_summary()
+    def _process_rules(self) -> None:
+        if self.config.parallel_processing:
+            self._parallel_process_chunks()
+        else:
+            self._sequential_process_chunks()
 
-    def save_data(self, filename: str = config.AUTOFILLED_DATA_FILENAME) -> None:
-        """Save the autofilled data to a CSV file."""
-        if self.data_df is None or self.data_df.empty:
-            raise ValueError("No data to save")
+    def _parallel_process_chunks(self) -> None:
+        """Process chunks in parallel using ThreadPoolExecutor."""
+        if self.data_df is None:
+            raise AutofillException(
+                AutofillErrorCode.PROCESSING_ERROR, "No data loaded for processing"
+            )
 
-        output_path = config.DATA_DIR / filename
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with ThreadPoolExecutor(max_workers=self.config.max_workers) as executor:
+            futures = []
+            for start_idx in range(0, len(self.data_df), self.config.chunk_size):
+                chunk = self.data_df.iloc[
+                    start_idx : start_idx + self.config.chunk_size
+                ]
+                futures.append(executor.submit(self._process_chunk, chunk, start_idx))
 
+            # Wait for all futures to complete and handle any exceptions
+            for future in as_completed(futures):
+                try:
+                    future.result()
+                except Exception as e:
+                    raise AutofillException(
+                        AutofillErrorCode.PROCESSING_ERROR,
+                        f"Parallel processing failed: {str(e)}",
+                    )
+
+    def _sequential_process_chunks(self) -> None:
+        """Process chunks sequentially."""
+        for start_idx in range(0, len(self.data_df), self.config.chunk_size):
+            chunk = self.data_df.iloc[start_idx : start_idx + self.config.chunk_size]
+            self._process_chunk(chunk, start_idx)
+
+    def _process_chunk(self, chunk: pd.DataFrame, start_idx: int) -> None:
         try:
-            self.data_df.to_csv(output_path, index=False)
-            logger.info(f"Autofilled data has been saved to {output_path}")
+            logger.debug(
+                f"Starting chunk processing:\n"
+                f"Index range: {start_idx} to {start_idx + len(chunk)}\n"
+                f"Chunk shape: {chunk.shape}\n"
+                f"Memory usage: {chunk.memory_usage(deep=True).sum() / 1024 / 1024:.2f} MB"
+            )
+
+            questions_data = self.question_repository.load_questions(
+                self.config.questions_dir
+            )
+            logger.debug(f"Loaded {len(questions_data)} questions for processing")
+
+            processed_chunk = self.rule_engine.process_chunk(chunk, questions_data)
+            self.data_df.iloc[start_idx : start_idx + len(chunk)] = processed_chunk
+
+            logger.debug(f"Successfully processed chunk at index {start_idx}")
+
         except Exception as e:
-            logger.error(f"Error saving data to {output_path}: {str(e)}")
+            error_msg = (
+                f"Error processing chunk at index {start_idx}:\n"
+                f"Error type: {type(e).__name__}\n"
+                f"Error details: {str(e)}\n"
+                f"Chunk columns: {list(chunk.columns)}\n"
+                f"Data types: {chunk.dtypes.to_dict()}"
+            )
+            logger.error(error_msg)
+            raise AutofillException(
+                AutofillErrorCode.PROCESSING_ERROR,
+                f"Error processing chunk at index {start_idx}: {str(e)}",
+            )
+
+    def _save_results(self, output_file: Path) -> None:
+        try:
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            self.data_df.to_csv(output_file, index=False)
+            logger.info(f"Successfully saved results to {output_file}")
+        except Exception as e:
+            raise AutofillException(
+                AutofillErrorCode.FILE_ERROR,
+                f"Failed to save results: {str(e)}",
+                source_file=output_file,
+            )
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.data_df is not None:
+            del self.data_df
+        return False
+
+    @property
+    def records_processed(self) -> int:
+        return len(self.data_df) if self.data_df is not None else 0

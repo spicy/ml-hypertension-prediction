@@ -1,5 +1,3 @@
-"""Data Autofill package for processing and applying autofill rules to NHANES data."""
-
 from .config import config, logger_config
 from .core.autofiller import DataAutofiller
 from .core.processor import RuleProcessor

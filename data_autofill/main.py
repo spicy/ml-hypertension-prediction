@@ -1,42 +1,70 @@
 import sys
 from os.path import abspath, dirname
+from pathlib import Path
 
 # Add the parent directory to sys.path
 sys.path.append(dirname(dirname(abspath(__file__))))
+import json
+from datetime import datetime
 
-from data_autofill.config import config
-from data_autofill.core.autofiller import DataAutofiller
+from data_autofill.config import Config
+from data_autofill.core.autofiller import AutofillConfig
+from data_autofill.core.rule_engine import DefaultRuleEngine
+from data_autofill.infrastructure.data_reader import FileDataReader
+from data_autofill.infrastructure.repositories import FileQuestionRepository
 from data_autofill.logger import logger
+from data_autofill.services.autofill_service import AutofillService
+from data_autofill.utils.file_utils import get_data_files
 
 
-def main():
-    """Main function to execute the data autofilling process."""
-    logger.info("Starting data autofilling process...")
+def save_processing_report(result, output_dir: Path) -> None:
+    report = result.dict()
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_file = output_dir / f"processing_report_{timestamp}.json"
 
+    with report_file.open("w") as f:
+        json.dump(report, f, indent=2, default=str)
+
+    logger.info(f"Processing report saved to {report_file}")
+
+
+def main() -> int:
     try:
-        # Process all filtered data files
-        for input_file in config.DATA_DIR.glob("FilteredCombinedData_*.csv"):
-            try:
-                year_suffix = input_file.stem.split("_")[1]
-                output_filename = config.AUTOFILLED_DATA_FILENAME.replace(
-                    ".csv", f"_{year_suffix}.csv"
-                )
+        app_config = Config()
+        autofill_config = AutofillConfig(
+            chunk_size=app_config.CHUNK_SIZE,
+            parallel_processing=app_config.PARALLEL_PROCESSING,
+            max_workers=app_config.MAX_WORKERS or 4,
+            allow_missing_columns=app_config.ALLOW_MISSING_COLUMNS,
+            seqn_column=app_config.SEQN_COLUMN,
+            questions_dir=app_config.QUESTIONS_DIR,
+            data_dir=app_config.DATA_DIR,
+            output_dir=app_config.PROCESSED_DIR,
+        )
 
-                logger.info(f"Processing autofill rules for {input_file.name}")
-                autofiller = DataAutofiller(input_file)
-                autofiller.load_data()
-                autofiller.apply_autofill_rules()
-                autofiller.save_data(output_filename)
+        service = AutofillService(
+            data_reader=FileDataReader(),
+            question_repository=FileQuestionRepository(autofill_config.questions_dir),
+            rule_engine=DefaultRuleEngine(),
+            config=autofill_config,
+        )
 
-            except Exception as e:
-                logger.exception(
-                    f"An error occurred processing {input_file.name}: {str(e)}"
-                )
+        input_files = get_data_files(
+            autofill_config.data_dir, "FilteredCombinedData_*.csv"
+        )
+
+        result = service.process_files(input_files, autofill_config.output_dir)
+        save_processing_report(result, autofill_config.output_dir)
+
+        logger.info(
+            f"Processing completed: {result.successful_files}/{result.total_files} files successful"
+        )
+        return 1 if result.failed_files > 0 else 0
 
     except Exception as e:
-        logger.exception("An error occurred during the data autofilling process")
-        sys.exit(1)
+        logger.exception("Fatal error during data autofilling process")
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

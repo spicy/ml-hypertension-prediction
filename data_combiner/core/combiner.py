@@ -5,7 +5,6 @@ import pandas as pd
 
 from ..config import config
 from ..logger import logger
-from ..utils.data_utils import convert_numeric_to_int64
 from ..utils.file_utils import read_and_validate_file
 from .filter import DataFilter
 from .validator import DataValidator
