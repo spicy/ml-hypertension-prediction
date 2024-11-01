@@ -1,0 +1,123 @@
+{
+  "OCD150": {
+    "label": "Type of work done last week",
+    "text": "(SP Interview Version) In this part of the survey I will ask you questions about {your/SP's} work experience. Which of the following {were you/was SP} doing last week . .",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "1": {
+        "description": "Working at a job or business"
+      },
+      "2": {
+        "description": "With a job or business but not at work",
+        "skip": {
+          "destination": "OCQ210",
+          "auto_fill": {
+            "OCQ180": "0"
+          }
+        }
+      },
+      "3": {
+        "description": "Looking for work",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ180": "0",
+            "OCQ210": "0"
+          }
+        }
+      },
+      "4": {
+        "description": "Not working at a job or business",
+        "skip": {
+          "destination": "OCD383",
+          "auto_fill": {
+            "OCQ180": "0",
+            "OCQ210": "0"
+          }
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ180": "77777",
+            "OCQ210": "7"
+          }
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ180": "99999",
+            "OCQ210": "9"
+          }
+        }
+      }
+    }
+  },
+  "OCQ180": {
+    "label": "Hours worked last week in total all jobs",
+    "text": "How many hours did {you/SP} work last week in total at all jobs or businesses?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "0": {
+        "description": "0 Hours"
+      },
+      "1-34": {
+        "description": "Range of Values"
+      },
+      "35-79": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ210": "1"
+          }
+        }
+      },
+      "80": {
+        "description": "80 Hours or More",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "OCQ210": "1"
+          }
+        }
+      },
+      "77777": {
+        "description": "Refused"
+      },
+      "99999": {
+        "description": "Don't know"
+      }
+    }
+  },
+  "OCQ210": {
+    "label": "Usually work 35 or more hours per week",
+    "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  }
+}

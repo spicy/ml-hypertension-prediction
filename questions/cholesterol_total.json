@@ -1,0 +1,13 @@
+{
+  "LBXTC": {
+    "label": "Total Cholesterol (mg/dL)",
+    "text": "Total Cholesterol (mg/dL)",
+    "target": "Both males and females 6 YEARS - 150 YEARS",
+    "include": "1",
+    "mappings": {
+      "40-900": {
+        "description": "Range of Values"
+      }
+    }
+  }
+}

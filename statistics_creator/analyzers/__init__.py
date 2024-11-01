@@ -1,11 +1,15 @@
 from .missing_data_analyzer import MissingDataAnalyzer
-from .correlation_analyzer import CorrelationAnalyzer
-from .summary_statistics_analyzer import SummaryStatisticsAnalyzer
-from .class_distribution_analyzer import ClassDistributionAnalyzer
+from .correlation_multicollinearity_analyzer import CorrelationMulticollinearityAnalyzer
+from .comprehensive_numerical_analyzer import ComprehensiveNumericalAnalyzer
+from .class_analyzer import ClassAnalyzer
+from .feature_importance_analyzer import FeatureImportanceAnalyzer
+from .outlier_analyzer import OutlierAnalyzer
 
 __all__ = [
     'MissingDataAnalyzer',
-    'CorrelationAnalyzer',
-    'SummaryStatisticsAnalyzer',
-    'ClassDistributionAnalyzer'
+    'CorrelationMulticollinearityAnalyzer',
+    'ComprehensiveNumericalAnalyzer',
+    'ClassAnalyzer',
+    'FeatureImportanceAnalyzer',
+    'OutlierAnalyzer'
 ]

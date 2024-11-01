@@ -1,0 +1,22 @@
+{
+  "SMDANY": {
+    "label": "Used any tobacco product last 5 days?",
+    "text": "Used any tobacco product last 5 days?",
+    "target": "Both males and females 12 YEARS - 150 YEARS",
+    "mappings": {
+      "1": {
+        "description": "Yes"
+      },
+      "2": {
+        "description": "No"
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  }
+}
+  
