@@ -30,9 +30,6 @@ from statistics_creator import StatisticsCreator
 def create_analyzer_visualizer_pairs() -> List[Tuple[BaseAnalyzer, BaseVisualizer]]:
     """
     Create and return a list of analyzer-visualizer pairs.
-
-    Returns:
-        List[Tuple[BaseAnalyzer, BaseVisualizer]]: A list of tuples, each containing an analyzer and its corresponding visualizer.
     """
     return [
         (MissingDataAnalyzer(), MissingDataVisualizer()),
@@ -72,7 +69,7 @@ def main() -> None:
     statistics_creator = StatisticsCreator(data_loader, analyzer_visualizer_pairs)
 
     # Get all filtered data files
-    processed_dir = data_config.PROCESSED_DIR
+    processed_dir = data_config.AUTOFILLED_DIR
     filtered_files = list(processed_dir.glob(data_config.FILTERED_DATA_PATTERN))
 
     if not filtered_files:

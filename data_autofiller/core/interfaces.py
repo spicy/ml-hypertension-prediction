@@ -1,13 +1,15 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import pandas as pd
 
 
 class DataReader(ABC):
     @abstractmethod
-    def read_csv(self, file_path: Path) -> pd.DataFrame:
+    def read_csv(
+        self, file_path: Path, chunksize: Optional[int] = None
+    ) -> Union[pd.DataFrame, pd.io.parsers.TextFileReader]:
         pass
 
     @abstractmethod

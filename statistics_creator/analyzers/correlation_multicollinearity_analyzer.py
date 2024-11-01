@@ -28,16 +28,6 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
         2. Calculates the correlation matrix for these numeric columns.
         3. Imputes missing values and scales features for VIF calculation.
         4. Calculates VIF for each numeric feature.
-
-        Args:
-            df (pd.DataFrame): The input DataFrame to analyze.
-
-        Returns:
-            dict: A dictionary containing the correlation matrix and VIF data.
-                  Keys are "correlation_matrix" and "vif_data".
-
-        Note:
-            Only numerical columns are considered in this analysis.
         """
         logger.info("Starting correlation and multicollinearity analysis...")
 
@@ -72,17 +62,6 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
 
         This method uses linear regression to calculate the VIF value for a specified feature.
         If perfect multicollinearity is detected (R² = 1), returns infinity.
-
-        Args:
-            X (np.ndarray): The scaled feature matrix.
-            idx (int): The index of the feature for which to calculate VIF.
-
-        Returns:
-            float: The calculated VIF value for the specified feature.
-                  Returns float('inf') if perfect multicollinearity is detected.
-
-        Note:
-            A higher VIF value indicates higher multicollinearity.
         """
         try:
             y = X[:, idx]

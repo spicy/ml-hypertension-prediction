@@ -1,8 +1,10 @@
-import pandas as pd
 import numpy as np
-from .base_analyzer import BaseAnalyzer
+import pandas as pd
 from config import outlier_config as config
-from logger import logger, log_execution_time
+from logger import log_execution_time, logger
+
+from .base_analyzer import BaseAnalyzer
+
 
 class OutlierAnalyzer(BaseAnalyzer):
     """
@@ -17,19 +19,6 @@ class OutlierAnalyzer(BaseAnalyzer):
         It uses the Interquartile Range method to identify outliers.
         An outlier is defined as any value below Q1 - 1.5 * IQR or above Q3 + 1.5 * IQR,
         where Q1 is the first quartile, Q3 is the third quartile, and IQR is the interquartile range.
-
-        Args:
-            df (pd.DataFrame): The input DataFrame to analyze.
-
-        Returns:
-            dict: A dictionary containing outlier information for each numeric column.
-                  The keys are column names, and the values are dictionaries with:
-                  - 'lower_bound': The lower threshold for outliers.
-                  - 'upper_bound': The upper threshold for outliers.
-                  - 'outliers': A list of outlier values found in the column.
-
-        Note:
-            It only analyzes numeric columns in the input DataFrame.
         """
         numeric_columns = df.select_dtypes(include=[np.number]).columns
         outliers = {}
@@ -42,9 +31,11 @@ class OutlierAnalyzer(BaseAnalyzer):
             upper_bound = Q3 + config.IQR_MULTIPLIER * IQR
 
             outliers[column] = {
-                'lower_bound': lower_bound,
-                'upper_bound': upper_bound,
-                'outliers': df[(df[column] < lower_bound) | (df[column] > upper_bound)][column].tolist()
+                "lower_bound": lower_bound,
+                "upper_bound": upper_bound,
+                "outliers": df[(df[column] < lower_bound) | (df[column] > upper_bound)][
+                    column
+                ].tolist(),
             }
 
         logger.info("Outlier detection completed.")

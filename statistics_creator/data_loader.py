@@ -10,13 +10,6 @@ class DataLoader:
     def create_statistics_folder(folder_path: str = None) -> str:
         """
         Create a folder to store statistics.
-
-        Args:
-            folder_path (str, optional): The path where the statistics folder should be created.
-                If None, it will be created in the current working directory.
-
-        Returns:
-            str: The path of the created statistics folder.
         """
         if folder_path is None:
             folder_path = os.path.join(
@@ -33,16 +26,6 @@ class DataLoader:
     def load_data(file_path: str) -> pd.DataFrame:
         """
         Load data from a CSV file into a pandas DataFrame.
-
-        Args:
-            file_path (str): The path to the CSV file to be loaded.
-
-        Returns:
-            pd.DataFrame: The loaded data as a pandas DataFrame.
-
-        Raises:
-            FileNotFoundError: If the specified file does not exist.
-            ValueError: If the file is empty or cannot be parsed.
         """
         logger.info(f"Loading data from {file_path}...")
 

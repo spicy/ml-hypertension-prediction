@@ -33,8 +33,6 @@ def main() -> int:
         app_config = Config()
         autofill_config = AutofillConfig(
             chunk_size=app_config.CHUNK_SIZE,
-            parallel_processing=app_config.PARALLEL_PROCESSING,
-            max_workers=app_config.MAX_WORKERS or 4,
             allow_missing_columns=app_config.ALLOW_MISSING_COLUMNS,
             seqn_column=app_config.SEQN_COLUMN,
             questions_dir=app_config.QUESTIONS_DIR,

@@ -1,0 +1,40 @@
+{
+  "total_files": 4,
+  "successful_files": 4,
+  "failed_files": 0,
+  "total_processing_time": 681.0239310264587,
+  "results": [
+    {
+      "success": true,
+      "records_processed": 9756,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\Desktop\\git-projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2011-2012.csv",
+      "processing_time": 139.12234568595886,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 10175,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\Desktop\\git-projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2013-2014.csv",
+      "processing_time": 151.2688295841217,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 9971,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\Desktop\\git-projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2015-2016.csv",
+      "processing_time": 146.07069444656372,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 15560,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\Desktop\\git-projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2017-2020.csv",
+      "processing_time": 244.56206130981445,
+      "autofill_counts": {}
+    }
+  ]
+}
