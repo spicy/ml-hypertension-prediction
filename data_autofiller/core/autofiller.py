@@ -105,14 +105,10 @@ class DataAutofiller:
         """Process a chunk and append it to the output file."""
         try:
             start_time = time.time()
+            logger.debug(f"Pre-processing values for chunk: {chunk.head().to_dict()}")
             processed_chunk = self.rule_engine.process_chunk(chunk, questions_data)
-
-            # Record memory usage and processing time
-            memory_mb = chunk.memory_usage(deep=True).sum() / (1024 * 1024)
             logger.debug(
-                f"Chunk processed: {len(chunk)} records, "
-                f"Memory usage: {memory_mb:.2f} MB, "
-                f"Processing time: {time.time() - start_time:.2f}s"
+                f"Post-processing values for chunk: {processed_chunk.head().to_dict()}"
             )
 
             processed_chunk.to_csv(
@@ -120,6 +116,14 @@ class DataAutofiller:
                 mode="w" if write_header else "a",
                 header=write_header,
                 index=False,
+            )
+
+            # Record memory usage and processing time
+            memory_mb = chunk.memory_usage(deep=True).sum() / (1024 * 1024)
+            logger.debug(
+                f"Chunk processed: {len(chunk)} records, "
+                f"Memory usage: {memory_mb:.2f} MB, "
+                f"Processing time: {time.time() - start_time:.2f}s"
             )
         except Exception as e:
             raise AutofillException(

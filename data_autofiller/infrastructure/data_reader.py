@@ -14,7 +14,10 @@ class FileDataReader(DataReader):
     ) -> Union[pd.DataFrame, pd.io.parsers.TextFileReader]:
         try:
             return pd.read_csv(
-                file_path, chunksize=chunksize, dtype_backend="numpy_nullable"
+                file_path,
+                chunksize=chunksize,
+                dtype_backend="numpy_nullable",
+                float_precision="round_trip",
             )
         except Exception as e:
             raise AutofillException(

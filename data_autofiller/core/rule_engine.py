@@ -12,6 +12,34 @@ from .tokens import TokenProcessor
 
 
 class DefaultRuleEngine(RuleEngine):
+    """
+    Rule Engine for automated data filling based on predefined rules.
+
+    The engine processes data in the following sequence:
+    1. Processes data chunk by chunk
+    2. For each chunk, identifies columns that have associated rules
+    3. For each relevant column:
+        - Finds rows with non-null values (trigger values)
+        - Applies matching rules to auto-fill other columns in the same row
+        - Only fills target cells that are currently empty
+
+    Example rule structure:
+    {
+        "age": {  # source column
+            "mappings": {
+                "65-999": {  # if age is 65 or higher
+                    "skip": {
+                        "auto_fill": {
+                            "other_question_1": "Yes",
+                            "other_question_2": "No"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    """
+
     def __init__(self):
         self.token_processor = TokenProcessor()
         self.current_answer: Optional[Union[str, int, float]] = None
@@ -50,7 +78,7 @@ class DefaultRuleEngine(RuleEngine):
 
             if result:
                 self._metrics["successful_matches"] += 1
-                logger.info(f"Rule match found for {question_id}: {answer} → {result}")
+                logger.info(f"Rule match found for {question_id}: {answer} -> {result}")
 
             self._cache[cache_key] = result
             return result
@@ -110,37 +138,80 @@ class DefaultRuleEngine(RuleEngine):
     def _apply_rules_to_column(
         self, df: pd.DataFrame, question_id: str, questions_data: Dict
     ) -> pd.DataFrame:
-        """Apply autofill rules to a specific column in the DataFrame."""
+        """
+        Apply autofill rules to a specific column in the DataFrame.
+
+        Process:
+        1. Identifies rows where the trigger column (question_id) has values
+        2. For each of these rows:
+            - Gets the trigger value
+            - Finds matching rules
+            - Applies autofill values to empty cells in target columns
+        """
         try:
             processed_df = df.copy()
             mask = ~pd.isna(processed_df[question_id])
 
-            logger.debug(f"Applying rules to column {question_id}")
-            logger.debug(f"Number of non-null values: {mask.sum()}")
+            logger.info(f"Processing rules for column '{question_id}':")
+            logger.info(f"- Total rows: {len(processed_df)}")
+            logger.info(f"- Rows with values to process: {mask.sum()}")
 
             if not mask.any():
-                logger.debug(f"No non-null values found in column {question_id}")
+                logger.info(f"- Skipping '{question_id}': no values to process")
                 return processed_df
 
             answers = processed_df.loc[mask, question_id]
-            logger.debug(f"Processing {len(answers)} answers for column {question_id}")
+            logger.debug(f"- Sample values being processed: {answers.head().to_dict()}")
+
+            autofill_counts = {"attempted": 0, "successful": 0, "skipped_existing": 0}
 
             for idx, answer in answers.items():
                 logger.debug(
-                    f"Processing answer at index {idx}: {answer} (type: {type(answer)})"
+                    f"\nProcessing row {idx}:"
+                    f"\n- Trigger column: {question_id}"
+                    f"\n- Trigger value: {answer} (type: {type(answer)})"
                 )
+
                 autofill_values = self.process_rules(
                     question_id, answer, questions_data
                 )
+                autofill_counts["attempted"] += 1
 
                 if autofill_values:
-                    logger.debug(f"Autofill values found: {autofill_values}")
-                else:
-                    logger.debug(f"No autofill values found for answer: {answer}")
+                    logger.debug(f"- Found autofill rules: {autofill_values}")
+                    for target_col, value in autofill_values.items():
+                        if target_col in processed_df.columns:
+                            if pd.isna(processed_df.at[idx, target_col]):
+                                # Get the original column dtype
+                                col_dtype = str(processed_df[target_col].dtype)
+                                logger.debug(f"Column {target_col} dtype: {col_dtype}")
 
-                for target_col, value in autofill_values.items():
-                    if target_col in processed_df.columns:
-                        processed_df.at[idx, target_col] = value
+                                # Create a single-value series with the correct dtype
+                                try:
+                                    value_series = pd.Series([value], dtype=col_dtype)
+                                    processed_df.loc[idx, target_col] = value_series[0]
+                                    autofill_counts["successful"] += 1
+                                    logger.debug(
+                                        f"-> Filled '{target_col}' with '{value}'"
+                                    )
+                                except (ValueError, TypeError) as e:
+                                    logger.warning(
+                                        f"Failed to set value '{value}' for column '{target_col}' "
+                                        f"with dtype {col_dtype}: {str(e)}"
+                                    )
+                                    continue
+                            else:
+                                autofill_counts["skipped_existing"] += 1
+                                logger.debug(
+                                    f"-> Skipped '{target_col}': already contains '{processed_df.at[idx, target_col]}'"
+                                )
+
+            logger.info(
+                f"\nAutofill summary for '{question_id}':"
+                f"\n- Rules attempted: {autofill_counts['attempted']}"
+                f"\n- Successful fills: {autofill_counts['successful']}"
+                f"\n- Skipped (existing values): {autofill_counts['skipped_existing']}"
+            )
 
             return processed_df
 
@@ -160,52 +231,76 @@ class DefaultRuleEngine(RuleEngine):
                 return self._process_numeric_answer(answer, mappings)
             return self._process_string_answer(str(answer), mappings)
         except Exception as e:
-            logger.debug(f"Error processing answer {answer}: {str(e)}")
+            logger.error(f"Error processing answer {answer}: {str(e)}")
             return {}
 
-    @lru_cache(maxsize=1000)
     def _process_numeric_answer(
         self, answer: Union[int, float, np.number], mappings: Dict
     ) -> Dict[str, str]:
         """Process numeric answers with range support."""
         try:
-            answer_decimal = Decimal(str(answer))
-
-            logger.debug(
-                "Processing numeric answer",
-                extra={
-                    "answer": answer,
-                    "answer_type": type(answer).__name__,
-                    "decimal_value": str(answer_decimal),
-                    "available_mappings": len(mappings),
-                },
-            )
+            # Preserve integer format
+            if isinstance(answer, (int, np.integer)):
+                answer_decimal = Decimal(str(int(answer)))
+            elif (
+                isinstance(answer, (float, np.floating)) and float(answer).is_integer()
+            ):
+                answer_decimal = Decimal(str(int(float(answer))))
+            else:
+                answer_decimal = Decimal(str(answer))
 
             for mapping_key, mapping_value in mappings.items():
-                if self._is_numeric_match(answer_decimal, mapping_key):
-                    logger.debug(
-                        "Numeric match found",
-                        extra={
-                            "answer": str(answer_decimal),
-                            "mapping_key": mapping_key,
-                            "result": mapping_value,
-                        },
-                    )
-                    return self._get_autofill_values(mapping_value)
+                str_key = str(mapping_key)
 
-            logger.debug(f"No numeric mapping found for answer: {answer}")
+                # Handle range values
+                if "-" in str_key:
+                    start_str, end_str = str_key.split("-")
+                    try:
+                        start = Decimal(start_str.strip())
+                        end = Decimal(end_str.strip())
+                        if start <= answer_decimal <= end:
+                            result = self._get_autofill_values(mapping_value)
+                            # Ensure integers stay as integers in the result
+                            return {
+                                k: (
+                                    str(int(float(v)))
+                                    if isinstance(v, (int, float))
+                                    and float(v).is_integer()
+                                    else str(v)
+                                )
+                                for k, v in result.items()
+                            }
+                    except (ValueError, ArithmeticError):
+                        continue
+
+                # Handle exact matches
+                try:
+                    if answer_decimal == Decimal(str_key):
+                        result = self._get_autofill_values(mapping_value)
+                        # Ensure integers stay as integers in the result
+                        return {
+                            k: (
+                                str(int(float(v)))
+                                if isinstance(v, (int, float)) and float(v).is_integer()
+                                else str(v)
+                            )
+                            for k, v in result.items()
+                        }
+                except (ValueError, ArithmeticError):
+                    continue
+
             return {}
 
         except Exception as e:
-            logger.warning(
-                "Numeric processing failed, falling back to string processing",
+            logger.error(
+                "Error processing numeric answer",
                 extra={
                     "answer": answer,
                     "error": str(e),
                     "error_type": type(e).__name__,
                 },
             )
-            return self._process_string_answer(str(answer), mappings)
+            return {}
 
     def _is_numeric_match(self, answer: Decimal, mapping_key: str) -> bool:
         """Check if numeric answer matches a mapping key."""
@@ -236,18 +331,25 @@ class DefaultRuleEngine(RuleEngine):
         """Process mapping values and handle special tokens."""
         processed_values = {}
 
-        for target_col, value in mapping_value.items():
-            try:
-                if isinstance(value, str) and value.startswith("@"):
-                    processed_value = self.token_processor.process_token(
-                        value, self.current_answer
-                    )
-                    if processed_value is not None:
-                        processed_values[target_col] = processed_value
-                else:
-                    processed_values[target_col] = value
-            except Exception as e:
-                logger.warning(f"Error processing value for {target_col}: {str(e)}")
+        # Extract auto_fill values from the nested structure
+        if isinstance(mapping_value, dict):
+            if "skip" in mapping_value and "auto_fill" in mapping_value["skip"]:
+                autofill_dict = mapping_value["skip"]["auto_fill"]
+            else:
+                return {}  # Return empty if no auto_fill found
+
+            for target_col, value in autofill_dict.items():
+                try:
+                    if isinstance(value, str) and value.startswith("##"):
+                        processed_value = self.token_processor.process_token(
+                            value, self.current_answer
+                        )
+                        if processed_value is not None:
+                            processed_values[target_col] = str(processed_value)
+                    else:
+                        processed_values[target_col] = str(value)
+                except Exception as e:
+                    logger.warning(f"Error processing value for {target_col}: {str(e)}")
 
         return processed_values
 
