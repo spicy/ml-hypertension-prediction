@@ -1,10 +1,13 @@
 import os
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
-from .base_visualizer import BaseVisualizer
 from config import correlation_multicollinearity_config as config
-from logger import logger, log_execution_time
+from logger import log_execution_time, logger
+
+from .base_visualizer import BaseVisualizer
+
 
 class CorrelationMulticollinearityVisualizer(BaseVisualizer):
     """
@@ -15,38 +18,34 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
     def visualize(self, data: dict, output_path: str) -> None:
         """
         Visualize the correlation matrix as a heatmap and multicollinearity using VIF.
-
-        Args:
-            data (dict): A dictionary containing:
-                - 'correlation_matrix' (pd.DataFrame): The correlation matrix to visualize.
-                - 'vif_data' (pd.DataFrame): A DataFrame with 'Feature' and 'VIF' columns.
-            output_path (str): The directory path where the visualizations will be saved.
-
-        Returns:
-            None
-
-        Raises:
-            IOError: If there's an error saving the plots to the specified path.
         """
-        self._visualize_correlation(data['correlation_matrix'], output_path)
-        self._visualize_multicollinearity(data['vif_data'], output_path)
+        self._visualize_correlation(data["correlation_matrix"], output_path)
+        self._visualize_multicollinearity(data["vif_data"], output_path)
 
-    def _visualize_correlation(self, correlation_matrix: pd.DataFrame, output_path: str) -> None:
+    def _visualize_correlation(
+        self, correlation_matrix: pd.DataFrame, output_path: str
+    ) -> None:
         logger.info("Plotting correlation matrix...")
         plt.figure(figsize=(config.CORR_WIDTH, config.CORR_HEIGHT))
 
-        sns.heatmap(correlation_matrix,
-                    cmap='RdBu',
-                    vmin=-1,
-                    vmax=1,
-                    center=0,
-                    annot=True,
-                    fmt='.2f',
-                    square=True,
-                    cbar_kws={"shrink": .8},
-                    annot_kws={"size": config.CORR_ANNOT_FONT_SIZE})
+        sns.heatmap(
+            correlation_matrix,
+            cmap="RdBu",
+            vmin=-1,
+            vmax=1,
+            center=0,
+            annot=True,
+            fmt=".2f",
+            square=True,
+            cbar_kws={"shrink": 0.8},
+            annot_kws={"size": config.CORR_ANNOT_FONT_SIZE},
+        )
 
-        plt.title('Correlation Matrix Heatmap', fontsize=config.TITLE_FONT_SIZE, pad=config.TITLE_PAD)
+        plt.title(
+            "Correlation Matrix Heatmap",
+            fontsize=config.TITLE_FONT_SIZE,
+            pad=config.TITLE_PAD,
+        )
         plt.xticks(rotation=90, fontsize=config.CORR_X_TICK_FONT_SIZE)
         plt.yticks(rotation=0, fontsize=config.CORR_Y_TICK_FONT_SIZE)
 
@@ -57,7 +56,9 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
         plt.close()
         logger.info(f"Correlation matrix plot saved to: {png_path}")
 
-    def _visualize_multicollinearity(self, vif_data: pd.DataFrame, output_path: str) -> None:
+    def _visualize_multicollinearity(
+        self, vif_data: pd.DataFrame, output_path: str
+    ) -> None:
         if vif_data.empty:
             logger.warning("No data to visualize for multicollinearity.")
             return
@@ -66,14 +67,21 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
         plt.figure(figsize=(config.VIF_WIDTH, config.VIF_HEIGHT))
 
         sns.barplot(x="VIF", y="Feature", data=vif_data)
-        plt.title("Variance Inflation Factor (VIF) for Features", fontsize=config.TITLE_FONT_SIZE)
+        plt.title(
+            "Variance Inflation Factor (VIF) for Features",
+            fontsize=config.TITLE_FONT_SIZE,
+        )
         plt.xlabel("VIF", fontsize=config.VIF_LABEL_FONT_SIZE)
         plt.ylabel("Features", fontsize=config.VIF_LABEL_FONT_SIZE)
         plt.xticks(fontsize=config.VIF_TICK_FONT_SIZE)
         plt.yticks(fontsize=config.VIF_TICK_FONT_SIZE)
 
-        plt.axvline(x=config.VIF_THRESHOLD, color='r', linestyle='--',
-                    label=f'VIF Threshold ({config.VIF_THRESHOLD})')
+        plt.axvline(
+            x=config.VIF_THRESHOLD,
+            color="r",
+            linestyle="--",
+            label=f"VIF Threshold ({config.VIF_THRESHOLD})",
+        )
         plt.legend(fontsize=config.VIF_LEGEND_FONT_SIZE)
 
         plt.tight_layout()

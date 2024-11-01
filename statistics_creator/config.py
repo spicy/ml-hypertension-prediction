@@ -100,13 +100,15 @@ class DataConfig:
 
     PROJECT_ROOT: Path = field(default_factory=get_project_root)
     DATA_DIR: Path = field(default_factory=lambda: get_project_root() / "data")
-    PROCESSED_DIR: Path = field(
-        default_factory=lambda: get_project_root() / "data" / "processed"
+    AUTOFILLED_DIR: Path = field(
+        default_factory=lambda: get_project_root() / "data" / "processed" / "autofilled"
     )
-    FILTERED_DATA_PATTERN: str = "FilteredCombinedData_*.csv"
+    FILTERED_DATA_PATTERN: str = "autofilled_data_*.csv"
     TARGET_COLUMN: str = "BPQ020"
     RESULTS_FILENAME: str = "analysis_results.json"
-    DEFAULT_STATISTICS_FOLDER: str = "statistics"
+    DEFAULT_STATISTICS_FOLDER: str = (
+        get_project_root() / "data" / "processed" / "autofilled" / "statistics"
+    )
 
 
 @dataclass
