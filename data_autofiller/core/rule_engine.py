@@ -150,6 +150,27 @@ class DefaultRuleEngine(RuleEngine):
         """
         try:
             processed_df = df.copy()
+            question_data = questions_data.get(question_id, {})
+
+            # Check if this is a formula-based question
+            if "formula" in question_data:
+                formula = question_data["formula"]
+                for idx in processed_df.index:
+                    # Get current row data
+                    row_data = processed_df.loc[idx].to_dict()
+                    self.token_processor.set_row_data(row_data)
+
+                    try:
+                        result = self.token_processor.process_formula(formula)
+                        if result is not None:
+                            processed_df.at[idx, question_id] = result
+                    except Exception as e:
+                        logger.warning(
+                            f"Failed to process formula for {question_id}: {str(e)}"
+                        )
+                        continue
+
+            # Continue with regular rule processing...
             mask = ~pd.isna(processed_df[question_id])
 
             logger.info(f"Processing rules for column '{question_id}':")
@@ -341,9 +362,14 @@ class DefaultRuleEngine(RuleEngine):
             for target_col, value in autofill_dict.items():
                 try:
                     if isinstance(value, str) and value.startswith("##"):
-                        processed_value = self.token_processor.process_token(
-                            value, self.current_answer
-                        )
+                        if "formula" in mapping_value:
+                            processed_value = self.token_processor.process_formula(
+                                mapping_value["formula"], self.current_row_data
+                            )
+                        else:
+                            processed_value = self.token_processor.process_token(
+                                value, self.current_answer
+                            )
                         if processed_value is not None:
                             processed_values[target_col] = str(processed_value)
                     else:
