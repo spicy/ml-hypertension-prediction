@@ -12,7 +12,10 @@ from config import logger_config
 def setup_logger():
     """Set up colored logging with both file and console handlers."""
     logger = colorlog.getLogger(logger_config.LOGGER_NAME)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(getattr(logging, logger_config.LOG_LEVEL.upper()))
+
+    log_path = Path(logger_config.LOGS_FOLDER)
+    log_path.mkdir(exist_ok=True)
 
     # Console handler with colors
     console_handler = colorlog.StreamHandler()
@@ -24,12 +27,13 @@ def setup_logger():
     logger.addHandler(console_handler)
 
     # File handler
-    os.makedirs(logger_config.LOGS_FOLDER, exist_ok=True)
-    file_handler = logging.FileHandler(
-        os.path.join(logger_config.LOGS_FOLDER, logger_config.LOG_FILE_NAME)
-    )
+    file_handler = logging.FileHandler(log_path / logger_config.LOG_FILE_NAME)
     file_handler.setFormatter(
-        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        logging.Formatter(
+            logger_config.LOG_FORMAT.replace("%(log_color)s", "").replace(
+                "%(reset)s", ""
+            )
+        )
     )
     logger.addHandler(file_handler)
 

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict
 
 
 def get_project_root() -> Path:
@@ -29,16 +29,9 @@ class Config:
         default_factory=lambda: get_project_root() / "questions"
     )
 
-    # File Names
-    AUTOFILLED_DATA_FILENAME: str = "AutofilledData.csv"
-
     # Processing Options
     ALLOW_MISSING_COLUMNS: bool = False
     ERROR_ON_MISSING_QUESTIONS: bool = True
-
-    # Performance Settings
-    PARALLEL_PROCESSING: bool = False
-    MAX_WORKERS: Optional[int] = None
 
 
 @dataclass

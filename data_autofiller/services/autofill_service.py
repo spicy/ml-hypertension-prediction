@@ -1,5 +1,4 @@
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import List
 
@@ -28,12 +27,7 @@ class AutofillService:
         self, input_files: List[Path], output_dir: Path
     ) -> BatchProcessingResult:
         start_time = time.time()
-        results: List[ProcessingResult] = []
-
-        if self.config.parallel_processing:
-            results = self._process_files_parallel(input_files, output_dir)
-        else:
-            results = self._process_files_sequential(input_files, output_dir)
+        results = self._process_files_sequential(input_files, output_dir)
 
         successful = [r for r in results if r.success]
 
@@ -44,39 +38,6 @@ class AutofillService:
             results=results,
             total_processing_time=time.time() - start_time,
         )
-
-    def _process_files_parallel(
-        self, input_files: List[Path], output_dir: Path
-    ) -> List[ProcessingResult]:
-        results = []
-        total_files = len(input_files)
-
-        with ThreadPoolExecutor(max_workers=self.config.max_workers) as executor:
-            futures = {
-                executor.submit(self._process_single_file, f, output_dir): f
-                for f in input_files
-            }
-
-            for i, future in enumerate(as_completed(futures), 1):
-                input_file = futures[future]
-                try:
-                    result = future.result()
-                    results.append(result)
-                    logger.info(
-                        f"Progress: {i}/{total_files} files ({input_file.name})"
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to process {input_file.name}: {str(e)}")
-                    results.append(
-                        ProcessingResult(
-                            success=False,
-                            records_processed=0,
-                            errors=[str(e)],
-                            file_path=input_file,
-                        )
-                    )
-
-        return results
 
     def _process_files_sequential(
         self, input_files: List[Path], output_dir: Path
@@ -92,6 +53,7 @@ class AutofillService:
         start_time = time.time()
         try:
             output_file = self._generate_output_path(input_file, output_dir)
+            self.autofiller.records_processed = 0
             self.autofiller.process_file(input_file, output_file)
 
             return ProcessingResult(

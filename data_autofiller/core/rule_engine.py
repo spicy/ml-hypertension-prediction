@@ -8,7 +8,7 @@ import pandas as pd
 from ..logger import logger
 from .exceptions import AutofillErrorCode, AutofillException
 from .interfaces import RuleEngine
-from .tokens import AutofillToken, TokenProcessor
+from .tokens import TokenProcessor
 
 
 class DefaultRuleEngine(RuleEngine):
@@ -16,6 +16,11 @@ class DefaultRuleEngine(RuleEngine):
         self.token_processor = TokenProcessor()
         self.current_answer: Optional[Union[str, int, float]] = None
         self._cache = {}
+        self._metrics = {
+            "total_rules_processed": 0,
+            "successful_matches": 0,
+            "cache_hits": 0,
+        }
 
     def process_rules(
         self, question_id: str, answer: Any, questions_data: Dict
@@ -29,21 +34,36 @@ class DefaultRuleEngine(RuleEngine):
         try:
             question_mappings = questions_data.get(question_id, {}).get("mappings", {})
             if not question_mappings:
+                logger.debug(f"No mappings found for question {question_id}")
                 return {}
 
             self.current_answer = answer
             cache_key = (question_id, str(answer))
 
             if cache_key in self._cache:
+                self._metrics["cache_hits"] += 1
+                logger.debug(f"Cache hit for question {question_id}, answer {answer}")
                 return self._cache[cache_key]
 
+            self._metrics["total_rules_processed"] += 1
             result = self._process_answer(answer, question_mappings)
+
+            if result:
+                self._metrics["successful_matches"] += 1
+                logger.info(f"Rule match found for {question_id}: {answer} → {result}")
+
             self._cache[cache_key] = result
             return result
 
         except Exception as e:
-            logger.warning(
-                f"Error processing rules for question {question_id}, answer {answer}: {str(e)}"
+            logger.error(
+                "Rule processing error",
+                extra={
+                    "question_id": question_id,
+                    "answer": answer,
+                    "error": str(e),
+                    "error_type": type(e).__name__,
+                },
             )
             return {}
 
@@ -151,26 +171,39 @@ class DefaultRuleEngine(RuleEngine):
         try:
             answer_decimal = Decimal(str(answer))
 
-            logger.debug(f"Processing numeric answer: {answer} (type: {type(answer)})")
-            logger.debug(f"Converted to Decimal: {answer_decimal}")
-            logger.debug(f"Available mappings: {mappings}")
+            logger.debug(
+                "Processing numeric answer",
+                extra={
+                    "answer": answer,
+                    "answer_type": type(answer).__name__,
+                    "decimal_value": str(answer_decimal),
+                    "available_mappings": len(mappings),
+                },
+            )
 
             for mapping_key, mapping_value in mappings.items():
-                logger.debug(
-                    f"Checking mapping key: {mapping_key} (type: {type(mapping_key)})"
-                )
                 if self._is_numeric_match(answer_decimal, mapping_key):
                     logger.debug(
-                        f"Found matching mapping for answer {answer}: {mapping_value}"
+                        "Numeric match found",
+                        extra={
+                            "answer": str(answer_decimal),
+                            "mapping_key": mapping_key,
+                            "result": mapping_value,
+                        },
                     )
                     return self._get_autofill_values(mapping_value)
 
-            logger.debug(f"No matching mapping found for answer: {answer}")
+            logger.debug(f"No numeric mapping found for answer: {answer}")
             return {}
 
         except Exception as e:
-            logger.debug(
-                f"Error processing numeric answer {answer}: {str(e)}", exc_info=True
+            logger.warning(
+                "Numeric processing failed, falling back to string processing",
+                extra={
+                    "answer": answer,
+                    "error": str(e),
+                    "error_type": type(e).__name__,
+                },
             )
             return self._process_string_answer(str(answer), mappings)
 
@@ -218,7 +251,20 @@ class DefaultRuleEngine(RuleEngine):
 
         return processed_values
 
+    def get_metrics(self) -> Dict[str, int]:
+        """Return current processing metrics."""
+        return {
+            **self._metrics,
+            "cache_size": len(self._cache),
+            "cache_hit_ratio": (
+                self._metrics["cache_hits"] / self._metrics["total_rules_processed"]
+                if self._metrics["total_rules_processed"] > 0
+                else 0
+            ),
+        }
+
     def clear_cache(self) -> None:
-        """Clear the internal caches."""
+        """Clear the internal caches and reset metrics."""
         self._cache.clear()
         self._process_numeric_answer.cache_clear()
+        self._metrics = {k: 0 for k in self._metrics}
