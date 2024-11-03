@@ -57,7 +57,7 @@ def main():
                     logger.info("Data validation skipped (disabled in config)")
 
                 # Filter and save filtered data
-                data_filter = DataFilter(get_relevant_columns())
+                data_filter = DataFilter(get_relevant_columns(), min_age=18)
                 combiner.filter_data(data_filter)
                 combiner.save_filtered_data(filtered_filename)
 
