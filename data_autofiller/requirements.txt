@@ -1,2 +1,5 @@
 colorlog==6.9.0
 pytest==8.3.3
+psutil==5.9.5
+numba==0.57.1
+line-profiler==4.1.1

@@ -1,4 +1,6 @@
 import time
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
 from pathlib import Path
 from typing import List
 
@@ -10,6 +12,7 @@ from ..core.include_filter import IncludeFilter
 from ..core.interfaces import DataReader, QuestionRepository, RuleEngine
 from ..logger import log_execution_time, logger
 from ..models.results import BatchProcessingResult, ProcessingResult
+from ..utils.metrics import PerformanceMetrics
 
 
 class AutofillService:
@@ -24,31 +27,33 @@ class AutofillService:
             data_reader, question_repository, rule_engine, config
         )
         self.config = config
+        self.metrics = PerformanceMetrics(start_time=time.time())
 
     @log_execution_time
     def process_files(
         self, input_files: List[Path], output_dir: Path
     ) -> BatchProcessingResult:
         start_time = time.time()
-        results = self._process_files_sequential(input_files, output_dir)
+        results = self._process_files_parallel(input_files, output_dir)
 
         successful = [r for r in results if r.success]
 
+        self.metrics.end_time = time.time()
         return BatchProcessingResult(
             total_files=len(input_files),
             successful_files=len(successful),
             failed_files=len(results) - len(successful),
             results=results,
-            total_processing_time=time.time() - start_time,
+            total_processing_time=self.metrics.total_time,
         )
 
-    def _process_files_sequential(
+    def _process_files_parallel(
         self, input_files: List[Path], output_dir: Path
     ) -> List[ProcessingResult]:
-        return [
-            self._process_single_file(input_file, output_dir)
-            for input_file in input_files
-        ]
+        max_workers = min(len(input_files), self.config.max_workers)
+        with ProcessPoolExecutor(max_workers=max_workers) as executor:
+            process_func = partial(self._process_single_file, output_dir=output_dir)
+            return list(executor.map(process_func, input_files))
 
     def _process_single_file(
         self, input_file: Path, output_dir: Path

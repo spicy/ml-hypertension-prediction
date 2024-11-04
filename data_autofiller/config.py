@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict
@@ -32,6 +33,12 @@ class Config:
     # Processing Options
     ALLOW_MISSING_COLUMNS: bool = False
     ERROR_ON_MISSING_QUESTIONS: bool = True
+
+    # Parallel Processing Settings
+    max_workers: int = min(os.cpu_count() or 1, 4)
+    memory_limit_mb: int = 1024
+    cache_size: int = 1000
+    enable_vectorization: bool = True
 
 
 @dataclass

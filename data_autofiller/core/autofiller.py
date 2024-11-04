@@ -1,13 +1,15 @@
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict
 
 import pandas as pd
+import psutil
 
 from ..core.exceptions import AutofillErrorCode, AutofillException
 from ..core.interfaces import DataReader, QuestionRepository, RuleEngine
 from ..logger import logger
+from ..utils.decorators import profile_performance
 
 
 @dataclass
@@ -49,6 +51,15 @@ class DataAutofiller:
         self.records_processed = 0
         self.autofill_counts: Dict[str, int] = {}
 
+    def _get_optimal_chunk_size(self, file_size: int) -> int:
+        available_memory = psutil.virtual_memory().available
+        estimated_row_size = 1000  # Estimate in bytes
+        return min(
+            max(1000, available_memory // (estimated_row_size * 10)),
+            100000,  # Upper limit
+        )
+
+    @profile_performance
     def process_file(self, input_file: Path, output_file: Path) -> None:
         """Process file in chunks to minimize memory usage."""
         questions_data = self.question_repository.load_questions(
@@ -56,33 +67,20 @@ class DataAutofiller:
         )
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
-        # Process the file in chunks
-        first_chunk = True
-        chunk_count = 0
-        for chunk in pd.read_csv(input_file, chunksize=self.config.chunk_size):
-            if chunk.empty:
-                logger.warning(f"Empty chunk encountered in {input_file}")
-                continue
+        # Get file size for chunk size optimization
+        file_size = input_file.stat().st_size
+        chunk_size = self._get_optimal_chunk_size(file_size)
 
-            chunk_count += 1
-            if first_chunk:
-                self._validate_chunk(chunk)
-                self._process_and_save_chunk(
-                    chunk, output_file, questions_data, write_header=True
-                )
-                first_chunk = False
-            else:
-                self._process_and_save_chunk(
-                    chunk, output_file, questions_data, write_header=False
-                )
+        # Optimize dtype usage
+        dtype_dict = self._get_optimized_dtypes(input_file)
 
-            self.records_processed += len(chunk)
-
-        if chunk_count == 0:
-            raise AutofillException(
-                AutofillErrorCode.PROCESSING_ERROR,
-                f"No valid chunks found in file: {input_file}",
-            )
+        for chunk in pd.read_csv(
+            input_file,
+            chunksize=chunk_size,
+            dtype=dtype_dict,
+            usecols=self._get_required_columns(questions_data),
+        ):
+            self._process_chunk_optimized(chunk, output_file, questions_data)
 
     def _validate_chunk(self, chunk: pd.DataFrame) -> None:
         """Validate the data structure using the first chunk."""
@@ -95,37 +93,46 @@ class DataAutofiller:
                 f"Missing required column: {self.config.seqn_column}",
             )
 
-    def _process_and_save_chunk(
+    @profile_performance
+    def _process_chunk_optimized(
         self,
         chunk: pd.DataFrame,
         output_file: Path,
         questions_data: Dict,
         write_header: bool,
     ) -> None:
-        """Process a chunk and append it to the output file."""
         try:
             start_time = time.time()
-            logger.debug(f"Pre-processing values for chunk: {chunk.head().to_dict()}")
+            # Optimize memory before processing
+            chunk = self._optimize_dataframe_memory(chunk)
+
             processed_chunk = self.rule_engine.process_chunk(chunk, questions_data)
-            logger.debug(
-                f"Post-processing values for chunk: {processed_chunk.head().to_dict()}"
-            )
+
+            # Optimize memory before saving
+            processed_chunk = self._optimize_dataframe_memory(processed_chunk)
 
             processed_chunk.to_csv(
                 output_file,
                 mode="w" if write_header else "a",
                 header=write_header,
                 index=False,
+                compression="gzip" if output_file.suffix == ".gz" else None,
             )
 
-            # Record memory usage and processing time
-            memory_mb = chunk.memory_usage(deep=True).sum() / (1024 * 1024)
-            logger.debug(
-                f"Chunk processed: {len(chunk)} records, "
-                f"Memory usage: {memory_mb:.2f} MB, "
-                f"Processing time: {time.time() - start_time:.2f}s"
-            )
+            self._update_metrics(chunk, processed_chunk, start_time)
         except Exception as e:
             raise AutofillException(
                 AutofillErrorCode.PROCESSING_ERROR, f"Error processing chunk: {str(e)}"
             )
+
+    def _optimize_dataframe_memory(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Optimize DataFrame memory usage by downcasting numeric types and categorizing strings."""
+        for col in df.select_dtypes(include=["int"]).columns:
+            df[col] = pd.to_numeric(df[col], downcast="integer")
+        for col in df.select_dtypes(include=["float"]).columns:
+            df[col] = pd.to_numeric(df[col], downcast="float")
+        for col in df.select_dtypes(include=["object"]).columns:
+            # If less than 50% unique values
+            if df[col].nunique() / len(df[col]) < 0.5:
+                df[col] = df[col].astype("category")
+        return df
