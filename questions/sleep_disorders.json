@@ -10,7 +10,7 @@
         "skip": {
           "destination": "SLQ050",
           "auto_fill": {
-            "SLD012": "VALUE"
+            "SLD012": "##VALUE"
           }
         }
       },
