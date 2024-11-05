@@ -58,6 +58,7 @@ def main():
 
                 # Filter and save filtered data
                 data_filter = DataFilter(get_relevant_columns(), min_age=18)
+                data_filter.validate_columns(combiner.combined_df)
                 combiner.filter_data(data_filter)
                 combiner.save_filtered_data(filtered_filename)
 
