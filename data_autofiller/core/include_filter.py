@@ -2,6 +2,7 @@ from typing import Dict, List
 
 import pandas as pd
 
+from ..config import config
 from ..logger import logger
 
 
@@ -23,9 +24,12 @@ class IncludeFilter:
 
     def _get_ordered_columns(self, available_columns: set) -> List[str]:
         """Get ordered list of columns with SEQN first."""
-        seqn_column = "SEQN"
-        ordered_columns = [seqn_column] if seqn_column in available_columns else []
-        other_columns = sorted(col for col in available_columns if col != seqn_column)
+        ordered_columns = (
+            [config.SEQN_COLUMN] if config.SEQN_COLUMN in available_columns else []
+        )
+        other_columns = sorted(
+            col for col in available_columns if col != config.SEQN_COLUMN
+        )
         return ordered_columns + other_columns
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
