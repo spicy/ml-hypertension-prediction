@@ -27,18 +27,14 @@
         "description": "Refused",
         "skip": {
           "destination": "SLQ050",
-          "auto_fill": {
-            "SLD012": "77"
-          }
+          "auto_fill": {}
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "SLQ050",
-          "auto_fill": {
-            "SLD012": "99"
-          }
+          "auto_fill": {}
         }
       }
     }

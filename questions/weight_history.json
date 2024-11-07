@@ -64,18 +64,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "WHQ150": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9999": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "WHQ150": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }

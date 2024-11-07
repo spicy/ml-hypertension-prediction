@@ -34,18 +34,14 @@
         "description": "Refused",
         "skip": {
           "destination": "DIQ160",
-          "auto_fill": {
-            "DID040": "777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "DIQ160",
-          "auto_fill": {
-            "DID040": "999"
-          }
+          "auto_fill": {}
         }
       }
     }

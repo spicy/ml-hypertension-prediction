@@ -41,20 +41,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "OCQ180": "77777",
-            "OCQ210": "7"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "OCQ180": "99999",
-            "OCQ210": "9"
-          }
+          "auto_fill": {}
         }
       }
     }

@@ -27,32 +27,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "ALQ111": "7",
-            "ALQ121": "77",
-            "ALQ130": "777",
-            "ALQ142": "77",
-            "ALQ270": "77",
-            "ALQ280": "77"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "ALQ111": "9",
-            "ALQ121": "99",
-            "ALQ120Q": "0",
-            "ALQ120U": "0",
-            "ALQMULT": "0",
-            "ALQFREQ": "0",
-            "ALQ130": "999",
-            "ALQ142": "99",
-            "ALQ270": "99",
-            "ALQ280": "99"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -219,10 +201,7 @@
         "description": "Refused",
         "skip": {
           "destination": "ALQ142",
-          "auto_fill": {
-            "ALQ120Q": "777",
-            "ALQ120U": "7"
-          }
+          "auto_fill": {}
         }
       },
       "99": {

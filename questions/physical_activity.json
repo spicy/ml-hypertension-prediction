@@ -22,20 +22,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {
-            "PAQ610": "77",
-            "PAD615": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {
-            "PAQ610": "99",
-            "PAD615": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -54,18 +48,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {
-            "PAD615": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ620",
-          "auto_fill": {
-            "PAD615": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -81,10 +71,12 @@
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+          "auto_fill": {}
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+          "auto_fill": {}
       }
     }
   },
@@ -112,20 +104,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {
-            "PAQ625": "77",
-            "PAD630": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {
-            "PAQ625": "99",
-            "PAD630": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -144,18 +130,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {
-            "PAD630": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ635",
-          "auto_fill": {
-            "PAD630": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -183,7 +165,7 @@
     "label": "PAQ635",
     "text": "The next questions exclude the physical activity at work that you have already mentioned. Now I would like to ask you about the usual way {you travel/SP travels} to and from places. For example to school, for shopping, to work. In a typical week {do you/does SP} walk or use a bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -202,20 +184,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ650",
-          "auto_fill": {
-            "PAQ640": "77",
-            "PAD645": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ650",
-          "auto_fill": {
-            "PAQ640": "99",
-            "PAD645": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -269,7 +245,7 @@
     "label": "Vigorous recreational activities",
     "text": "The next questions exclude the work and transport activities that you have already mentioned. Now I would like to ask you about sports, fitness and recreational activities. In a typical week {do you/does SP} do any vigorous-intensity sports, fitness, or recreational activities that cause large increases in breathing or heart rate like running or basketball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -288,20 +264,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {
-            "PAQ655": "77",
-            "PAD660": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {
-            "PAQ655": "99",
-            "PAD660": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -320,18 +290,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {
-            "PAD660": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {
-            "PAD660": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -359,7 +325,7 @@
     "label": "Moderate recreational activities",
     "text": "In a typical week {do you/does SP} do any moderate-intensity sports, fitness, or recreational activities that cause a small increase in breathing or heart rate such as brisk walking, bicycling, swimming, or volleyball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -378,20 +344,14 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ680",
-          "auto_fill": {
-            "PAQ670": "77",
-            "PAD675": "7777"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ680",
-          "auto_fill": {
-            "PAQ670": "99",
-            "PAD675": "9999"
-          }
+          "auto_fill": {}
         }
       }
     }

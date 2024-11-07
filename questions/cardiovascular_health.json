@@ -26,28 +26,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "CDQ002": "7",
-            "CDQ003": "7",
-            "CDQ004": "7",
-            "CDQ005": "7",
-            "CDQ006": "7",
-            "CDQ008": "7"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "CDQ002": "9",
-            "CDQ003": "9",
-            "CDQ004": "9",
-            "CDQ005": "9",
-            "CDQ006": "9",
-            "CDQ008": "9"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -80,24 +66,14 @@
         "description": "Refused",
         "skip": {
           "destination": "CDQ008",
-          "auto_fill": {
-            "CDQ003": "7",
-            "CDQ004": "7",
-            "CDQ005": "7",
-            "CDQ006": "7"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "CDQ008",
-          "auto_fill": {
-            "CDQ003": "9",
-            "CDQ004": "9",
-            "CDQ005": "9",
-            "CDQ006": "9"
-          }
+          "auto_fill": {}
         }
       }
     }
