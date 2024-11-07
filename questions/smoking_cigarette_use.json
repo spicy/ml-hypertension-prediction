@@ -30,36 +30,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "SMD030": "777",
-            "SMQ040": "7",
-            "SMQ050Q": "77777",
-            "SMQ050U": "7",
-            "SMD057": "777",
-            "SMD641": "77",
-            "SMD650": "777",
-            "SMD100FL": "7",
-            "SMD100MN": "7",
-            "SMQ670": "7"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "SMD030": "999",
-            "SMQ040": "9",
-            "SMQ050Q": "99999",
-            "SMQ050U": "9",
-            "SMD057": "999",
-            "SMD641": "99",
-            "SMD650": "999",
-            "SMD100FL": "9",
-            "SMD100MN": "9",
-            "SMQ670": "9"
-          }
+          "auto_fill": {}
         }
       }
     }
@@ -121,32 +99,14 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "SMQ050Q": "77777",
-            "SMQ050U": "7",
-            "SMD057": "777",
-            "SMD641": "77",
-            "SMD650": "777",
-            "SMD100FL": "7",
-            "SMD100MN": "7",
-            "SMQ670": "7"
-          }
+          "auto_fill": {}
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-            "SMQ050Q": "99999",
-            "SMQ050U": "9",
-            "SMD057": "999",
-            "SMD641": "99",
-            "SMD650": "999",
-            "SMD100FL": "9",
-            "SMD100MN": "9",
-            "SMQ670": "9"
-          }
+          "auto_fill": {}
         }
       }
     }
