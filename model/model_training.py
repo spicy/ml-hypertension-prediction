@@ -1,4 +1,5 @@
 # ... --- ... (Morse Code)
+import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -7,11 +8,25 @@ from sklearn.feature_selection import SelectKBest, f_classif
 import pickle
 
 def load_data():
-    df1 = pd.read_csv("data/processed/autofilled/autofilled_data_2011-2012.csv")
-    df2 = pd.read_csv("data/processed/autofilled/autofilled_data_2013-2014.csv")
-    df3 = pd.read_csv("data/processed/autofilled/autofilled_data_2015-2016.csv")
-    df4 = pd.read_csv("data/processed/autofilled/autofilled_data_2017-2020.csv")
-    data = pd.concat([df1, df2, df3, df4], axis=0)
+    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data/processed/autofilled"))
+    files = [
+        "autofilled_data_2011-2012.csv",
+        "autofilled_data_2013-2014.csv",
+        "autofilled_data_2015-2016.csv",
+        "autofilled_data_2017-2020.csv"
+    ]
+    
+    data_frames = []
+    for file in files:
+        file_path = os.path.join(base_path, file)
+        if os.path.exists(file_path):
+            print(f"Loading {file_path}")
+            data_frames.append(pd.read_csv(file_path))
+        else:
+            print(f"Error: File {file_path} not found.")
+            return None
+    
+    data = pd.concat(data_frames, axis=0)
     return data
 
 def split_data(X, y):
