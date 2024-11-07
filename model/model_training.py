@@ -72,8 +72,14 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
 if __name__ == "__main__":
     data = load_data()
     
-    X = data.drop("temp_name_column", axis=1)  #Replace "temp_name_column" with actual name of blood pressure column later
-    y = data["temp_name_column"]
+    if "BPXOSYAVG" in data.columns:
+        X = data.drop("BPXOSYAVG", axis=1)
+    else:
+        print("Column 'BPXOSYAVG' not found in data.")
+
+
+    X = data.drop("BPXOSYAVG", axis=1)  #Replace "temp_name_column" with actual name of blood pressure column later
+    y = data["BPXOSYAVG"]
     
     X_train, X_test, y_train, y_test = split_data(X, y)
     
