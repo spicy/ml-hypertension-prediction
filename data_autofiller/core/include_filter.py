@@ -21,6 +21,13 @@ class IncludeFilter:
             if data.get("include") == "1" or data.get("include") == 1
         ]
 
+    def _get_ordered_columns(self, available_columns: set) -> List[str]:
+        """Get ordered list of columns with SEQN first."""
+        seqn_column = "SEQN"
+        ordered_columns = [seqn_column] if seqn_column in available_columns else []
+        other_columns = sorted(col for col in available_columns if col != seqn_column)
+        return ordered_columns + other_columns
+
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         """Apply include filter to the DataFrame."""
         if df.empty:
@@ -39,11 +46,13 @@ class IncludeFilter:
             logger.warning("No included columns found in DataFrame")
             return df
 
-        filtered_df = df[list(available_columns)]
+        # Get ordered columns and filter DataFrame
+        ordered_columns = self._get_ordered_columns(available_columns)
+        filtered_df = df[ordered_columns]
 
         logger.info(
             f"Include filter removed {len(df.columns) - len(filtered_df.columns)} columns. "
-            f"Remaining columns: {list(filtered_df.columns)}"
+            f"Remaining columns: {ordered_columns}"
         )
 
         return filtered_df
