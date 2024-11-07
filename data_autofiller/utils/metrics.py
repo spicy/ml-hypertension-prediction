@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List
 
 import pandas as pd
-import psutil
 
 
 @dataclass
@@ -34,22 +33,3 @@ class PerformanceMetrics:
                 processing_time=processing_time,
             )
         )
-
-
-@dataclass
-class ProcessingMetrics:
-    chunk_processing_time: float = 0.0
-    memory_usage_mb: float = 0.0
-    rules_processed: int = 0
-    cache_hits: int = 0
-    peak_memory_usage: float = 0.0
-    rule_processing_times: Dict[str, float] = field(default_factory=dict)
-    cascade_iterations: int = 0
-    vectorized_operations: int = 0
-    parallel_operations: int = 0
-
-    def update_metrics(self, chunk: pd.DataFrame, start_time: float):
-        self.chunk_processing_time = time.time() - start_time
-        self.memory_usage_mb = chunk.memory_usage(deep=True).sum() / (1024 * 1024)
-        current_memory = psutil.Process().memory_info().rss / (1024 * 1024)
-        self.peak_memory_usage = max(self.peak_memory_usage, current_memory)
