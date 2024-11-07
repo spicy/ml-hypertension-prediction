@@ -66,29 +66,17 @@
     }
   },
 
-  "BPXOSYSUM": {
-    "label": "Sum Systolic Blood Pressures",
-    "include": "0",
-    "formula": "##BPXOSY1 + ##BPXOSY2 + ##BPXOSY3"
-  },
-
   "BPXOSYAVG": {
     "label": "Average Systolic Blood Pressure (mm Hg)",
     "text": "Average systolic blood pressure reading (in mm Hg).",
     "include": "1",
-    "formula": "##BPXOSYSUM / 3"
-  },
-
-  "BPXODISUM": {
-    "label": "Sum Diastolic Blood Pressures",
-    "include": "0",
-    "formula": "##BPXODI1 + ##BPXODI2 + ##BPXODI3"
+    "formula": "( ##BPXOSY1 + ##BPXOSY2 + ##BPXOSY3 ) / 3"
   },
 
   "BPXODIAVG": {
     "label": "Average Diastolic Blood Pressure (mm Hg)",
     "text": "Average diastolic blood pressure reading (in mm Hg).",
     "include": "1",
-    "formula": "##BPXODISUM / 3"
+    "formula": "( ##BPXODI1 + ##BPXODI2 + ##BPXODI3 ) / 3"
   }
 }

@@ -33,7 +33,7 @@
       }
     }
   },
-  "WHQ050": {
+  "WHD050": {
     "label": "Self-reported weight - 1 yr ago (pounds)",
     "text": "How much did {you/SP} weigh a year ago?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
