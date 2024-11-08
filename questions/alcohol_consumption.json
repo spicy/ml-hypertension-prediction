@@ -319,13 +319,6 @@
     "formula": "52 if ##ALQ120U == 1 else (12 if ##ALQ120U == 2 else (1 if ##ALQ120U == 3 else 0))"
   },
 
-  "ALQFREQ": {
-    "label": "Past year alcoholic bev frequency",
-    "text": "During the last year, about how many days did {you/SP} drink any type of alcoholic beverage?",
-    "include": "0",
-    "formula": "##ALQ120Q * ##ALQMULT"
-  },
-
   "ALQ130": {
     "label": "Avg # alcoholic drinks/day - past 12 mos",
     "text": "During the past 12 months, on those days that {you/SP} drank alcoholic beverages, on the average, how many drinks did {you/he/she} have? By a drink, I mean a 12 oz. beer, a 5 oz. glass of wine, or one and a half ounces of liquor.)",
@@ -496,8 +489,8 @@
           "destination": "End of section",
           "auto_fill": {
             "ALQ141U": "0",
-            "ALQMULT": "0",
-            "ALQFREQ": "0"
+            "ALQMULT45": "0",
+            "ALQFREQ45": "0"
           }
         }
       },
