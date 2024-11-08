@@ -95,38 +95,119 @@ class DefaultRuleEngine(RuleEngine):
             )
             return {}
 
-    def process_chunk(self, chunk: pd.DataFrame, questions_data: Dict) -> pd.DataFrame:
-        """Process a chunk of data applying rules to relevant columns."""
+    def process_chunk(self, df: pd.DataFrame, questions_data: Dict) -> pd.DataFrame:
+        """Process a chunk of data applying rules and formulas."""
         try:
-            processed_chunk = chunk.copy()
-            relevant_columns = set(questions_data.keys()) & set(processed_chunk.columns)
+            processed_df = df.copy()
+            relevant_columns = set(questions_data.keys()) & set(processed_df.columns)
 
             logger.debug(f"Processing chunk with columns: {list(relevant_columns)}")
             logger.debug(f"Questions data keys: {list(questions_data.keys())}")
-            logger.debug(f"Data types in chunk: {processed_chunk.dtypes.to_dict()}")
+            logger.debug(f"Data types in chunk: {processed_df.dtypes.to_dict()}")
 
-            for question_id in relevant_columns:
-                logger.debug(f"Processing question_id: {question_id}")
-                logger.debug(
-                    f"Sample data for {question_id}: {processed_chunk[question_id].head()}"
-                )
-                logger.debug(
-                    f"Question mappings: {questions_data[question_id].get('mappings', {})}"
-                )
+            # First pass: Process regular autofill rules
+            for question_id in questions_data:
+                if "formula" not in questions_data[question_id]:
+                    logger.debug(f"Processing question_id: {question_id}")
+                    logger.debug(
+                        f"Sample data for {question_id}: {processed_df[question_id].head()}"
+                    )
+                    logger.debug(
+                        f"Question mappings: {questions_data[question_id].get('mappings', {})}"
+                    )
+                    processed_df = self._apply_rules_to_column(
+                        processed_df, question_id, questions_data
+                    )
 
-                processed_chunk = self._apply_rules_to_column(
-                    processed_chunk, question_id, questions_data
-                )
+            # Second pass: Process formula-based fields in dependency order
+            formula_fields = {
+                qid: data for qid, data in questions_data.items() if "formula" in data
+            }
 
-            return processed_chunk
+            logger.info(f"Processing {len(formula_fields)} formula-based fields")
+
+            # Process each row
+            for idx in processed_df.index:
+                row_data = processed_df.loc[idx].to_dict()
+                row_data["index"] = idx
+                self.token_processor.set_row_data(row_data)
+
+                logger.debug(f"Processing formulas for row {idx}")
+
+                # Process formulas in dependency order
+                remaining_fields = formula_fields.copy()
+                processed_fields = set()
+                progress_made = False
+
+                while remaining_fields:
+                    for field_id, field_data in list(remaining_fields.items()):
+                        try:
+                            formula = field_data["formula"]
+                            logger.debug(
+                                f"Processing formula for {field_id}: {formula}"
+                            )
+
+                            dependencies = self.token_processor._extract_dependencies(
+                                formula
+                            )
+                            logger.debug(f"Dependencies for {field_id}: {dependencies}")
+
+                            # Check if all dependencies are available
+                            deps_available = all(
+                                dep in processed_fields or dep in processed_df.columns
+                                for dep in dependencies
+                            )
+
+                            if deps_available:
+                                logger.debug(
+                                    f"All dependencies available for {field_id}"
+                                )
+                                result = self.token_processor.process_formula(formula)
+
+                                if result is not None:
+                                    processed_df.at[idx, field_id] = result
+                                    self.token_processor.set_processed_value(
+                                        field_id, result
+                                    )
+                                    processed_fields.add(field_id)
+                                    del remaining_fields[field_id]
+                                    progress_made = True
+                                    logger.debug(
+                                        f"Successfully calculated {field_id} = {result}"
+                                    )
+                                else:
+                                    logger.debug(
+                                        f"Formula evaluation failed for {field_id}"
+                                    )
+                                    del remaining_fields[field_id]
+                            else:
+                                logger.debug(
+                                    f"Dependencies not yet available for {field_id}"
+                                )
+
+                        except Exception as e:
+                            logger.error(
+                                f"Error processing formula for {field_id}: {str(e)}"
+                            )
+                            del remaining_fields[field_id]
+
+                    # Check if any progress was made in this iteration, prevent infinite loop
+                    if not progress_made and remaining_fields:
+                        logger.warning(
+                            "No more formulas can be processed, breaking loop"
+                        )
+                        break
+                    progress_made = False
+
+            return processed_df
 
         except Exception as e:
             logger.error(
                 "Chunk processing error details:\n"
                 f"Error type: {type(e).__name__}\n"
                 f"Error message: {str(e)}\n"
-                f"Data types: {chunk.dtypes.to_dict()}\n"
-                f"Sample data: {chunk.head(1).to_dict()}\n"
+                f"Data types: {df.dtypes.to_dict()}\n"
+                f"Sample data: {df.head(1).to_dict()}\n"
                 f"Stack trace:",
                 exc_info=True,
             )
@@ -364,7 +445,7 @@ class DefaultRuleEngine(RuleEngine):
                     if isinstance(value, str) and value.startswith("##"):
                         if "formula" in mapping_value:
                             processed_value = self.token_processor.process_formula(
-                                mapping_value["formula"], self.current_row_data
+                                mapping_value["formula"]
                             )
                         else:
                             processed_value = self.token_processor.process_token(
