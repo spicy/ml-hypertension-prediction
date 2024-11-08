@@ -105,14 +105,14 @@ class TokenProcessor:
                 for part in parts:
                     if not (
                         part in {"if", "else"}
-                        or part.isdigit()
+                        or self._is_numeric(part)
                         or all(c in self._safe_operators for c in part)
                     ):
                         raise ValueError(f"Invalid characters in formula part: {part}")
             else:
                 # Regular mathematical formula validation
                 if not all(
-                    c.isspace() or c.isdigit() or c in self._safe_operators
+                    c.isspace() or self._is_numeric(c) or c in self._safe_operators
                     for c in processed_formula
                 ):
                     raise ValueError(
@@ -137,3 +137,11 @@ class TokenProcessor:
     def _extract_dependencies(self, formula: str) -> List[str]:
         """Extract column dependencies from a formula."""
         return [token[2:] for token in formula.split() if token.startswith("##")]
+
+    def _is_numeric(self, value: str) -> bool:
+        """Check if a string represents a valid number."""
+        try:
+            float(value)
+            return True
+        except ValueError:
+            return False
