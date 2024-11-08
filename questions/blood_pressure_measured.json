@@ -69,14 +69,28 @@
   "BPXOSYAVG": {
     "label": "Average Systolic Blood Pressure (mm Hg)",
     "text": "Average systolic blood pressure reading (in mm Hg).",
-    "include": "1",
+    "include": "0",
     "formula": "( ##BPXOSY1 + ##BPXOSY2 + ##BPXOSY3 ) / 3"
   },
 
   "BPXODIAVG": {
     "label": "Average Diastolic Blood Pressure (mm Hg)",
     "text": "Average diastolic blood pressure reading (in mm Hg).",
-    "include": "1",
+    "include": "0",
     "formula": "( ##BPXODI1 + ##BPXODI2 + ##BPXODI3 ) / 3"
+  },
+
+  "HYPERTENSION": {
+    "label": "Patient Hypertensive",
+    "include": "1",
+    "mappings": {
+      "0": {
+        "description": "Non-Hypertensive"
+      },
+      "1": {
+        "description": "Hypertensive"
+      }
+    },
+    "formula": "1 if ##BPXOSYAVG > 129 else ( 1 if ##BPXODIAVG > 89 else 0 )"
   }
 }
