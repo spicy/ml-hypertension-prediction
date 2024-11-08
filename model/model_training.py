@@ -2,9 +2,11 @@
 import os
 import pandas as pd
 import numpy as np
+from sklearn.impute import KNNImputer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier  # Example ML model
 from sklearn.feature_selection import SelectKBest, f_classif
+
 import pickle
 
 
@@ -22,19 +24,35 @@ def load_data() -> pd.DataFrame:
         file_path = os.path.join(base_path, file)
         if os.path.exists(file_path):
             print(f"Loading {file_path}")
-            data_frames.append(pd.read_csv(file_path))
+            data_frames.append(pd.read_csv(file_path, index_col="SEQN"))
         else:
             print(f"Error: File {file_path} not found.")
             return None
 
+    # Combine all the loaded dataframes into one
     data = pd.concat([data_frames[0], data_frames[1], data_frames[2], data_frames[3]], axis=0)
-    data.dropna(subset=["BPXOSYAVG"], inplace=True)
-    data.dropna(subset=["BPXODIAVG"], inplace=True)
+
+    # # Drop all rows with more than 20% of entries missing
+    # threshold = int(data.shape[1] * 0.80)
+    # data = data.dropna(thresh=threshold)
+    #
+    # # Drop all rows that do not have a value for HYPERTENSION
+    # data.dropna(axis=0, subset=["HYPERTENSION"])
+    #
+    # # Impute remaining missing value
+    # imputer = KNNImputer(n_neighbors=2)
+    # imputed_data = imputer.fit_transform(data)
+    # imputed_df = round(pd.DataFrame(imputed_data, columns=data.columns), 2)
+    # data = imputed_df
+    #
+    # # Change the HYPERTENSION column to int
+    # data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
+    # print(data)
     return data
 
 
 def split_data(X, y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, train_size=0.7, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
     return X_train, X_test, y_train, y_test
 
 
@@ -46,17 +64,13 @@ def feature_selection(X_train, y_train):
 
 
 def train_model(X_train, y_train, X_train_reduced, model_name):
-    # Full Feature Model
     model_full = RandomForestClassifier(random_state=42)
     model_full.fit(X_train, y_train)
-
     with open(f'{model_name}_full.model', 'wb') as f:
         pickle.dump(model_full, f)
 
-    # Reduced Feature Model
     model_reduced = RandomForestClassifier(random_state=42)
     model_reduced.fit(X_train_reduced, y_train)
-
     with open(f'{model_name}_reduced.model', 'wb') as f:
         pickle.dump(model_reduced, f)
 
@@ -79,13 +93,13 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
 if __name__ == "__main__":
     data = load_data()
 
-    if "BPXOSYAVG" in data.columns.to_list():
-        X = data.drop("BPXOSYAVG", axis=1)
+    if "HYPERTENSION" in data.columns.to_list():
+        X = data.drop("HYPERTENSION", axis=1)
     else:
-        print("Column 'BPXOSYAVG' not found in data.")
+        print("Column 'HYPERTENSION' not found in data.")
 
-    X = data.drop("BPXOSYAVG", axis=1)  # Replace "temp_name_column" with actual name of blood pressure column later
-    y = data["BPXOSYAVG"]
+    X = data.drop(["HYPERTENSION"], axis=1)  # Replace "temp_name_column" with actual name of blood pressure column later
+    y = data["HYPERTENSION"]
 
     X_train, X_test, y_train, y_test = split_data(X, y)
 
