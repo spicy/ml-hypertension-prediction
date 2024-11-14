@@ -32,22 +32,9 @@ def load_data() -> pd.DataFrame:
     # Combine all the loaded dataframes into one
     data = pd.concat([data_frames[0], data_frames[1], data_frames[2], data_frames[3]], axis=0)
 
-    # # Drop all rows with more than 20% of entries missing
-    # threshold = int(data.shape[1] * 0.80)
-    # data = data.dropna(thresh=threshold)
-    #
-    # # Drop all rows that do not have a value for HYPERTENSION
-    # data.dropna(axis=0, subset=["HYPERTENSION"])
-    #
-    # # Impute remaining missing value
-    # imputer = KNNImputer(n_neighbors=2)
-    # imputed_data = imputer.fit_transform(data)
-    # imputed_df = round(pd.DataFrame(imputed_data, columns=data.columns), 2)
-    # data = imputed_df
-    #
-    # # Change the HYPERTENSION column to int
-    # data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
-    # print(data)
+    # Change the HYPERTENSION column to int
+    data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
+    data = data.drop(["BPXOSYAVG", "BPXODIAVG"], axis=1)
     return data
 
 
@@ -58,7 +45,7 @@ def split_data(X, y):
 
 def feature_selection(X_train, y_train):
     # Select top k features
-    selector = SelectKBest(f_classif, k=10)  # MODIFY K TO UR DESIRED AMOUNT OF FEATURES
+    selector = SelectKBest(f_classif, k=20)  # MODIFY K TO UR DESIRED AMOUNT OF FEATURES
     X_train_reduced = selector.fit_transform(X_train, y_train)
     return X_train_reduced, selector
 
@@ -98,7 +85,7 @@ if __name__ == "__main__":
     else:
         print("Column 'HYPERTENSION' not found in data.")
 
-    X = data.drop(["HYPERTENSION"], axis=1)  # Replace "temp_name_column" with actual name of blood pressure column later
+    X = data.drop(["HYPERTENSION"], axis=1)
     y = data["HYPERTENSION"]
 
     X_train, X_test, y_train, y_test = split_data(X, y)

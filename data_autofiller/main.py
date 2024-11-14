@@ -6,11 +6,10 @@ from pathlib import Path
 sys.path.append(dirname(dirname(abspath(__file__))))
 import json
 from datetime import datetime
-import pandas as pd
-from sklearn.impute import KNNImputer
 
 from data_autofiller.config import Config
 from data_autofiller.core.autofiller import AutofillConfig
+from data_autofiller.core.imputer import Imputer
 from data_autofiller.core.rule_engine import DefaultRuleEngine
 from data_autofiller.infrastructure.data_reader import FileDataReader
 from data_autofiller.infrastructure.repositories import FileQuestionRepository
@@ -56,34 +55,8 @@ def main() -> int:
         result = service.process_files(input_files, autofill_config.output_dir)
         save_processing_report(result, autofill_config.output_dir)
 
-        ### Move this somewhere else/make it pretty later, I just put this here for now so I could get it done outside of the model file
-        ### \/ \/ \/ \/ \/
-
-        files = get_data_files(autofill_config.output_dir, "autofilled_data_*.csv")
-
-        for file in files:
-                data = pd.read_csv(file)
-
-                # Drop all rows with more than 20% of entries missing
-                threshold = int(data.shape[1] * 0.80)
-                data = data.dropna(thresh=threshold)
-
-                # Drop all rows that do not have a value for HYPERTENSION
-                data.dropna(axis=0, subset=["HYPERTENSION"])
-
-                # Impute remaining missing value
-                imputer = KNNImputer(n_neighbors=2)
-                imputed_data = imputer.fit_transform(data)
-                imputed_df = round(pd.DataFrame(imputed_data, columns=data.columns), 2)
-                data = imputed_df
-
-                # Change the HYPERTENSION column to int
-                data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
-
-                data.to_csv(file, index=False)
-
-        ### /\ /\ /\ /\ /\
-        ### Move this somewhere else/make it pretty later, I just put this here for now so I could get it done outside of the model file
+        imputer = Imputer(autofill_config)
+        imputer.impute()
 
         logger.info(
             f"Processing completed: {result.successful_files}/{result.total_files} files successful"

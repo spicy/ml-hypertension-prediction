@@ -69,14 +69,14 @@
   "BPXOSYAVG": {
     "label": "Average Systolic Blood Pressure (mm Hg)",
     "text": "Average systolic blood pressure reading (in mm Hg).",
-    "include": "0",
+    "include": "1",
     "formula": "( ##BPXOSY1 + ##BPXOSY2 + ##BPXOSY3 ) / 3"
   },
 
   "BPXODIAVG": {
     "label": "Average Diastolic Blood Pressure (mm Hg)",
     "text": "Average diastolic blood pressure reading (in mm Hg).",
-    "include": "0",
+    "include": "1",
     "formula": "( ##BPXODI1 + ##BPXODI2 + ##BPXODI3 ) / 3"
   },
 
