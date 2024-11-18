@@ -2,20 +2,14 @@ import os
 import pandas as pd
 import pickle
 
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+
 from sklearn.feature_selection import SelectKBest, f_classif
-from sklearn.metrics import accuracy_score
 
 
-from sklearn.ensemble import StackingClassifier
-from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
+from sklearn.ensemble import RandomForestClassifier, BaggingClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import make_classification
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
 
@@ -64,82 +58,39 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
     # Initialize all models
     rf = RandomForestClassifier(n_estimators=300, max_depth=20, min_samples_split=2, min_samples_leaf=4, random_state=42)
     rfr = RandomForestClassifier(n_estimators=300, max_depth=20, min_samples_split=2, min_samples_leaf=4, random_state=42)
-    gbm = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05, max_depth=5, min_samples_leaf=1, min_samples_split=10, random_state=42)
+    gb = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05, max_depth=5, min_samples_leaf=1, min_samples_split=10, random_state=42)
+    gbr = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05, max_depth=5, min_samples_leaf=1, min_samples_split=10, random_state=42)
     dt = DecisionTreeClassifier(max_depth=10, min_samples_split=5, random_state=42)
     dt_bag = BaggingClassifier(estimator=dt, n_estimators=100, max_samples=0.8, max_features=0.8, oob_score=True, random_state=42)
+    dt_bag_r = BaggingClassifier(estimator=dt, n_estimators=100, max_samples=0.8, max_features=0.8, oob_score=True, random_state=42)
     lr = LogisticRegression(max_iter=1000, solver='newton-cg', random_state=42)
+    lrr = LogisticRegression(max_iter=1000, solver='newton-cg', random_state=42)
 
-    rf.fit(X_train, y_train)
-    with open(f'{model_name}_rf.model', 'wb') as f:
-        pickle.dump(rf, f)
-
-    rfr.fit(X_train_reduced, y_train)
-    with open(f'{model_name}_rf_reduced.model', 'wb') as f:
-        pickle.dump(rfr, f)
-
-    gbm.fit(X_train, y_train)
-    with open(f'{model_name}_gb.model', 'wb') as f:
-        pickle.dump(gbm, f)
-
-    dt_bag.fit(X_train, y_train)
-    with open(f'{model_name}_dt_bag.model', 'wb') as f:
-        pickle.dump(dt_bag, f)
-
-    lr.fit(X_train, y_train)
-    with open(f'{model_name}_lr.model', 'wb') as f:
-        pickle.dump(lr, f)
+    _train_model(X_train, y_train, model_name + "_rf", rf)
+    _train_model(X_train_reduced, y_train, model_name + "_rf_reduced", rfr)
+    _train_model(X_train, y_train, model_name + "_gb", gb)
+    _train_model(X_train_reduced, y_train, model_name + "_gb_reduced", gbr)
+    _train_model(X_train, y_train, model_name + "_dt_bag", dt_bag)
+    _train_model(X_train_reduced, y_train, model_name + "_dt_bag_reduced", dt_bag_r)
+    _train_model(X_train, y_train, model_name + "_lr", lr)
+    _train_model(X_train_reduced, y_train, model_name + "_lr_reduced", lrr)
 
 
-
-    # base_models = [
-    #     ('random_forest', RandomForestClassifier(n_estimators=100, random_state=42)),
-    #     ('svm', SVC(kernel='rbf', probability=True, random_state=42)),  # Use probability=True for stacking
-    #     ('neural_network', MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=500, random_state=42))
-    # ]
-    #
-    # # Define the meta-model (final estimator)
-    # meta_model = LogisticRegression(random_state=42)
-    #
-    # # Create the Stacking Classifier
-    # stacking_clf = StackingClassifier(
-    #     estimators=base_models,  # Base models
-    #     final_estimator=meta_model,  # Meta-model
-    #     cv=5  # Cross-validation for blending
-    # )
-    #
-    # # Fit the Stacking Classifier
-    # stacking_clf.fit(X_train, y_train)
-    #
-    # # Make predictions on the test set
-    # y_pred = stacking_clf.predict(X_test)
-    #
-    # # Evaluate the model
-    # accuracy = accuracy_score(y_test, y_pred)
-    # print(f"Stacking Classifier Accuracy: {accuracy:.2f}")
+def _train_model(X_train, y_train, model_name, model):
+    """Train and save a single model"""
+    model.fit(X_train, y_train)
+    with open(f'{model_name}.model', 'wb') as f:
+        pickle.dump(model, f)
 
 
 def load_and_evaluate(model_name, X_test, y_test, selector=None):
-    with open(f'{model_name}_rf.model', 'rb') as f:
-        rf_full = pickle.load(f)
-    score_rf_full = rf_full.score(X_test, y_test)
+    score_rf_full = _load_and_evaluate(model_name + '_rf', X_test, y_test)
     print(f"Random Forest Classifier Accuracy: {score_rf_full:.4f}")
 
-    if selector:
-        # Apply selector on X_test for reduced feature model evaluation
-        X_test_reduced = selector.transform(X_test)
-        with open(f'{model_name}_rf_reduced.model', 'rb') as f:
-            rf_reduced = pickle.load(f)
-        score_rf_reduced = rf_reduced.score(X_test_reduced, y_test)
-        print(f"Reduced Random Forest Classifier Accuracy: {score_rf_reduced: .4f}")
-
-    with open(f'{model_name}_gb.model', 'rb') as f:
-        gb = pickle.load(f)
-    score_gb = gb.score(X_test, y_test)
+    score_gb = _load_and_evaluate(model_name + '_gb', X_test, y_test)
     print(f"Gradient Boosting Classifier Accuracy: {score_gb:.4f}")
 
-    with open(f'{model_name}_dt_bag.model', 'rb') as f:
-        dt_bag = pickle.load(f)
-    score_dt_bag = dt_bag.score(X_test, y_test)
+    score_dt_bag = _load_and_evaluate(model_name + '_dt_bag', X_test, y_test)
     print(f"Bagging Classifier (Decision Tree) Accuracy: {score_dt_bag:.4f}")
 
     with open(f'{model_name}_lr.model', 'rb') as f:
@@ -149,15 +100,38 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
     lr_accuracy = accuracy_score(y_test, lr_pred)
     print(f"Logistic Regression Accuracy: {lr_accuracy:.4f}")
 
+    if selector:
+        # Apply selector on X_test for reduced feature model evaluation
+        X_test_reduced = selector.transform(X_test)
+
+        score_rf_reduced = _load_and_evaluate(model_name + '_rf_reduced', X_test_reduced, y_test)
+        print(f"Reduced Random Forest Classifier Accuracy: {score_rf_reduced: .4f}")
+
+        score_gb_reduced = _load_and_evaluate(model_name + '_gb_reduced', X_test_reduced, y_test)
+        print(f"Reduced Gradient Boosting Classifier Accuracy: {score_gb_reduced:.4f}")
+
+        score_dt_bag_reduced = _load_and_evaluate(model_name + '_dt_bag_reduced', X_test_reduced, y_test)
+        print(f"Reduced Bagging Classifier (Decision Tree) Accuracy: {score_dt_bag_reduced:.4f}")
+
+        with open(f'{model_name}_lr_reduced.model', 'rb') as f:
+            lr_reduced = pickle.load(f)
+        lr_reduced_prob = lr_reduced.predict_proba(X_test_reduced)[:, 1]
+        lr_reduced_pred = (lr_reduced_prob >= 0.5).astype(int)  # Turn regression into 2 classes
+        lr_reduced_accuracy = accuracy_score(y_test, lr_reduced_pred)
+        print(f"Reduced Logistic Regression Accuracy: {lr_reduced_accuracy:.4f}")
+
+
+def _load_and_evaluate(model_name, X_test, y_test):
+    with open(f'{model_name}.model', 'rb') as f:
+        model = pickle.load(f)
+    score = model.score(X_test, y_test)
+    return score
+
+
 if __name__ == "__main__":
     data = load_data()
 
-    if "HYPERTENSION" in data.columns.to_list():
-        X = data.drop("HYPERTENSION", axis=1)
-    else:
-        print("Column 'HYPERTENSION' not found in data.")
-
-    X = data.drop(["HYPERTENSION"], axis=1)
+    X = data.drop("HYPERTENSION", axis=1)
     y = data["HYPERTENSION"]
 
     X_train, X_test, y_train, y_test = split_data(X, y)
