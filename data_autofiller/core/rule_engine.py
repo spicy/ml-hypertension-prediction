@@ -447,6 +447,8 @@ class DefaultRuleEngine(RuleEngine):
                             processed_value = self.token_processor.process_formula(
                                 mapping_value["formula"]
                             )
+                        elif value == "##VALUE":
+                            processed_value = self.current_answer
                         else:
                             processed_value = self.token_processor.process_token(
                                 value, self.current_answer

@@ -61,7 +61,7 @@
     "label": "Taking prescription for hypertension",
     "text": "Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to . . . take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -94,7 +94,7 @@
 
   "BPQ050A": {
     "label": "Now taking prescribed medicine for HBP",
-    "text": "{Are you/Is SP} now taking prescribed medicine?",
+    "text": "{Are you/Is SP} now taking prescribed medicine to lower blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
     "include": "1",
     "mappings": {
@@ -181,7 +181,7 @@
     "label": "When blood cholesterol last checked",
     "text": "About how long has it been since {you/SP} last had {your/his/her} blood cholesterol checked? Has it been...",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Less than 1 year ago"
@@ -211,7 +211,7 @@
     "label": "Told to take prescription for cholesterol",
     "text": "[To lower (your/his/her) blood cholesterol, (have/has) (you/SP) ever been told by a doctor or other health professional]... to take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Yes"

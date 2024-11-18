@@ -4,24 +4,17 @@ from sklearn.impute import KNNImputer
 from ..core.autofiller import AutofillConfig
 from ..utils.file_utils import get_data_files
 
-import os
-import sys
 
 class Imputer:
     def __init__(self, config: AutofillConfig):
         self.config = config
         self.input_files = get_data_files(self.config.output_dir, "autofilled_data_*.csv")
 
-    # def __init__(self):
-    #     inp_files = os.listdir("../../data/processed/autofilled")
-    #     self.input_files = [f for f in inp_files if f.__contains__(".csv")]
-    #     print(self.input_files)
-
-    def _drop_unsortable_and_sort(self, data: pd.DataFrame):
+    def _drop_and_sort(self, data: pd.DataFrame):
         """Drop all rows from the data that would cause discrepancies in sorting then sort dataframe"""
 
-        # Drop rows with any missing values in systolic, diastolic, age, or hypertension columns
-        data.dropna(axis=0, subset=["BPXOSYAVG", "BPXODIAVG", "RIDAGEYR", "HYPERTENSION"])
+        # Drop rows with any missing values in systolic, diastolic, or hypertension columns
+        data.dropna(axis=0, subset=["BPXOSYAVG", "BPXODIAVG", "HYPERTENSION"])
 
         # Sort by systolic, diastolic, and age
         data_sys = data.sort_values(by=["BPXOSYAVG", "RIDAGEYR", "BPXODIAVG"])
@@ -29,15 +22,6 @@ class Imputer:
         data_age = data.sort_values(by=["RIDAGEYR", "BPXOSYAVG", "BPXODIAVG"])
 
         return [data_sys, data_dia, data_age]
-
-    def impute(self):
-        """Impute missing values for all autofilled data"""
-        for file in self.input_files:
-                data = pd.read_csv(file)
-                sorted_dfs = self._drop_unsortable_and_sort(data)
-                imputed_dfs = [self._impute(df) for df in sorted_dfs]
-                imputed_data = self._average_imputed_dfs(imputed_dfs)
-                imputed_data.to_csv(file, index=False)
 
     def _impute(self, data: pd.DataFrame):
         """Impute missing values for singular dataframe using KNNImpute"""
@@ -58,10 +42,11 @@ class Imputer:
 
         return avg_df
 
-#
-# def main():
-#     imp = Imputer()
-#     imp.impute()
-#
-# if __name__ == "__main__":
-#     sys.exit(main())
+    def impute(self):
+        """Impute missing values for all autofilled data"""
+        for file in self.input_files:
+                data = pd.read_csv(file)
+                sorted_dfs = self._drop_and_sort(data)
+                imputed_dfs = [self._impute(df) for df in sorted_dfs]
+                imputed_data = self._average_imputed_dfs(imputed_dfs)
+                imputed_data.to_csv(file, index=False)

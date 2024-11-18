@@ -68,7 +68,7 @@
     "label": "Do you now smoke cigarettes?",
     "text": "{Do you/Does SP} now smoke cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "1": {
         "description": "Every day",
@@ -116,7 +116,7 @@
     "label": "How long since quit smoking cigarettes",
     "text": "How long has it been since {you/SP} quit smoking cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -140,22 +140,52 @@
     "label": "Unit of measure (day/week/month/year)",
     "text": "Unit of Measure",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0": {
-        "description": "Not Applicable"
+        "description": "Not Applicable",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": "0"
+          }
+        }
       },
       "1": {
-        "description": "Days"
+        "description": "Days",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": "1"
+          }
+        }
       },
       "2": {
-        "description": "Weeks"
+        "description": "Weeks",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": "7"
+          }
+        }
       },
       "3": {
-        "description": "Months"
+        "description": "Months",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": "30"
+          }
+        }
       },
       "4": {
-        "description": "Years"
+        "description": "Years",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": "365"
+          }
+        }
       },
       "7": {
         "description": "Refused"
@@ -164,6 +194,36 @@
         "description": "Don't know"
       }
     }
+  },
+
+  "SMQMULT":{
+    "label": "Time since quit multiplier",
+    "include": "0",
+    "mappings": {
+      "0": {
+        "description": "None"
+      },
+      "1": {
+        "description": "Days"
+      },
+      "7": {
+        "description": "Weeks"
+      },
+      "30": {
+        "description": "Months"
+      },
+      "365": {
+        "description": "Years"
+      }
+    },
+    "formula": "1 if ##SMQ050U == 1 else ( 7 if ##SMQ050U == 2 else ( 30 if ##ALQ120U == 3 else ( 365 if ##ALQ120U == 4 else 0 ) ) )"
+  },
+
+  "SMQQUIT": {
+    "label": "Days since quit smoking",
+    "text": "Time in days since {you/SP} quit smoking?",
+    "include": "1",
+    "formula": "##ALQMULT * ##ALQ120Q * ##ALQ130"
   },
 
   "SMD057": {
