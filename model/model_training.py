@@ -2,10 +2,7 @@ import os
 import pandas as pd
 import pickle
 
-
 from sklearn.feature_selection import SelectKBest, f_classif
-
-
 from sklearn.ensemble import RandomForestClassifier, BaggingClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -36,17 +33,17 @@ def load_data() -> pd.DataFrame:
 
     # Change the HYPERTENSION column to int
     data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
-    data = data.drop(["BPXOSYAVG", "BPXODIAVG"], axis=1)
     return data
 
 
 def split_data(X, y):
+    """Create 80-20 train-test split"""
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
 
 def feature_selection(X_train, y_train):
-    # Select top k features
+    """Select top k features"""
     selector = SelectKBest(f_classif, k=20)  # MODIFY K TO UR DESIRED AMOUNT OF FEATURES
     X_train_reduced = selector.fit_transform(X_train, y_train)
     return X_train_reduced, selector
@@ -66,6 +63,7 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
     lr = LogisticRegression(max_iter=1000, solver='newton-cg', random_state=42)
     lrr = LogisticRegression(max_iter=1000, solver='newton-cg', random_state=42)
 
+    # Train all models
     _train_model(X_train, y_train, model_name + "_rf", rf)
     _train_model(X_train_reduced, y_train, model_name + "_rf_reduced", rfr)
     _train_model(X_train, y_train, model_name + "_gb", gb)
@@ -84,6 +82,7 @@ def _train_model(X_train, y_train, model_name, model):
 
 
 def load_and_evaluate(model_name, X_test, y_test, selector=None):
+    """Load and evaluate all models"""
     score_rf_full = _load_and_evaluate(model_name + '_rf', X_test, y_test)
     print(f"Random Forest Classifier Accuracy: {score_rf_full:.4f}")
 
@@ -122,6 +121,7 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
 
 
 def _load_and_evaluate(model_name, X_test, y_test):
+    """Load and evaluate single model"""
     with open(f'{model_name}.model', 'rb') as f:
         model = pickle.load(f)
     score = model.score(X_test, y_test)

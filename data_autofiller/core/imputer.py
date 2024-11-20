@@ -49,4 +49,9 @@ class Imputer:
                 sorted_dfs = self._drop_and_sort(data)
                 imputed_dfs = [self._impute(df) for df in sorted_dfs]
                 imputed_data = self._average_imputed_dfs(imputed_dfs)
+
+                # Drop systolic and diastolic because they were only left in to calculate HYPERTENSION
+                imputed_data = imputed_data.drop(["BPXOSYAVG", "BPXODIAVG"], axis=1)
+
+                # Save imputed data
                 imputed_data.to_csv(file, index=False)

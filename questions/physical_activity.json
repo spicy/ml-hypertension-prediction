@@ -39,7 +39,7 @@
     "label": "Number of days vigorous work",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -65,7 +65,7 @@
     "label": "Minutes vigorous-intensity work",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
@@ -79,6 +79,13 @@
           "auto_fill": {}
       }
     }
+  },
+
+  "VIGWORK": {
+    "label": "Min per week vigorous work",
+    "text": "Time in minutes per week {you/SP} does vigorous-intensity activity at work?",
+    "include": "1",
+    "formula": "##PAQ610 * ##PAD615"
   },
 
   "PAQ620": {
@@ -121,7 +128,7 @@
     "label": "Number of days moderate work",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -147,7 +154,7 @@
     "label": "Minutes moderate-intensity work",
     "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
@@ -159,6 +166,13 @@
         "description": "Don't know"
       }
     }
+  },
+
+  "MODWORK": {
+    "label": "Min per week moderate work",
+    "text": "Time in minutes per week {you/SP} does moderate-intensity activity at work?",
+    "include": "1",
+    "formula": "##PAQ625 * ##PAD630"
   },
 
   "PAQ635": {
@@ -201,7 +215,7 @@
     "label": "Number of days walk or bicycle",
     "text": "In a typical week, on how many days {do you/does SP} walk or bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -227,7 +241,7 @@
     "label": "Minutes walk/bicycle for transportation",
     "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
@@ -239,6 +253,13 @@
         "description": "Don't know"
       }
     }
+  },
+
+  "BIKEWALK": {
+    "label": "Min per week ride bike/walk for transportation",
+    "text": "Time in minutes per week {you/SP} ride a bike or walk for transportation?",
+    "include": "1",
+    "formula": "##PAQ640 * ##PAD645"
   },
 
   "PAQ650": {
@@ -281,7 +302,7 @@
     "label": "Days vigorous recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -307,7 +328,7 @@
     "label": "Minutes vigorous recreational activities",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
@@ -319,6 +340,13 @@
         "description": "Don't know"
       }
     }
+  },
+
+  "VIGREC": {
+    "label": "Min per week vigorous recreational activity",
+    "text": "Time in minutes per week {you/SP} does vigorous-intensity recreational activity?",
+    "include": "1",
+    "formula": "##PAQ655 * ##PAD660"
   },
 
   "PAQ665": {
@@ -361,7 +389,7 @@
     "label": "Days moderate recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -379,7 +407,7 @@
     "label": "Minutes moderate recreational activities",
     "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include": "0",
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
@@ -391,6 +419,13 @@
         "description": "Don't know"
       }
     }
+  },
+
+  "MODREC": {
+    "label": "Min per week moderate recreational activity",
+    "text": "Time in minutes per week {you/SP} does moderate-intensity recreational activity?",
+    "include": "1",
+    "formula": "##PAQ670 * ##PAD675"
   },
 
   "PAD680": {
