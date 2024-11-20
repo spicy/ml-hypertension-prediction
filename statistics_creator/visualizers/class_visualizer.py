@@ -55,11 +55,6 @@ class ClassVisualizer(BaseVisualizer):
             fontsize=config.TEXT_FONT_SIZE,
             bbox=dict(facecolor=config.TEXT_BOX_FACECOLOR, alpha=config.TEXT_BOX_ALPHA),
         )
-        plt.title(
-            "Class Balance Information",
-            fontsize=config.TITLE_FONT_SIZE,
-            pad=config.TITLE_PAD,
-        )
 
         plt.tight_layout(pad=config.TIGHT_LAYOUT_PAD)
 
