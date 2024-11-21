@@ -477,7 +477,7 @@
     }
   },
 
-  "ALQ141Q": {
+  "ALQ140Q": {
     "label": "# days have 4/5 drinks - past 12 mos",
     "text": "In the past 12 months, on how many days did {you/SP} have 4/5 or more drinks of any alcoholic beverage? PROBE: How many days per week, per month, or per year did {you/SP} have 4/5 or more drinks in a single day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
@@ -488,7 +488,93 @@
         "skip": {
           "destination": "End of section",
           "auto_fill": {
-            "ALQ141U": "0",
+            "ALQ141Q": "0",
+            "ALQMULT45": "0",
+            "ALQFREQ45": "0"
+          }
+        }
+      },
+      "1-365": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "ALQ140U",
+          "auto_fill": {
+            "ALQ141Q": "##VALUE"
+          }
+        }
+      },
+      "777": {
+        "description": "Refused"
+      },
+      "999": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+   "ALQ140U": {
+    "label": "# days per week, month, year?",
+    "text": "UNIT OF MEASURE.",
+    "target": "Both males and females 18 YEARS - 150 YEARS",
+    "include": "0",
+    "mappings": {
+      "0": {
+        "description": "Never in the last year",
+        "skip": {
+          "destination": "End of section",
+          "auto_fill": {
+            "ALQMULT45": "0",
+            "ALQFREQ45": "0"
+          }
+        }
+      },
+      "1": {
+        "description": "Week",
+        "skip": {
+          "destination": "ALQFREQ45",
+          "auto_fill": {
+            "ALQMULT45": "52"
+          }
+        }
+      },
+      "2": {
+        "description": "Month",
+        "skip": {
+          "destination": "ALQFREQ45",
+          "auto_fill": {
+            "ALQMULT45": "12"
+          }
+        }
+      },
+      "3": {
+        "description": "Year",
+        "skip": {
+          "destination": "ALQFREQ45",
+          "auto_fill": {
+            "ALQMULT45": "1"
+          }
+        }
+      },
+      "7": {
+        "description": "Refused"
+      },
+      "9": {
+        "description": "Don't know"
+      }
+    }
+  },
+
+  "ALQ141Q": {
+    "label": "#days have 5 or more drinks/past 12 mos",
+    "text": "In the past 12 months, on how many days did {you/SP} have 5 or more drinks of any alcoholic beverage? PROBE: How many days per week, per month, or per year did {you/SP} have 5 or more drinks in a single day?",
+    "target": "Both males and females 20 YEARS - 150 YEARS",
+    "include": "0",
+    "mappings": {
+      "0": {
+        "description": "Never in the last year",
+        "skip": {
+          "destination": "End of section",
+          "auto_fill": {
             "ALQMULT45": "0",
             "ALQFREQ45": "0"
           }

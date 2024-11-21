@@ -14,6 +14,7 @@
           "destination": "DIQ160",
           "auto_fill": {
             "DID040": "0",
+            "DID040Q": "0",
             "DIQ050": "2",
             "DIQ070": "2"
           }
@@ -25,6 +26,7 @@
           "destination": "DIQ160",
           "auto_fill": {
             "DID040": "0",
+            "DID040Q": "0",
             "DIQ050": "2",
             "DIQ070": "2"
           }
@@ -43,6 +45,43 @@
           "destination": "DIQ160",
           "auto_fill": {}
         }
+      }
+    }
+  },
+    "DID040Q": {
+    "label": "Age when first told you had diabetes",
+    "text": "How old {was SP/were you} when a doctor or other health professional first told {you/him/her} that {you/he/she} had diabetes or sugar diabetes?",
+    "target": "Both males and females 1 YEAR - 150 YEARS",
+    "include": "0",
+    "mappings": {
+      "0": {
+        "description": "Not Applicable"
+      },
+      "1-79": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "DIQ050",
+          "auto_fill": {
+            "DID040": "##VALUE",
+            "DIQ160": "2"
+          }
+        }
+      },
+      "80-90": {
+        "description": "Range of Values",
+        "skip": {
+          "destination": "DIQ050",
+          "auto_fill": {
+            "DID040": "80",
+            "DIQ160": "2"
+          }
+        }
+      },
+      "777": {
+        "description": "Refused"
+      },
+      "999": {
+        "description": "Don't know"
       }
     }
   },
