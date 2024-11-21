@@ -3,6 +3,7 @@
     "label": "Used tobacco/nicotine last 5 days?",
     "text": "The following questions ask about use of tobacco or nicotine products in the past 5 days. During the past 5 days, did {you/he/she} use any product containing nicotine including cigarettes, pipes, cigars, chewing tobacco, snuff, nicotine patches, nicotine gum, or any other product containing nicotine?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
+    "incliude": "0",
     "mappings": {
       "1": {
         "description": "Yes",
@@ -43,6 +44,7 @@
     "label": "Used any tobacco product last 5 days?",
     "text": "Used any tobacco product last 5 days?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
