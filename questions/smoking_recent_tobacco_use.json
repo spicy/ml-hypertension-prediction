@@ -3,6 +3,7 @@
     "label": "Used any tobacco product last 5 days?",
     "text": "Used any tobacco product last 5 days?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -11,12 +12,29 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMDANY": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMDANY": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }
 }
-  

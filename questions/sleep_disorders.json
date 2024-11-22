@@ -3,14 +3,16 @@
     "label": "How much sleep do you get (hours)?",
     "text": "The next set of questions is about your sleeping habits. How much sleep {do you/does SP} usually get at night on weekdays or workdays?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "2-11": {
         "description": "Range of Values",
         "skip": {
           "destination": "SLQ050",
           "auto_fill": {
-            "SLD012": "##VALUE"
+            "SLD012": {
+              "value": "##VALUE"
+            }
           }
         }
       },
@@ -19,22 +21,34 @@
         "skip": {
           "destination": "SLQ050",
           "auto_fill": {
-            "SLD012": "12"
+            "SLD012": {
+              "value": "12"
+            }
           }
         }
       },
       "77": {
         "description": "Refused",
         "skip": {
-          "destination": "SLQ050",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "SLD010H": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
-          "destination": "SLQ050",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "SLD010H": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -44,7 +58,7 @@
     "label": "Sleep hours - weekdays or workdays",
     "text": "Number of hours usually slept on weekdays or workdays.",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "3-13": {
         "description": "Hours slept"
@@ -56,10 +70,28 @@
         "description": "14 hours or more"
       },
       "77": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SLD012": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "99": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SLD012": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -68,7 +100,7 @@
     "label": "Ever told doctor had trouble sleeping?",
     "text": "Have you ever told a doctor or other health professional that you have trouble sleeping?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -77,10 +109,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SLD050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SLD050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

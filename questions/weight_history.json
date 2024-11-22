@@ -1,35 +1,71 @@
 {
   "WHD010": {
-    "label": "Current self-reported height (inches)",
+    "label": "Current self-reported height (inches)", 
     "text": "These next questions ask about {your/SP's} height and weight at different times in {your/his/her} life. How tall {are you/is SP} without shoes?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "49 to 82": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD010": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD010": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
   "WHD020": {
     "label": "Current self-reported weight (pounds)",
     "text": "How much {do you/does SP} weigh without clothes or shoes?",
-    "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "target": "Both males and females 16 YEARS - 150 YEARS", 
+    "include_after_autofill": true,
     "mappings": {
       "67 to 578": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD020": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD020": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -37,16 +73,34 @@
     "label": "Self-reported weight - 1 yr ago (pounds)",
     "text": "How much did {you/SP} weigh a year ago?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true, 
     "mappings": {
       "67 to 618": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHD050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -55,7 +109,7 @@
     "label": "Self-reported greatest weight (pounds)",
     "text": "Up to the present time, what is the most {you have/SP has} ever weighed?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "85 to 700": {
         "description": "Range of Values"
@@ -64,14 +118,24 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "WHD140": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9999": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "WHD140": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -81,7 +145,7 @@
     "label": "Age when heaviest weight",
     "text": "How old {were you/was SP} then? [If you don't know {your/his/her} exact age, please make your best guess.]",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "10 to 79": {
         "description": "Range of Values"
@@ -90,10 +154,28 @@
         "description": "80 years or older"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHQ150": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "WHQ150": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

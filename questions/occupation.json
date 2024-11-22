@@ -3,7 +3,7 @@
     "label": "Type of work done last week",
     "text": "(SP Interview Version) In this part of the survey I will ask you questions about {your/SP's} work experience. Which of the following {were you/was SP} doing last week . .",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Working at a job or business"
@@ -13,7 +13,9 @@
         "skip": {
           "destination": "OCQ210",
           "auto_fill": {
-            "OCQ180": "0"
+            "OCQ180": {
+              "value": "0"
+            }
           }
         }
       },
@@ -22,8 +24,12 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "OCQ180": "0",
-            "OCQ210": "0"
+            "OCQ180": {
+              "value": "0"
+            },
+            "OCQ210": {
+              "value": "0"
+            }
           }
         }
       },
@@ -32,8 +38,12 @@
         "skip": {
           "destination": "OCD383",
           "auto_fill": {
-            "OCQ180": "0",
-            "OCQ210": "0"
+            "OCQ180": {
+              "value": "0"
+            },
+            "OCQ210": {
+              "value": "0"
+            }
           }
         }
       },
@@ -41,14 +51,24 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCD150": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "OCD150": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -57,7 +77,7 @@
     "label": "Hours worked last week in total all jobs",
     "text": "How many hours did {you/SP} work last week in total at all jobs or businesses?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0": {
         "description": "0 Hours"
@@ -70,7 +90,9 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "OCQ210": "1"
+            "OCQ210": {
+              "value": "1"
+            }
           }
         }
       },
@@ -79,15 +101,35 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "OCQ210": "1"
+            "OCQ210": {
+              "value": "1"
+            }
           }
         }
       },
       "77777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "OCQ180": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "99999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "OCQ180": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -95,7 +137,7 @@
     "label": "Usually work 35 or more hours per week",
     "text": "{Do you/Does SP} usually work 35 hours or more per week in total at all jobs or businesses?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -107,10 +149,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "OCQ210": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "OCQ210": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
     "label": "SP ever had pain or discomfort in chest",
     "text": "{Have you/Has SP} ever had any pain or discomfort in {your/her/his} chest?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -13,12 +13,24 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "CDQ002": "2",
-            "CDQ003": "2",
-            "CDQ004": "3",
-            "CDQ005": "3",
-            "CDQ006": "3",
-            "CDQ008": "3"
+            "CDQ002": {
+              "value": "2"
+            },
+            "CDQ003": {
+              "value": "2"
+            },
+            "CDQ004": {
+              "value": "3"
+            },
+            "CDQ005": {
+              "value": "3"
+            },
+            "CDQ006": {
+              "value": "3"
+            },
+            "CDQ008": {
+              "value": "3"
+            }
           }
         }
       },
@@ -26,14 +38,24 @@
         "description": "Refused",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "CDQ001": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {}
+          "auto_fill": {
+            "CDQ001": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -42,7 +64,7 @@
     "label": "SP get it walking uphill or in a hurry",
     "text": "{Do you/Does she/Does he} get it when {you/she/he} walk uphill or hurry?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -52,10 +74,18 @@
         "skip": {
           "destination": "CDQ008",
           "auto_fill": {
-            "CDQ003": "2",
-            "CDQ004": "3",
-            "CDQ005": "3",
-            "CDQ006": "3"
+            "CDQ003": {
+              "value": "2"
+            },
+            "CDQ004": {
+              "value": "3"
+            },
+            "CDQ005": {
+              "value": "3"
+            },
+            "CDQ006": {
+              "value": "3"
+            }
           }
         }
       },
@@ -66,14 +96,24 @@
         "description": "Refused",
         "skip": {
           "destination": "CDQ008",
-          "auto_fill": {}
+          "auto_fill": {
+            "CDQ002": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "CDQ008",
-          "auto_fill": {}
+          "auto_fill": {
+            "CDQ002": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -82,7 +122,7 @@
     "label": "During an ordinary pace on level ground",
     "text": "{Do you/Does she/Does he} get it when {you/she/he} walk at an ordinary pace on level ground?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -91,10 +131,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ003": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ003": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -102,7 +160,7 @@
     "label": "If so does SP continue or slow down",
     "text": "What {do you/does she/does he} do if {you/she/he} get it while {you/she/he} are walking? {Do you/Does she/Does he} stop or slow down or continue at the same pace?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Stop or slow down"
@@ -114,10 +172,28 @@
         "description": "Not applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ004": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ004": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -125,7 +201,7 @@
     "label": "Does standing relieve pain/discomfort",
     "text": "If {you/she/he} stand still, what happens to it? Is the pain or discomfort relieved or not relieved?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Relieved"
@@ -137,10 +213,28 @@
         "description": "Not applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ005": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ005": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -148,7 +242,7 @@
     "label": "How soon is the pain relieved",
     "text": "How soon is the pain relieved? Would you say...",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "10 minutes or less"
@@ -160,10 +254,28 @@
         "description": "Not applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ006": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ006": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -171,7 +283,7 @@
     "label": "Severe pain in chest lasting more than half hour",
     "text": "Was the pain in {your/her/his} chest severe, lasting for half an hour or more?",
     "target": "Both males and females 40 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -183,10 +295,28 @@
         "description": "Not applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ008": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "CDQ008": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

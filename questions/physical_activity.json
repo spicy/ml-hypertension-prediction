@@ -3,7 +3,7 @@
     "label": "Vigorous work activity",
     "text": "Next I am going to ask you about the time {you spend/SP spends} doing different types of physical activity in a typical week. Think first about the time {you spend/he spends/she spends} doing work. Think of work as the things that {you have/he has/she has} to do such as paid or unpaid work, household chores, and yard work. Does {your/SP's} work involve vigorous-intensity activity that causes large increases in breathing or heart rate like carrying or lifting heavy loads, digging or construction work for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -13,23 +13,37 @@
         "skip": {
           "destination": "PAQ620",
           "auto_fill": {
-            "PAQ610": "0",
-            "PAD615": "0"
+            "PAQ610": {
+              "value": "0"
+            },
+            "PAD615": {
+              "value": "0"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ620",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ605": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ620",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ605": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -39,7 +53,7 @@
     "label": "Number of days vigorous work",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -47,15 +61,25 @@
       "77": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ620",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ610": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ620",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ610": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -65,18 +89,34 @@
     "label": "Minutes vigorous-intensity work",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
         "description": "Refused",
-          "auto_fill": {}
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD615": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
         "description": "Don't know",
-          "auto_fill": {}
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD615": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -84,7 +124,7 @@
   "VIGWORK": {
     "label": "Min per week vigorous work",
     "text": "Time in minutes per week {you/SP} does vigorous-intensity activity at work?",
-    "include": "1",
+    "include_after_autofill": true,
     "formula": "##PAQ610 * ##PAD615"
   },
 
@@ -92,7 +132,7 @@
     "label": "Moderate work activity",
     "text": "Does {your/SP's} work involve moderate-intensity activity that causes small increases in breathing or heart rate such as brisk walking or carrying light loads for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -102,23 +142,37 @@
         "skip": {
           "destination": "PAQ635",
           "auto_fill": {
-            "PAQ625": "0",
-            "PAD630": "0"
+            "PAQ625": {
+              "value": "0"
+            },
+            "PAD630": {
+              "value": "0"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ635",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ620": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ635",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ620": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -128,7 +182,7 @@
     "label": "Number of days moderate work",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity activities as part of {your/his/her} work?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -136,15 +190,25 @@
       "77": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ635",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ625": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ635",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ625": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -154,16 +218,34 @@
     "label": "Minutes moderate-intensity work",
     "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD630": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD630": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -171,7 +253,7 @@
   "MODWORK": {
     "label": "Min per week moderate work",
     "text": "Time in minutes per week {you/SP} does moderate-intensity activity at work?",
-    "include": "1",
+    "include_after_autofill": true,
     "formula": "##PAQ625 * ##PAD630"
   },
 
@@ -179,7 +261,7 @@
     "label": "PAQ635",
     "text": "The next questions exclude the physical activity at work that you have already mentioned. Now I would like to ask you about the usual way {you travel/SP travels} to and from places. For example to school, for shopping, to work. In a typical week {do you/does SP} walk or use a bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -189,23 +271,37 @@
         "skip": {
           "destination": "PAQ650",
           "auto_fill": {
-            "PAQ640": "0",
-            "PAD645": "0"
+            "PAQ640": {
+              "value": "0"
+            },
+            "PAD645": {
+              "value": "0"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ650",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ635": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ650",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ635": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -215,7 +311,7 @@
     "label": "Number of days walk or bicycle",
     "text": "In a typical week, on how many days {do you/does SP} walk or bicycle for at least 10 minutes continuously to get to and from places?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -223,15 +319,25 @@
       "77": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ650",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ640": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ650",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ640": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -241,16 +347,34 @@
     "label": "Minutes walk/bicycle for transportation",
     "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD645": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD645": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -258,7 +382,7 @@
   "BIKEWALK": {
     "label": "Min per week ride bike/walk for transportation",
     "text": "Time in minutes per week {you/SP} ride a bike or walk for transportation?",
-    "include": "1",
+    "include_after_autofill": true,
     "formula": "##PAQ640 * ##PAD645"
   },
 
@@ -266,7 +390,7 @@
     "label": "Vigorous recreational activities",
     "text": "The next questions exclude the work and transport activities that you have already mentioned. Now I would like to ask you about sports, fitness and recreational activities. In a typical week {do you/does SP} do any vigorous-intensity sports, fitness, or recreational activities that cause large increases in breathing or heart rate like running or basketball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -276,8 +400,12 @@
         "skip": {
           "destination": "PAQ665",
           "auto_fill": {
-            "PAQ655": "0",
-            "PAD660": "0"
+            "PAQ655": {
+              "value": "0"
+            },
+            "PAD660": {
+              "value": "0"
+            }
           }
         }
       },
@@ -285,14 +413,24 @@
         "description": "Refused",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ650": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
           "destination": "PAQ665",
-          "auto_fill": {}
+          "auto_fill": {
+            "PAQ650": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -302,7 +440,7 @@
     "label": "Days vigorous recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-7": {
         "description": "Range of Values"
@@ -310,15 +448,25 @@
       "77": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ665",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ655": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "99": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ665",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ655": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -328,16 +476,34 @@
     "label": "Minutes vigorous recreational activities",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD660": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD660": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -345,7 +511,7 @@
   "VIGREC": {
     "label": "Min per week vigorous recreational activity",
     "text": "Time in minutes per week {you/SP} does vigorous-intensity recreational activity?",
-    "include": "1",
+    "include_after_autofill": true,
     "formula": "##PAQ655 * ##PAD660"
   },
 
@@ -353,7 +519,7 @@
     "label": "Moderate recreational activities",
     "text": "In a typical week {do you/does SP} do any moderate-intensity sports, fitness, or recreational activities that cause a small increase in breathing or heart rate such as brisk walking, bicycling, swimming, or volleyball for at least 10 minutes continuously?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -363,23 +529,37 @@
         "skip": {
           "destination": "PAQ680",
           "auto_fill": {
-            "PAQ670": "0",
-            "PAD675": "0"
+            "PAQ670": {
+              "value": "0"
+            },
+            "PAD675": {
+              "value": "0"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "PAQ680",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ665": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "PAQ680",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "PAQ665": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -389,16 +569,34 @@
     "label": "Days moderate recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity sports, fitness or recreational activities?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-7": {
         "description": "Range of Values"
       },
       "77": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAQ670": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "99": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAQ670": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -407,16 +605,34 @@
     "label": "Minutes moderate recreational activities",
     "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0-1200": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD675": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD675": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -424,7 +640,7 @@
   "MODREC": {
     "label": "Min per week moderate recreational activity",
     "text": "Time in minutes per week {you/SP} does moderate-intensity recreational activity?",
-    "include": "1",
+    "include_after_autofill": true,
     "formula": "##PAQ670 * ##PAD675"
   },
 
@@ -432,16 +648,34 @@
     "label": "Minutes sedentary activity",
     "text": "The following question is about sitting at school, at home, getting to and from places, or with friends including time spent sitting at a desk, traveling in a car or bus, reading, playing cards, watching television, or using a computer. Do not include time spent sleeping. How much time {do you/does SP} usually spend sitting on a typical day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0-1320": {
         "description": "Range of Values"
       },
       "7777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD680": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "PAD680": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }
