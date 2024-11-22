@@ -3,14 +3,16 @@
     "label": "Used tobacco/nicotine last 5 days?",
     "text": "The following questions ask about use of tobacco or nicotine products in the past 5 days. During the past 5 days, did {you/he/she} use any product containing nicotine including cigarettes, pipes, cigars, chewing tobacco, snuff, nicotine patches, nicotine gum, or any other product containing nicotine?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
-    "incliude": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes",
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "SMDANY": "1"
+            "SMDANY": {
+              "value": "1"
+            }
           }
         }
       },
@@ -19,22 +21,34 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "SMDANY": "2"
+            "SMDANY": {
+              "value": "2"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "SMQ680": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "End of Section",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "SMQ680": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
@@ -44,7 +58,7 @@
     "label": "Used any tobacco product last 5 days?",
     "text": "Used any tobacco product last 5 days?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -53,12 +67,29 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMDANY": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMDANY": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }
 }
-  
