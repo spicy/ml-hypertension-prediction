@@ -8,11 +8,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import GridSearchCV
 
 
 def load_data() -> pd.DataFrame:
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data/processed/autofilled"))
     files = [
+        "autofilled_data_2007-2008.csv",
+        "autofilled_data_2009-2010.csv",
         "autofilled_data_2011-2012.csv",
         "autofilled_data_2013-2014.csv",
         "autofilled_data_2015-2016.csv",
@@ -29,7 +32,7 @@ def load_data() -> pd.DataFrame:
             return None
 
     # Combine all the loaded dataframes into one
-    data = pd.concat([data_frames[0], data_frames[1], data_frames[2], data_frames[3]], axis=0)
+    data = pd.concat([data_frames[0], data_frames[1], data_frames[2], data_frames[3], data_frames[4], data_frames[5]], axis=0)
 
     # Change the HYPERTENSION column to int
     data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
@@ -53,8 +56,8 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
     """Train all models (4+ classifiers)"""
 
     # Initialize all models
-    rf = RandomForestClassifier(n_estimators=300, max_depth=20, min_samples_split=2, min_samples_leaf=4, random_state=42)
-    rfr = RandomForestClassifier(n_estimators=300, max_depth=20, min_samples_split=2, min_samples_leaf=4, random_state=42)
+    rf = RandomForestClassifier(n_estimators=1000, max_depth=25, min_samples_split=6, min_samples_leaf=2, random_state=42, bootstrap=True)
+    rfr = RandomForestClassifier(n_estimators=300, max_depth=10, min_samples_split=10, min_samples_leaf=6, random_state=42)
     gb = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05, max_depth=5, min_samples_leaf=1, min_samples_split=10, random_state=42)
     gbr = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05, max_depth=5, min_samples_leaf=1, min_samples_split=10, random_state=42)
     dt = DecisionTreeClassifier(max_depth=10, min_samples_split=5, random_state=42)
@@ -128,6 +131,26 @@ def _load_and_evaluate(model_name, X_test, y_test):
     return score
 
 
+def find_best_params(X_train, y_train, X_train_reduced, selector):
+    params = {"n_estimators": [300, 500, 700],
+              "max_depth": [None, 10, 20],
+              "min_samples_split": [6, 8, 10, 12, 14, 16],
+              "min_samples_leaf": [4, 6, 8, 10, 12],
+              "bootstrap": [True, False]}
+    rf = RandomForestClassifier()
+    grid_search = GridSearchCV(estimator=rf, param_grid=params, cv=5, scoring="accuracy", verbose=2, n_jobs=-1)
+    grid_search.fit(X_train_reduced, y_train)
+
+    # Print the best parameters and the corresponding accuracy
+    print("Best Parameters:", grid_search.best_params_)
+    print("Best Cross-Validation Accuracy:", grid_search.best_score_)
+    X_test_reduced = selector.transform(X_test)
+    # Evaluate on the test set
+    best_rf = grid_search.best_estimator_
+    y_pred = best_rf.predict(X_test_reduced)
+    print("Test Set Accuracy:", accuracy_score(y_test, y_pred))
+
+
 if __name__ == "__main__":
     data = load_data()
 
@@ -142,3 +165,5 @@ if __name__ == "__main__":
     train_models(X_train, y_train, X_train_reduced, model_name="hypertension_predictor")
 
     load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
+
+    #find_best_params(X_train, y_train, X_train_reduced, selector)

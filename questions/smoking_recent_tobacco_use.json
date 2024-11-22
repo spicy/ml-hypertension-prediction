@@ -1,9 +1,50 @@
 {
+  "SMQ680": {
+    "label": "Used tobacco/nicotine last 5 days?",
+    "text": "The following questions ask about use of tobacco or nicotine products in the past 5 days. During the past 5 days, did {you/he/she} use any product containing nicotine including cigarettes, pipes, cigars, chewing tobacco, snuff, nicotine patches, nicotine gum, or any other product containing nicotine?",
+    "target": "Both males and females 12 YEARS - 150 YEARS",
+    "incliude": "0",
+    "mappings": {
+      "1": {
+        "description": "Yes",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "SMDANY": "1"
+          }
+        }
+      },
+      "2": {
+        "description": "No",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {
+            "SMDANY": "2"
+          }
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "End of Section",
+          "auto_fill": {}
+        }
+      }
+    }
+  },
+
   "SMDANY": {
     "label": "Used any tobacco product last 5 days?",
     "text": "Used any tobacco product last 5 days?",
     "target": "Both males and females 12 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include": "1",
     "mappings": {
       "1": {
         "description": "Yes"
@@ -12,29 +53,12 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused",
-        "skip": {
-          "destination": "",
-          "auto_fill": {
-            "SMDANY": {
-              "value": "",
-              "overwrite_existing": true
-            }
-          }
-        }
+        "description": "Refused"
       },
       "9": {
-        "description": "Don't know",
-        "skip": {
-          "destination": "",
-          "auto_fill": {
-            "SMDANY": {
-              "value": "",
-              "overwrite_existing": true
-            }
-          }
-        }
+        "description": "Don't know"
       }
     }
   }
 }
+  
