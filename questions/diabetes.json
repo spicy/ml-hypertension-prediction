@@ -3,7 +3,7 @@
     "label": "Doctor told you have diabetes",
     "text": "The next questions are about specific medical conditions. {Other than during pregnancy, {have you/has SP}/{Have you/Has SP}} ever been told by a doctor or health professional that {you have/{he/she/SP} has} diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -13,10 +13,18 @@
         "skip": {
           "destination": "DIQ160",
           "auto_fill": {
-            "DID040": "0",
-            "DID040Q": "0",
-            "DIQ050": "2",
-            "DIQ070": "2"
+            "DID040": {
+              "value": "0"
+            },
+            "DID040Q": {
+              "value": "0"
+            },
+            "DIQ050": {
+              "value": "2"
+            },
+            "DIQ070": {
+              "value": "2"
+            }
           }
         }
       },
@@ -25,34 +33,52 @@
         "skip": {
           "destination": "DIQ160",
           "auto_fill": {
-            "DID040": "0",
-            "DID040Q": "0",
-            "DIQ050": "2",
-            "DIQ070": "2"
+            "DID040": {
+              "value": "0"
+            },
+            "DID040Q": {
+              "value": "0"
+            },
+            "DIQ050": {
+              "value": "2"
+            },
+            "DIQ070": {
+              "value": "2"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "DIQ160",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "DIQ010": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "DIQ160",
-          "auto_fill": {}
+          "destination": "",
+          "auto_fill": {
+            "DIQ010": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
         }
       }
     }
   },
-    "DID040Q": {
+  "DID040Q": {
     "label": "Age when first told you had diabetes",
     "text": "How old {was SP/were you} when a doctor or other health professional first told {you/him/her} that {you/he/she} had diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -62,8 +88,12 @@
         "skip": {
           "destination": "DIQ050",
           "auto_fill": {
-            "DID040": "##VALUE",
-            "DIQ160": "2"
+            "DID040": {
+              "value": "##VALUE"
+            },
+            "DIQ160": {
+              "value": "2"
+            }
           }
         }
       },
@@ -72,16 +102,38 @@
         "skip": {
           "destination": "DIQ050",
           "auto_fill": {
-            "DID040": "80",
-            "DIQ160": "2"
+            "DID040": {
+              "value": "80"
+            },
+            "DIQ160": {
+              "value": "2"
+            }
           }
         }
       },
       "777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DID040Q": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DID040Q": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -89,7 +141,7 @@
     "label": "Age when first told you had diabetes",
     "text": "How old {was SP/were you} when a doctor or other health professional first told {you/him/her} that {you/he/she} had diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -99,7 +151,9 @@
         "skip": {
           "destination": "DIQ050",
           "auto_fill": {
-            "DIQ160": "2"
+            "DIQ160": {
+              "value": "2"
+            }
           }
         }
       },
@@ -108,7 +162,9 @@
         "skip": {
           "destination": "DIQ050",
           "auto_fill": {
-            "DIQ160": "2"
+            "DIQ160": {
+              "value": "2"
+            }
           }
         }
       },
@@ -117,15 +173,35 @@
         "skip": {
           "destination": "DIQ050",
           "auto_fill": {
-            "DIQ160": "2"
+            "DIQ160": {
+              "value": "2"
+            }
           }
         }
       },
       "777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DID040": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DID040": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -133,7 +209,7 @@
     "label": "Ever told you have prediabetes",
     "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes, impaired fasting glucose, impaired glucose tolerance, borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -142,10 +218,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ160": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ160": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -153,7 +247,7 @@
     "label": "Taking insulin now",
     "text": "{Is SP/Are you} now taking insulin",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -162,10 +256,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ050": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -173,7 +285,7 @@
     "label": "Taking diabetes pills to lower blood sugar",
     "text": "Are you now taking diabetic pills to lower your blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -182,10 +294,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ070": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "DIQ070": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

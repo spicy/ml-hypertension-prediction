@@ -3,7 +3,7 @@
     "label": "How healthy is the diet",
     "text": "Next I have some questions about {your/SP?s} eating habits. In general, how healthy is {your/his/her} overall diet? Would you say...",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Excellent"

@@ -44,7 +44,7 @@ class LoggerConfig:
     )
     LOGS_FOLDER: str = "logs"
     LOG_FILE_NAME: str = "data_autofill.log"
-    LOG_LEVEL: str = "DEBUG"
+    LOG_LEVEL: str = "INFO"
     LOG_COLORS: Dict[str, str] = field(
         default_factory=lambda: {
             "DEBUG": "cyan",

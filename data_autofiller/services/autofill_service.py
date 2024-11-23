@@ -116,4 +116,4 @@ class AutofillService:
     def _generate_output_path(self, input_file: Path, output_dir: Path) -> Path:
         output_dir.mkdir(parents=True, exist_ok=True)
         year_suffix = input_file.stem.split("_")[1]
-        return output_dir / f"autofilled_data_{year_suffix}.csv"
+        return output_dir / f"AutoFilled_Data_{year_suffix}.csv"

@@ -7,7 +7,7 @@ from ..logger import logger
 
 
 class IncludeFilter:
-    """Filters data to only include columns marked with include: 1 in questions data."""
+    """Filters data to only include columns marked with include: true in questions data."""
 
     def __init__(self, questions_data: Dict):
         """Initialize filter with questions data."""
@@ -15,11 +15,12 @@ class IncludeFilter:
         logger.debug(f"Columns to include: {self.included_columns}")
 
     def _get_included_columns(self, questions_data: Dict) -> List[str]:
-        """Extract column names that have include: 1."""
+        """Extract column names that have include_after_autofill: true."""
         return [
             col
             for col, data in questions_data.items()
-            if data.get("include") == "1" or data.get("include") == 1
+            if data.get("include_after_autofill") == "true"
+            or data.get("include_after_autofill") is True
         ]
 
     def _get_ordered_columns(self, available_columns: set) -> List[str]:

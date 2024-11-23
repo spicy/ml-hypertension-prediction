@@ -1,5 +1,6 @@
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Union
 
+import pandas as pd
 from analyzers.base_analyzer import BaseAnalyzer
 from config import data_config
 from data_loader import DataLoader
@@ -40,14 +41,18 @@ class StatisticsCreator:
         self._statistics_folder = value
 
     @log_execution_time
-    def run_analysis(self, data_path: str) -> dict[str, Any]:
+    def run_analysis(self, data: Union[str, pd.DataFrame]) -> dict[str, Any]:
         """
         Run the analysis on the data and create visualizations.
 
         It loads the data, applies each analyzer to the data, creates visualizations
         based on the analysis results, and returns a dictionary of all results.
         """
-        df = self.data_loader.load_data(data_path)
+        if isinstance(data, str):
+            df = self.data_loader.load_data(data)
+        else:
+            df = data
+
         results = {}
 
         for analyzer, visualizer in self.analyzer_visualizer_pairs:

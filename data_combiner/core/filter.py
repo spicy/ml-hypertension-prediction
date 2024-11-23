@@ -20,6 +20,18 @@ class DataFilter:
         self.column_manager = ColumnManager(relevant_columns)
         self.min_age = min_age
 
+    def _apply_age_filter(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Apply age filtering to the DataFrame."""
+        if "RIDAGEYR" in df.columns:
+            original_count = len(df)
+            filtered_df = df[df["RIDAGEYR"] >= self.min_age]
+            filtered_count = len(filtered_df)
+            logger.info(
+                f"Age filter removed {original_count - filtered_count} entries younger than {self.min_age} years"
+            )
+            return filtered_df
+        return df
+
     def apply(
         self, df: pd.DataFrame, source_file: Optional[Path] = None
     ) -> pd.DataFrame:
@@ -28,14 +40,7 @@ class DataFilter:
             raise ValueError("Cannot filter empty DataFrame")
 
         filtered_df = self.column_manager.ensure_relevant_columns_exist(df)
-
-        if "RIDAGEYR" in filtered_df.columns:
-            original_count = len(filtered_df)
-            filtered_df = filtered_df[filtered_df["RIDAGEYR"] >= self.min_age]
-            filtered_count = len(filtered_df)
-            logger.info(
-                f"Age filter removed {original_count - filtered_count} entries younger than {self.min_age} years"
-            )
+        filtered_df = self._apply_age_filter(filtered_df)
 
         return filtered_df
 

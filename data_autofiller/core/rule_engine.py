@@ -52,10 +52,8 @@ class DefaultRuleEngine(RuleEngine):
 
     def process_rules(
         self, question_id: str, answer: Any, questions_data: Dict
-    ) -> Dict[str, str]:
-        """
-        Process rules for a given question and answer.
-        """
+    ) -> Dict[str, Dict]:
+        """Process rules for a given question and answer."""
         if not question_id or pd.isna(answer):
             return {}
 
@@ -74,25 +72,44 @@ class DefaultRuleEngine(RuleEngine):
                 return self._cache[cache_key]
 
             self._metrics["total_rules_processed"] += 1
-            result = self._process_answer(answer, question_mappings)
+
+            try:
+                result = self._process_numeric_answer(answer, question_mappings)
+            except (ValueError, TypeError):
+                result = self._process_string_answer(answer, question_mappings)
 
             if result:
-                self._metrics["successful_matches"] += 1
-                logger.info(f"Rule match found for {question_id}: {answer} -> {result}")
+                # Parse any string representations of dictionaries
+                processed_result = {}
+                for key, value in result.items():
+                    if isinstance(value, str) and value.startswith("{"):
+                        try:
+                            import ast
 
-            self._cache[cache_key] = result
-            return result
+                            parsed_value = ast.literal_eval(value)
+                            processed_result[key] = {
+                                "value": str(parsed_value.get("value", "")),
+                                "overwrite_existing": parsed_value.get(
+                                    "overwrite_existing", False
+                                ),
+                            }
+                        except (ValueError, SyntaxError) as e:
+                            logger.warning(f"Failed to parse value for {key}: {str(e)}")
+                            continue
+                    else:
+                        processed_result[key] = value
+
+                self._metrics["successful_matches"] += 1
+                logger.info(
+                    f"Rule match found for {question_id}: {answer} -> {processed_result}"
+                )
+                self._cache[cache_key] = processed_result
+                return processed_result
+
+            return {}
 
         except Exception as e:
-            logger.error(
-                "Rule processing error",
-                extra={
-                    "question_id": question_id,
-                    "answer": answer,
-                    "error": str(e),
-                    "error_type": type(e).__name__,
-                },
-            )
+            logger.error(f"Error processing rules for {question_id}: {str(e)}")
             return {}
 
     def process_chunk(self, df: pd.DataFrame, questions_data: Dict) -> pd.DataFrame:
@@ -219,16 +236,7 @@ class DefaultRuleEngine(RuleEngine):
     def _apply_rules_to_column(
         self, df: pd.DataFrame, question_id: str, questions_data: Dict
     ) -> pd.DataFrame:
-        """
-        Apply autofill rules to a specific column in the DataFrame.
-
-        Process:
-        1. Identifies rows where the trigger column (question_id) has values
-        2. For each of these rows:
-            - Gets the trigger value
-            - Finds matching rules
-            - Applies autofill values to empty cells in target columns
-        """
+        """Apply autofill rules to a specific column in the DataFrame."""
         try:
             processed_df = df.copy()
             question_data = questions_data.get(question_id, {})
@@ -263,54 +271,84 @@ class DefaultRuleEngine(RuleEngine):
                 return processed_df
 
             answers = processed_df.loc[mask, question_id]
-            logger.debug(f"- Sample values being processed: {answers.head().to_dict()}")
+            autofill_counts = {
+                "attempted": 0,
+                "successful": 0,
+                "skipped_existing": 0,
+                "no_matching_rules": 0,
+                "missing_columns": 0,
+                "conversion_failed": 0,
+            }
 
-            autofill_counts = {"attempted": 0, "successful": 0, "skipped_existing": 0}
+            # Log unique values being processed
+            unique_values = answers.value_counts()
+            logger.debug(
+                f"Processing unique values in {question_id}: {dict(unique_values)}"
+            )
 
             for idx, answer in answers.items():
-                logger.debug(
-                    f"\nProcessing row {idx}:"
-                    f"\n- Trigger column: {question_id}"
-                    f"\n- Trigger value: {answer} (type: {type(answer)})"
-                )
-
                 autofill_values = self.process_rules(
                     question_id, answer, questions_data
                 )
                 autofill_counts["attempted"] += 1
 
-                if autofill_values:
-                    logger.debug(f"- Found autofill rules: {autofill_values}")
-                    for target_col, value in autofill_values.items():
-                        if target_col in processed_df.columns:
-                            if pd.isna(processed_df.at[idx, target_col]):
-                                # Get the original column dtype
-                                col_dtype = str(processed_df[target_col].dtype)
-                                logger.debug(f"Column {target_col} dtype: {col_dtype}")
+                if not autofill_values:
+                    autofill_counts["no_matching_rules"] += 1
+                    logger.debug(f"No matching rules found for {question_id}={answer}")
+                    continue
 
-                                # Create a single-value series with the correct dtype
-                                try:
-                                    value_series = pd.Series([value], dtype=col_dtype)
-                                    processed_df.loc[idx, target_col] = value_series[0]
-                                    autofill_counts["successful"] += 1
-                                    logger.debug(
-                                        f"-> Filled '{target_col}' with '{value}'"
-                                    )
-                                except (ValueError, TypeError) as e:
-                                    logger.warning(
-                                        f"Failed to set value '{value}' for column '{target_col}' "
-                                        f"with dtype {col_dtype}: {str(e)}"
-                                    )
-                                    continue
-                            else:
-                                autofill_counts["skipped_existing"] += 1
+                for target_col, fill_config in autofill_values.items():
+                    if target_col not in processed_df.columns:
+                        autofill_counts["missing_columns"] += 1
+                        logger.debug(
+                            f"Target column '{target_col}' not found in DataFrame"
+                        )
+                        continue
+
+                    current_value = processed_df.at[idx, target_col]
+                    should_fill = pd.isna(current_value) or fill_config.get(
+                        "overwrite_existing", False
+                    )
+
+                    if should_fill:
+                        value = fill_config["value"]
+                        col_dtype = str(processed_df[target_col].dtype)
+
+                        try:
+                            # Handle empty strings for numeric columns
+                            if value == "":
+                                if "float" in col_dtype:
+                                    processed_df.loc[idx, target_col] = np.nan
+                                elif "int" in col_dtype:
+                                    processed_df.loc[idx, target_col] = pd.NA
+                                autofill_counts["successful"] += 1
                                 logger.debug(
-                                    f"-> Skipped '{target_col}': already contains '{processed_df.at[idx, target_col]}'"
+                                    f"-> Filled '{target_col}' with NA/NaN (empty string converted)"
                                 )
+                            else:
+                                value_series = pd.Series([value], dtype=col_dtype)
+                                processed_df.loc[idx, target_col] = value_series[0]
+                                autofill_counts["successful"] += 1
+                                logger.debug(f"-> Filled '{target_col}' with '{value}'")
+                        except (ValueError, TypeError) as e:
+                            autofill_counts["conversion_failed"] += 1
+                            logger.warning(
+                                f"Failed to set value '{value}' for column '{target_col}' "
+                                f"with dtype {col_dtype}: {str(e)}"
+                            )
+                            continue
+                    else:
+                        autofill_counts["skipped_existing"] += 1
+                        logger.debug(
+                            f"-> Skipped '{target_col}': already contains '{current_value}'"
+                        )
 
             logger.info(
                 f"\nAutofill summary for '{question_id}':"
                 f"\n- Rules attempted: {autofill_counts['attempted']}"
+                f"\n- No matching rules: {autofill_counts['no_matching_rules']}"
+                f"\n- Missing columns: {autofill_counts['missing_columns']}"
+                f"\n- Conversion failures: {autofill_counts['conversion_failed']}"
                 f"\n- Successful fills: {autofill_counts['successful']}"
                 f"\n- Skipped (existing values): {autofill_counts['skipped_existing']}"
             )
@@ -429,7 +467,7 @@ class DefaultRuleEngine(RuleEngine):
                 return self._get_autofill_values(mapping_value)
         return {}
 
-    def _get_autofill_values(self, mapping_value: Dict) -> Dict[str, str]:
+    def _get_autofill_values(self, mapping_value: Dict) -> Dict[str, Dict]:
         """Process mapping values and handle special tokens."""
         processed_values = {}
 
@@ -440,25 +478,57 @@ class DefaultRuleEngine(RuleEngine):
             else:
                 return {}  # Return empty if no auto_fill found
 
-            for target_col, value in autofill_dict.items():
+            for target_col, value_config in autofill_dict.items():
                 try:
-                    if isinstance(value, str) and value.startswith("##"):
-                        if "formula" in mapping_value:
-                            processed_value = self.token_processor.process_formula(
-                                mapping_value["formula"]
+                    # Parse the value_config if it's a string representation of a dict
+                    if isinstance(value_config, str) and value_config.startswith("{"):
+                        import ast
+
+                        try:
+                            value_config = ast.literal_eval(value_config)
+                        except (ValueError, SyntaxError) as e:
+                            logger.warning(
+                                f"Failed to parse value_config for {target_col}: {str(e)}"
                             )
-                        elif value == "##VALUE":
-                            processed_value = self.current_answer
-                        else:
-                            processed_value = self.token_processor.process_token(
-                                value, self.current_answer
-                            )
-                        if processed_value is not None:
-                            processed_values[target_col] = str(processed_value)
+                            continue
+
+                    # Handle both old and new format
+                    if isinstance(value_config, (str, int, float)):
+                        processed_values[target_col] = {
+                            "value": str(value_config),
+                            "overwrite_existing": False,
+                        }
                     else:
-                        processed_values[target_col] = str(value)
+                        value = str(value_config.get("value", ""))
+                        overwrite_existing = value_config.get(
+                            "overwrite_existing", False
+                        )
+
+                        if value.startswith("##"):
+                            if "formula" in mapping_value:
+                                processed_value = self.token_processor.process_formula(
+                                    mapping_value["formula"]
+                                )
+                            elif value == "##VALUE":
+                                processed_value = self.current_answer
+                            else:
+                                processed_value = self.token_processor.process_token(
+                                    value, self.current_answer
+                                )
+
+                            if processed_value is not None:
+                                processed_values[target_col] = {
+                                    "value": str(processed_value),
+                                    "overwrite_existing": overwrite_existing,
+                                }
+                        else:
+                            processed_values[target_col] = {
+                                "value": value,
+                                "overwrite_existing": overwrite_existing,
+                            }
                 except Exception as e:
                     logger.warning(f"Error processing value for {target_col}: {str(e)}")
+                    continue
 
         return processed_values
 
