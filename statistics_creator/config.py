@@ -103,7 +103,7 @@ class DataConfig:
     AUTOFILLED_DIR: Path = field(
         default_factory=lambda: get_project_root() / "data" / "processed" / "autofilled"
     )
-    FILTERED_DATA_PATTERN: str = "autofilled_data_*.csv"
+    FILTERED_DATA_PATTERN: str = "AutoFilled_Data_*.csv"
     TARGET_COLUMN: str = "HYPERTENSION"
     RESULTS_FILENAME: str = "analysis_results.json"
     DEFAULT_STATISTICS_FOLDER: str = (

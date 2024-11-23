@@ -9,6 +9,7 @@ class RuleProcessor:
 
     def __init__(self):
         self.current_answer = None
+        self.token_processor = TokenProcessor()
 
     def process_autofill_rules(
         self, question_id: str, answer: str, questions_data: Dict
@@ -44,24 +45,45 @@ class RuleProcessor:
             return self._get_autofill_values(mapping_value)
         return {}
 
-    def _get_autofill_values(self, mapping_value: Dict) -> Dict[str, str]:
+    def _get_autofill_values(self, mapping_value: Dict) -> Dict[str, Dict]:
         """Extract autofill values from mapping, handling special tokens."""
         autofill_dict = mapping_value.get("skip", {}).get("auto_fill", {})
         processed_dict = {}
 
-        for key, value in autofill_dict.items():
-            if isinstance(value, str) and value == AutofillToken.VALUE.value:
-                value = AutofillToken.VALUE
+        for key, value_config in autofill_dict.items():
+            try:
+                # Handle both old and new format
+                if isinstance(value_config, (str, int, float)):
+                    value = str(value_config)
+                    overwrite_existing = False
+                else:
+                    value = str(value_config.get("value", ""))
+                    overwrite_existing = value_config.get("overwrite_existing", False)
 
-            if processor := TokenProcessor.get_processor(value):
-                try:
-                    processed_dict[key] = processor(self.current_answer)
-                except (ValueError, TypeError) as e:
-                    logging.warning(
-                        f"Error processing token {value} for {key}: {str(e)}"
-                    )
-                    processed_dict[key] = value
-            else:
-                processed_dict[key] = value
+                if value.startswith("##"):
+                    if "formula" in mapping_value:
+                        processed_value = self.token_processor.process_formula(
+                            mapping_value["formula"]
+                        )
+                    elif value == "##VALUE":
+                        processed_value = self.current_answer
+                    else:
+                        processed_value = self.token_processor.process_token(
+                            value, self.current_answer
+                        )
+
+                    if processed_value is not None:
+                        processed_dict[key] = {
+                            "value": str(processed_value),
+                            "overwrite_existing": overwrite_existing,
+                        }
+                else:
+                    processed_dict[key] = {
+                        "value": value,
+                        "overwrite_existing": overwrite_existing,
+                    }
+            except Exception as e:
+                logging.warning(f"Error processing value for {key}: {str(e)}")
+                continue
 
         return processed_dict
