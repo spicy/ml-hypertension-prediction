@@ -318,5 +318,11 @@
         }
       }
     }
+  },
+  "DID040_BUCKET": {
+    "label": "Bucketed Age",
+    "text": "Categorized Age by Buckets.",
+    "include_after_autofill": true,
+    "formula": "if (##DID040 <= 19) {14} else if (##DID040 <= 29) {24} else if (##DID040 <= 39) {34} else if (##DID040 <= 49) {44} else if (##DID040 <= 59) {54} else if (##DID040 <= 69) {64} else if (##DID040 <= 79) {74} else {80}"
   }
 }

@@ -178,5 +178,35 @@
         }
       }
     }
-  }
+  }, 
+      "WHQ150_BUCKET": {
+        "label": "Bucketed Age",
+        "text": "Categorized Age by Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##WHQ150 <= 19) {14} else if (##WHQ150 <= 29) {24} else if (##WHQ150 <= 39) {34} else if (##WHQ150 <= 49) {44} else if (##WHQ150 <= 59) {54} else if (##WHQ150 <= 69) {64} else if (##WHQ150 <= 79) {74} else {80}"
+      },
+      "WHD140_BUCKET": {
+        "label": "Bucketed Weight",
+        "text": "Categorized Weight by Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##WHD140 <= 100) {100} else if (##WHD140 <= 120) {120} else if (##WHD140 <= 140) {140} else if (##WHD140 <= 160) {160} else if (##WHD140 <= 180) {180} else if (##WHD140 <= 200) {200} else if (##WHD140 <= 220) {220} else {240}"
+      },
+      "WHD050_BUCKET": {
+        "label": "Bucketed Weight",
+        "text": "Categorized Weight by Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##WHD050 <= 100) {100} else if (##WHD050 <= 120) {120} else if (##WHD050 <= 140) {140} else if (##WHD050 <= 160) {160} else if (##WHD050 <= 180) {180} else if (##WHD050 <= 200) {200} else if (##WHD050 <= 220) {220} else {240}"
+      },
+      "WHD020_BUCKET": {
+        "label": "Bucketed Weight",
+        "text": "Categorized Weight by Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##WHD020 <= 100) {100} else if (##WHD020 <= 120) {120} else if (##WHD020 <= 140) {140} else if (##WHD020 <= 160) {160} else if (##WHD020 <= 180) {180} else if (##WHD020 <= 200) {200} else if (##WHD020 <= 220) {220} else {240}"
+      },
+      "WHD010_BUCKET": {
+        "label": "Bucketed Height",
+        "text": "Categorized Age by Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##WHD010 <= 48) {48} else if (##WHD010 <= 54) {54} else if (##WHD010 <= 60) {60} else if (##WHD010 <= 66) {66} else if (##WHD010 <= 72) {72} else if (##WHD010 <= 78) {78} else if (##WHD010 <= 84) {84} else {90}"
+      }
 }

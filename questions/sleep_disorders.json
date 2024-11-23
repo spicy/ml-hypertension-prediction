@@ -133,5 +133,11 @@
         }
       }
     }
-  }
+  },
+      "SLD010H_BUCKET": {
+        "label": "Bucketed Sleep Hours",
+        "text": "Categorized Sleep by Hours Buckets.",
+        "include_after_autofill": true,
+        "formula": "if (##SLD010H <= 2) {2} else if (##SLD010H <= 4) {4} else if (##SLD010H <= 6) {6} else if (##SLD010H <= 8) {8} else if (##SLD010H <= 10) {10} else if (##SLD010H <= 12) {12} else if (##SLD010H <= 14) {14} else {16}"
+      }
 }

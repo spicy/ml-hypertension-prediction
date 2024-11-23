@@ -173,5 +173,11 @@
         }
       }
     }
+  },
+  "OCQ180_BUCKET": {
+    "label": "Bucketed Hours Worked",
+    "text": "Categorized Hours Worked by Buckets.",
+    "include_after_autofill": true,
+    "formula": "if (##OCQ180 <= 8) {8} else if (##OCQ180 <= 16) {16} else if (##OCQ180 <= 24) {24} else if (##OCQ180 <= 32) {32} else if (##OCQ180 <= 40) {40} else if (##OCQ180 <= 48) {48} else if (##OCQ180 <= 56) {56} else if (##OCQ180 <= 64) {64} else if (##OCQ180 <= 72) {72} else if (##OCQ180 <= 80) {80} else {88}"
   }
 }

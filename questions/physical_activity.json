@@ -678,5 +678,41 @@
         }
       }
     }
-  }
+  },
+  "PAD615_BUCKET": {
+    "label": "Bucketed Rigourous Work Minutes",
+    "text": "Categorized Rigourous Work by Minutes Buckets.",
+    "include_after_autofill": true,
+    "formula": "if (##PAD615 <= 30) {30} else if (##PAD615 <= 60) {60} else if (##PAD615 <= 90) {90} else if (##PAD615 <= 120) {120} else if (##PAD615 <= 150) {150} else if (##PAD615 <= 180) {180} else if (##PAD615 <= 210) {210} else {240}"
+  },
+  "PAD630_BUCKET": {
+  "label": "Bucketed moderate Work Minutes",
+  "text": "Categorized moderate Work by Minutes Buckets.",
+  "include_after_autofill": true,
+  "formula": "if (##PAD630 <= 30) {30} else if (##PAD630 <= 60) {60} else if (##PAD630 <= 90) {90} else if (##PAD630 <= 120) {120} else if (##PAD630 <= 150) {150} else if (##PAD630 <= 180) {180} else if (##PAD630 <= 210) {210} else {240}"
+  },
+  "PAD645_BUCKET": {
+  "label": "Bucketed walking/bicycle Minutes",
+  "text": "Categorized walking/bicycle by Minutes Buckets.",
+  "include_after_autofill": true,
+  "formula": "if (##PAD645 <= 30) {30} else if (##PAD645 <= 60) {60} else if (##PAD645 <= 90) {90} else if (##PAD645 <= 120) {120} else if (##PAD645 <= 150) {150} else if (##PAD645 <= 180) {180} else if (##PAD645 <= 210) {210} else {240}"
+  },
+  "PAD660_BUCKET": {
+  "label": "Bucketed vigorous recrectional activity Minutes",
+  "text": "Categorized vigorous recrectional activity by Minutes Buckets.",
+  "include_after_autofill": true,
+  "formula": "if (##PAD660 <= 30) {30} else if (##PAD660 <= 60) {60} else if (##PAD660 <= 90) {90} else if (##PAD660 <= 120) {120} else if (##PAD660 <= 150) {150} else if (##PAD660 <= 180) {180} else if (##PAD660 <= 210) {210} else {240}"
+  },
+  "PAD675_BUCKET": {
+  "label": "Bucketed moderate recrectional activity Minutes",
+  "text": "Categorized moderate recrectional activity by Minutes Buckets.",
+  "include_after_autofill": true,
+  "formula": "if (##PAD675 <= 30) {30} else if (##PAD675 <= 60) {60} else if (##PAD675 <= 90) {90} else if (##PAD675 <= 120) {120} else if (##PAD675 <= 150) {150} else if (##PAD675 <= 180) {180} else if (##PAD675 <= 210) {210} else {240}"
+  }, 
+  "PAD680_BUCKET": {
+    "label": "Bucketed Sedentary recrectional activity Minutes",
+    "text": "Categorized edentary recrectional activity by Minutes Buckets.",
+    "include_after_autofill": true,
+    "formula": "if (##PAD680 <= 30) {30} else if (##PAD680 <= 60) {60} else if (##PAD680 <= 90) {90} else if (##PAD680 <= 120) {120} else if (##PAD680 <= 150) {150} else if (##PAD680 <= 180) {180} else if (##PAD680 <= 210) {210} else {240}"
+    }
 }

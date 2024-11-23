@@ -27,5 +27,14 @@
         "description": "80 years of age and over"
       }
     }
-  }
+  },
+
+  "RIDAGEYR_BUCKET": {
+  "label": "Bucketed Age",
+  "text": "Categorized Age by Buckets.",
+  "include_after_autofill": true,
+  "formula": "if (##RIDAGEYR <= 19) {14} else if (##RIDAGEYR <= 29) {24} else if (##RIDAGEYR <= 39) {34} else if (##RIDAGEYR <= 49) {44} else if (##RIDAGEYR <= 59) {54} else if (##RIDAGEYR <= 69) {64} else if (##RIDAGEYR <= 79) {74} else {80}"
+}
+
+
 }
