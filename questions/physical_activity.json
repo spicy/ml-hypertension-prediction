@@ -665,11 +665,11 @@
   },
   "MODWORK_BUCKET": {
     "include_after_autofill": true,
-    "formula": "375 if ##MODWORK <= 375 else ( 750 if ##MODWORK <= 750 else ( 1125 if ##MODWORK <= 1125 else ( 1500 if ##MODWORK <= 1500 else ( 1875 if ##MODWORK <= 1875 else ( 2250 if ##MODWORK <= 2250 else ( 2625 if ##MODWORK <= 2625 else 3000 ) ) ) ) ) )"
+    "formula": "500 if ##MODWORK <= 500 else ( 1000 if ##MODWORK <= 1000 else ( 1500 if ##MODWORK <= 1500 else ( 2000 if ##MODWORK <= 2000 else ( 2500 if ##MODWORK <= 2500 else ( 3000 if ##MODWORK <= 3000 else ( 3500 if ##MODWORK <= 3500 else 4000 ) ) ) ) ) )"
   },
   "BIKEWALK_BUCKET": {
     "include_after_autofill": true,
-    "formula": "375 if ##BIKEWALK <= 375 else ( 750 if ##BIKEWALK <= 750 else ( 1125 if ##BIKEWALK <= 1125 else ( 1500 if ##BIKEWALK <= 1500 else ( 1875 if ##BIKEWALK <= 1875 else ( 2250 if ##BIKEWALK <= 2250 else ( 2625 if ##BIKEWALK <= 2625 else 3000 ) ) ) ) ) )"
+    "formula": "500 if ##BIKEWALK <= 500 else ( 1000 if ##BIKEWALK <= 1000 else ( 1500 if ##BIKEWALK <= 1500 else ( 2000 if ##BIKEWALK <= 2000 else ( 2500 if ##BIKEWALK <= 2500 else ( 3000 if ##BIKEWALK <= 3000 else ( 3500 if ##BIKEWALK <= 3500 else 4000 ) ) ) ) ) )"
   },
   "VIGREC_BUCKET": {
     "include_after_autofill": true,
@@ -677,6 +677,6 @@
   },
   "MODREC_BUCKET": {
     "include_after_autofill": true,
-    "formula": "375 if ##MODREC <= 375 else ( 750 if ##MODREC <= 750 else ( 1125 if ##MODREC <= 1125 else ( 1500 if ##MODREC <= 1500 else ( 1875 if ##MODREC <= 1875 else ( 2250 if ##MODREC <= 2250 else ( 2625 if ##MODREC <= 2625 else 3000 ) ) ) ) ) )"
+    "formula": "500 if ##MODREC <= 500 else ( 1000 if ##MODREC <= 1000 else ( 1500 if ##MODREC <= 1500 else ( 2000 if ##MODREC <= 2000 else ( 2500 if ##MODREC <= 2500 else ( 3000 if ##MODREC <= 3000 else ( 3500 if ##MODREC <= 3500 else 4000 ) ) ) ) ) )"
   }
 }
