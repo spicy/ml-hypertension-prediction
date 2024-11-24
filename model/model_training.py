@@ -1,7 +1,9 @@
 import os
 import pickle
 
+import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 from sklearn.ensemble import (
     BaggingClassifier,
     GradientBoostingClassifier,
@@ -11,11 +13,14 @@ from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
+    auc,
+    confusion_matrix,
+    f1_score,
+    precision_recall_curve,
     precision_score,
     recall_score,
-    f1_score,
     roc_auc_score,
-    confusion_matrix
+    roc_curve,
 )
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -87,14 +92,14 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
         max_depth=25,
         min_samples_split=2,
         min_samples_leaf=8,
-        random_state=42
+        random_state=42,
     )
     rfr = RandomForestClassifier(
         n_estimators=300,
         max_depth=10,
         min_samples_split=10,
         min_samples_leaf=6,
-        random_state=42
+        random_state=42,
     )
     gb = GradientBoostingClassifier(
         n_estimators=100,
@@ -102,7 +107,7 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
         max_depth=5,
         min_samples_leaf=1,
         min_samples_split=10,
-        random_state=42
+        random_state=42,
     )
     gbr = GradientBoostingClassifier(
         n_estimators=100,
@@ -110,13 +115,10 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
         max_depth=5,
         min_samples_leaf=1,
         min_samples_split=10,
-        random_state=42
+        random_state=42,
     )
     dt = DecisionTreeClassifier(
-        max_depth=10,
-        min_samples_split=15,
-        min_samples_leaf=4,
-        random_state=42
+        max_depth=10, min_samples_split=15, min_samples_leaf=4, random_state=42
     )
     dt_bag = BaggingClassifier(
         estimator=dt,
@@ -125,7 +127,7 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
         max_features=1.0,
         bootstrap=True,
         oob_score=True,
-        random_state=42
+        random_state=42,
     )
     dt_bag_r = BaggingClassifier(
         estimator=dt,
@@ -133,18 +135,10 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
         max_samples=0.8,
         max_features=0.8,
         oob_score=True,
-        random_state=42
+        random_state=42,
     )
-    lr = LogisticRegression(
-        max_iter=1000,
-        solver='newton-cg',
-        random_state=42
-    )
-    lrr = LogisticRegression(
-        max_iter=1000,
-        solver='newton-cg',
-        random_state=42
-    )
+    lr = LogisticRegression(max_iter=1000, solver="newton-cg", random_state=42)
+    lrr = LogisticRegression(max_iter=1000, solver="newton-cg", random_state=42)
 
     # Train all models
     _train_model(X_train, y_train, model_name + "_rf", rf)
@@ -182,16 +176,16 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
 
 
 def _load_and_evaluate(model_name, X_test, y_test):
-    """Load and evaluate single model"""
+    """Load and evaluate single model with detailed visualization"""
     with open(f"{model_name}.model", "rb") as f:
         model = pickle.load(f)
 
     if "lr" in model_name:
-        # Turn probability into 2 classes
         y_prob = model.predict_proba(X_test)[:, 1]
         y_pred = (y_prob >= 0.5).astype(int)
     else:
         y_pred = model.predict(X_test)
+        y_prob = model.predict_proba(X_test)[:, 1]
 
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
@@ -207,17 +201,84 @@ def _load_and_evaluate(model_name, X_test, y_test):
     print(f"{model_name} ROC AUC: {roc_auc}")
     print(f"{model_name} Confusion Matrix: \n", conf_matrix, "\n")
 
-    # TODO: Add visualization of evaluation metrics
+    eval_dir = "evaluation_plots"
+    model_dir = os.path.join(eval_dir, model_name)
+    os.makedirs(model_dir, exist_ok=True)
+
+    # Plot confusion matrix
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(
+        conf_matrix,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=["Negative", "Positive"],
+        yticklabels=["Negative", "Positive"],
+    )
+    plt.title(f"Confusion Matrix - {model_name}")
+    plt.ylabel("True Label")
+    plt.xlabel("Predicted Label")
+    plt.tight_layout()
+    plt.savefig(
+        os.path.join(model_dir, "confusion_matrix.png"), dpi=300, bbox_inches="tight"
+    )
+    plt.close()
+
+    # Plot ROC curve
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    plt.figure(figsize=(10, 8))
+    plt.plot(
+        fpr, tpr, color="darkorange", lw=2, label=f"ROC curve (AUC = {roc_auc:.2f})"
+    )
+    plt.plot([0, 1], [0, 1], color="navy", lw=2, linestyle="--")
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title(f"ROC Curve - {model_name}")
+    plt.legend(loc="lower right")
+    plt.tight_layout()
+    plt.savefig(os.path.join(model_dir, "roc_curve.png"), dpi=300, bbox_inches="tight")
+    plt.close()
+
+    # Plot Precision-Recall curve
+    precision_curve, recall_curve, _ = precision_recall_curve(y_test, y_prob)
+    pr_auc = auc(recall_curve, precision_curve)
+    plt.figure(figsize=(10, 8))
+    plt.plot(
+        recall_curve,
+        precision_curve,
+        color="darkgreen",
+        lw=2,
+        label=f"PR curve (AUC = {pr_auc:.2f})",
+    )
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.title(f"Precision-Recall Curve - {model_name}")
+    plt.legend(loc="lower left")
+    plt.tight_layout()
+    plt.savefig(
+        os.path.join(model_dir, "precision_recall_curve.png"),
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close()
 
 
 def find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector):
-    params = {"n_estimators": [500, 700, 1000],
-              "max_depth": [None, 20, 25],
-              "min_samples_split": [2, 4, 8, 10, 12],
-              "min_samples_leaf": [4, 6, 8, 10],
-              "bootstrap": [True, False]}
+    params = {
+        "n_estimators": [500, 700, 1000],
+        "max_depth": [None, 20, 25],
+        "min_samples_split": [2, 4, 8, 10, 12],
+        "min_samples_leaf": [4, 6, 8, 10],
+        "bootstrap": [True, False],
+    }
     rf = RandomForestClassifier()
-    grid_search = GridSearchCV(estimator=rf, param_grid=params, cv=5, scoring="f1", verbose=3, n_jobs=-1)
+    grid_search = GridSearchCV(
+        estimator=rf, param_grid=params, cv=5, scoring="f1", verbose=3, n_jobs=-1
+    )
     grid_search.fit(X_train_reduced, y_train)
 
     # Print the best parameters and the corresponding accuracy
@@ -276,8 +337,7 @@ if __name__ == "__main__":
     # Feature selection for reduced model
     X_train_reduced, selector = feature_selection(X_train, y_train)
 
-    # train_models(X_train, y_train, X_train_reduced, model_name="hypertension_predictor")
-    #
-    # load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
+    train_models(X_train, y_train, X_train_reduced, model_name="hypertension_predictor")
+    load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
 
-    find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector)
+    # find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector)

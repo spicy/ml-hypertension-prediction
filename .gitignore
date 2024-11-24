@@ -169,3 +169,5 @@ cython_debug/
 
 *.history/
 .DS_Store
+*.model
+/model/evaluation_plots
