@@ -13,12 +13,11 @@
       }
     }
   },
-
   "RIDAGEYR": {
     "label": "Age in years at screening",
     "text": "Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "0-79": {
         "description": "Range of Values"
@@ -28,13 +27,10 @@
       }
     }
   },
-
   "RIDAGEYR_BUCKET": {
-  "label": "Bucketed Age",
-  "text": "Categorized Age by Buckets.",
-  "include_after_autofill": true,
-  "formula": "if (##RIDAGEYR <= 19) {14} else if (##RIDAGEYR <= 29) {24} else if (##RIDAGEYR <= 39) {34} else if (##RIDAGEYR <= 49) {44} else if (##RIDAGEYR <= 59) {54} else if (##RIDAGEYR <= 69) {64} else if (##RIDAGEYR <= 79) {74} else {80}"
-}
-
-
+    "label": "Bucketed Age",
+    "text": "Categorized Age by Buckets.",
+    "include_after_autofill": true,
+    "formula": "14 if ##RIDAGEYR <= 19 else ( 24 if ##RIDAGEYR <= 29 else ( 34 if ##RIDAGEYR <= 39 else ( 44 if ##RIDAGEYR <= 49 else ( 54 if ##RIDAGEYR <= 59 else ( 64 if ##RIDAGEYR <= 69 else ( 74 if ##RIDAGEYR <= 79 else 80 ) ) ) ) ) )"
+  }
 }

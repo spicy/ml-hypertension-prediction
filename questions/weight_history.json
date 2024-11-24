@@ -1,9 +1,9 @@
 {
   "WHD010": {
-    "label": "Current self-reported height (inches)", 
+    "label": "Current self-reported height (inches)",
     "text": "These next questions ask about {your/SP's} height and weight at different times in {your/his/her} life. How tall {are you/is SP} without shoes?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "49 to 82": {
         "description": "Range of Values"
@@ -37,8 +37,8 @@
   "WHD020": {
     "label": "Current self-reported weight (pounds)",
     "text": "How much {do you/does SP} weigh without clothes or shoes?",
-    "target": "Both males and females 16 YEARS - 150 YEARS", 
-    "include_after_autofill": true,
+    "target": "Both males and females 16 YEARS - 150 YEARS",
+    "include_after_autofill": false,
     "mappings": {
       "67 to 578": {
         "description": "Range of Values"
@@ -73,7 +73,7 @@
     "label": "Self-reported weight - 1 yr ago (pounds)",
     "text": "How much did {you/SP} weigh a year ago?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include_after_autofill": true, 
+    "include_after_autofill": false,
     "mappings": {
       "67 to 618": {
         "description": "Range of Values"
@@ -104,12 +104,11 @@
       }
     }
   },
-
   "WHD140": {
     "label": "Self-reported greatest weight (pounds)",
     "text": "Up to the present time, what is the most {you have/SP has} ever weighed?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "85 to 700": {
         "description": "Range of Values"
@@ -140,12 +139,11 @@
       }
     }
   },
-
   "WHQ150": {
     "label": "Age when heaviest weight",
     "text": "How old {were you/was SP} then? [If you don't know {your/his/her} exact age, please make your best guess.]",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "10 to 79": {
         "description": "Range of Values"
@@ -178,35 +176,35 @@
         }
       }
     }
-  }, 
-      "WHQ150_BUCKET": {
-        "label": "Bucketed Age",
-        "text": "Categorized Age by Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##WHQ150 <= 19) {14} else if (##WHQ150 <= 29) {24} else if (##WHQ150 <= 39) {34} else if (##WHQ150 <= 49) {44} else if (##WHQ150 <= 59) {54} else if (##WHQ150 <= 69) {64} else if (##WHQ150 <= 79) {74} else {80}"
-      },
-      "WHD140_BUCKET": {
-        "label": "Bucketed Weight",
-        "text": "Categorized Weight by Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##WHD140 <= 100) {100} else if (##WHD140 <= 120) {120} else if (##WHD140 <= 140) {140} else if (##WHD140 <= 160) {160} else if (##WHD140 <= 180) {180} else if (##WHD140 <= 200) {200} else if (##WHD140 <= 220) {220} else {240}"
-      },
-      "WHD050_BUCKET": {
-        "label": "Bucketed Weight",
-        "text": "Categorized Weight by Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##WHD050 <= 100) {100} else if (##WHD050 <= 120) {120} else if (##WHD050 <= 140) {140} else if (##WHD050 <= 160) {160} else if (##WHD050 <= 180) {180} else if (##WHD050 <= 200) {200} else if (##WHD050 <= 220) {220} else {240}"
-      },
-      "WHD020_BUCKET": {
-        "label": "Bucketed Weight",
-        "text": "Categorized Weight by Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##WHD020 <= 100) {100} else if (##WHD020 <= 120) {120} else if (##WHD020 <= 140) {140} else if (##WHD020 <= 160) {160} else if (##WHD020 <= 180) {180} else if (##WHD020 <= 200) {200} else if (##WHD020 <= 220) {220} else {240}"
-      },
-      "WHD010_BUCKET": {
-        "label": "Bucketed Height",
-        "text": "Categorized Age by Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##WHD010 <= 48) {48} else if (##WHD010 <= 54) {54} else if (##WHD010 <= 60) {60} else if (##WHD010 <= 66) {66} else if (##WHD010 <= 72) {72} else if (##WHD010 <= 78) {78} else if (##WHD010 <= 84) {84} else {90}"
-      }
+  },
+  "WHQ150_BUCKET": {
+    "label": "Bucketed Age",
+    "text": "Categorized Age by Buckets.",
+    "include_after_autofill": true,
+    "formula": "14 if ##WHQ150 <= 19 else ( 24 if ##WHQ150 <= 29 else ( 34 if ##WHQ150 <= 39 else ( 44 if ##WHQ150 <= 49 else ( 54 if ##WHQ150 <= 59 else ( 64 if ##WHQ150 <= 69 else ( 74 if ##WHQ150 <= 79 else 80 ) ) ) ) ) )"
+  },
+  "WHD140_BUCKET": {
+    "label": "Bucketed Weight",
+    "text": "Categorized Weight by Buckets.",
+    "include_after_autofill": true,
+    "formula": "100 if ##WHD140 <= 100 else ( 120 if ##WHD140 <= 120 else ( 140 if ##WHD140 <= 140 else ( 160 if ##WHD140 <= 160 else ( 180 if ##WHD140 <= 180 else ( 200 if ##WHD140 <= 200 else ( 220 if ##WHD140 <= 220 else 240 ) ) ) ) ) )"
+  },
+  "WHD050_BUCKET": {
+    "label": "Bucketed Weight",
+    "text": "Categorized Weight by Buckets.",
+    "include_after_autofill": true,
+    "formula": "100 if ##WHD050 <= 100 else ( 120 if ##WHD050 <= 120 else ( 140 if ##WHD050 <= 140 else ( 160 if ##WHD050 <= 160 else ( 180 if ##WHD050 <= 180 else ( 200 if ##WHD050 <= 200 else ( 220 if ##WHD050 <= 220 else 240 ) ) ) ) ) )"
+  },
+  "WHD020_BUCKET": {
+    "label": "Bucketed Weight",
+    "text": "Categorized Weight by Buckets.",
+    "include_after_autofill": true,
+    "formula": "100 if ##WHD020 <= 100 else ( 120 if ##WHD020 <= 120 else ( 140 if ##WHD020 <= 140 else ( 160 if ##WHD020 <= 160 else ( 180 if ##WHD020 <= 180 else ( 200 if ##WHD020 <= 200 else ( 220 if ##WHD020 <= 220 else 240 ) ) ) ) ) )"
+  },
+  "WHD010_BUCKET": {
+    "label": "Bucketed Height",
+    "text": "Categorized Age by Buckets.",
+    "include_after_autofill": true,
+    "formula": "48 if ##WHD010 <= 48 else ( 54 if ##WHD010 <= 54 else ( 60 if ##WHD010 <= 60 else ( 66 if ##WHD010 <= 66 else ( 72 if ##WHD010 <= 72 else ( 78 if ##WHD010 <= 78 else ( 84 if ##WHD010 <= 84 else 90 ) ) ) ) ) )"
+  }
 }

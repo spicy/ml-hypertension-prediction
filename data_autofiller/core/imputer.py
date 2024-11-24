@@ -19,9 +19,9 @@ class Imputer:
         data.dropna(axis=0, subset=["BPXOSYAVG", "BPXODIAVG", "HYPERTENSION"])
 
         # Sort by systolic, diastolic, and age
-        data_sys = data.sort_values(by=["BPXOSYAVG", "RIDAGEYR", "BPXODIAVG"])
-        data_dia = data.sort_values(by=["BPXODIAVG", "RIDAGEYR", "BPXOSYAVG"])
-        data_age = data.sort_values(by=["RIDAGEYR", "BPXOSYAVG", "BPXODIAVG"])
+        data_sys = data.sort_values(by=["BPXOSYAVG", "RIDAGEYR_BUCKET", "BPXODIAVG"])
+        data_dia = data.sort_values(by=["BPXODIAVG", "RIDAGEYR_BUCKET", "BPXOSYAVG"])
+        data_age = data.sort_values(by=["RIDAGEYR_BUCKET", "BPXOSYAVG", "BPXODIAVG"])
 
         return [data_sys, data_dia, data_age]
 

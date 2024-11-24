@@ -48,7 +48,6 @@
       }
     }
   },
-
   "PAQ610": {
     "label": "Number of days vigorous work",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity activities as part of {your/his/her} work?",
@@ -84,7 +83,6 @@
       }
     }
   },
-
   "PAD615": {
     "label": "Minutes vigorous-intensity work",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity activities at work on a typical day?",
@@ -120,14 +118,12 @@
       }
     }
   },
-
   "VIGWORK": {
     "label": "Min per week vigorous work",
     "text": "Time in minutes per week {you/SP} does vigorous-intensity activity at work?",
     "include_after_autofill": true,
     "formula": "##PAQ610 * ##PAD615"
   },
-
   "PAQ620": {
     "label": "Moderate work activity",
     "text": "Does {your/SP's} work involve moderate-intensity activity that causes small increases in breathing or heart rate such as brisk walking or carrying light loads for at least 10 minutes continuously?",
@@ -177,7 +173,6 @@
       }
     }
   },
-
   "PAQ625": {
     "label": "Number of days moderate work",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity activities as part of {your/his/her} work?",
@@ -213,7 +208,6 @@
       }
     }
   },
-
   "PAD630": {
     "label": "Minutes moderate-intensity work",
     "text": "How much time {do you/does SP} spend doing moderate-intensity activities at work on a typical day?",
@@ -249,14 +243,12 @@
       }
     }
   },
-
   "MODWORK": {
     "label": "Min per week moderate work",
     "text": "Time in minutes per week {you/SP} does moderate-intensity activity at work?",
     "include_after_autofill": true,
     "formula": "##PAQ625 * ##PAD630"
   },
-
   "PAQ635": {
     "label": "PAQ635",
     "text": "The next questions exclude the physical activity at work that you have already mentioned. Now I would like to ask you about the usual way {you travel/SP travels} to and from places. For example to school, for shopping, to work. In a typical week {do you/does SP} walk or use a bicycle for at least 10 minutes continuously to get to and from places?",
@@ -306,7 +298,6 @@
       }
     }
   },
-
   "PAQ640": {
     "label": "Number of days walk or bicycle",
     "text": "In a typical week, on how many days {do you/does SP} walk or bicycle for at least 10 minutes continuously to get to and from places?",
@@ -342,7 +333,6 @@
       }
     }
   },
-
   "PAD645": {
     "label": "Minutes walk/bicycle for transportation",
     "text": "How much time {do you/does SP} spend walking or bicycling for travel on a typical day?",
@@ -378,14 +368,12 @@
       }
     }
   },
-
   "BIKEWALK": {
     "label": "Min per week ride bike/walk for transportation",
     "text": "Time in minutes per week {you/SP} ride a bike or walk for transportation?",
     "include_after_autofill": true,
     "formula": "##PAQ640 * ##PAD645"
   },
-
   "PAQ650": {
     "label": "Vigorous recreational activities",
     "text": "The next questions exclude the work and transport activities that you have already mentioned. Now I would like to ask you about sports, fitness and recreational activities. In a typical week {do you/does SP} do any vigorous-intensity sports, fitness, or recreational activities that cause large increases in breathing or heart rate like running or basketball for at least 10 minutes continuously?",
@@ -435,7 +423,6 @@
       }
     }
   },
-
   "PAQ655": {
     "label": "Days vigorous recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do vigorous-intensity sports, fitness or recreational activities?",
@@ -471,7 +458,6 @@
       }
     }
   },
-
   "PAD660": {
     "label": "Minutes vigorous recreational activities",
     "text": "How much time {do you/does SP} spend doing vigorous-intensity sports, fitness or recreational activities on a typical day?",
@@ -507,14 +493,12 @@
       }
     }
   },
-
   "VIGREC": {
     "label": "Min per week vigorous recreational activity",
     "text": "Time in minutes per week {you/SP} does vigorous-intensity recreational activity?",
     "include_after_autofill": true,
     "formula": "##PAQ655 * ##PAD660"
   },
-
   "PAQ665": {
     "label": "Moderate recreational activities",
     "text": "In a typical week {do you/does SP} do any moderate-intensity sports, fitness, or recreational activities that cause a small increase in breathing or heart rate such as brisk walking, bicycling, swimming, or volleyball for at least 10 minutes continuously?",
@@ -564,7 +548,6 @@
       }
     }
   },
-
   "PAQ670": {
     "label": "Days moderate recreational activities",
     "text": "In a typical week, on how many days {do you/does SP} do moderate-intensity sports, fitness or recreational activities?",
@@ -600,7 +583,6 @@
       }
     }
   },
-
   "PAD675": {
     "label": "Minutes moderate recreational activities",
     "text": "How much time {do you/does SP} spend doing moderate-intensity sports, fitness or recreational activities on a typical day?",
@@ -636,14 +618,12 @@
       }
     }
   },
-
   "MODREC": {
     "label": "Min per week moderate recreational activity",
     "text": "Time in minutes per week {you/SP} does moderate-intensity recreational activity?",
     "include_after_autofill": true,
     "formula": "##PAQ670 * ##PAD675"
   },
-
   "PAD680": {
     "label": "Minutes sedentary activity",
     "text": "The following question is about sitting at school, at home, getting to and from places, or with friends including time spent sitting at a desk, traveling in a car or bus, reading, playing cards, watching television, or using a computer. Do not include time spent sleeping. How much time {do you/does SP} usually spend sitting on a typical day?",
@@ -679,40 +659,10 @@
       }
     }
   },
-  "PAD615_BUCKET": {
-    "label": "Bucketed Rigourous Work Minutes",
-    "text": "Categorized Rigourous Work by Minutes Buckets.",
-    "include_after_autofill": true,
-    "formula": "if (##PAD615 <= 30) {30} else if (##PAD615 <= 60) {60} else if (##PAD615 <= 90) {90} else if (##PAD615 <= 120) {120} else if (##PAD615 <= 150) {150} else if (##PAD615 <= 180) {180} else if (##PAD615 <= 210) {210} else {240}"
-  },
-  "PAD630_BUCKET": {
-  "label": "Bucketed moderate Work Minutes",
-  "text": "Categorized moderate Work by Minutes Buckets.",
-  "include_after_autofill": true,
-  "formula": "if (##PAD630 <= 30) {30} else if (##PAD630 <= 60) {60} else if (##PAD630 <= 90) {90} else if (##PAD630 <= 120) {120} else if (##PAD630 <= 150) {150} else if (##PAD630 <= 180) {180} else if (##PAD630 <= 210) {210} else {240}"
-  },
-  "PAD645_BUCKET": {
-  "label": "Bucketed walking/bicycle Minutes",
-  "text": "Categorized walking/bicycle by Minutes Buckets.",
-  "include_after_autofill": true,
-  "formula": "if (##PAD645 <= 30) {30} else if (##PAD645 <= 60) {60} else if (##PAD645 <= 90) {90} else if (##PAD645 <= 120) {120} else if (##PAD645 <= 150) {150} else if (##PAD645 <= 180) {180} else if (##PAD645 <= 210) {210} else {240}"
-  },
-  "PAD660_BUCKET": {
-  "label": "Bucketed vigorous recrectional activity Minutes",
-  "text": "Categorized vigorous recrectional activity by Minutes Buckets.",
-  "include_after_autofill": true,
-  "formula": "if (##PAD660 <= 30) {30} else if (##PAD660 <= 60) {60} else if (##PAD660 <= 90) {90} else if (##PAD660 <= 120) {120} else if (##PAD660 <= 150) {150} else if (##PAD660 <= 180) {180} else if (##PAD660 <= 210) {210} else {240}"
-  },
-  "PAD675_BUCKET": {
-  "label": "Bucketed moderate recrectional activity Minutes",
-  "text": "Categorized moderate recrectional activity by Minutes Buckets.",
-  "include_after_autofill": true,
-  "formula": "if (##PAD675 <= 30) {30} else if (##PAD675 <= 60) {60} else if (##PAD675 <= 90) {90} else if (##PAD675 <= 120) {120} else if (##PAD675 <= 150) {150} else if (##PAD675 <= 180) {180} else if (##PAD675 <= 210) {210} else {240}"
-  }, 
   "PAD680_BUCKET": {
     "label": "Bucketed Sedentary recrectional activity Minutes",
     "text": "Categorized edentary recrectional activity by Minutes Buckets.",
     "include_after_autofill": true,
-    "formula": "if (##PAD680 <= 30) {30} else if (##PAD680 <= 60) {60} else if (##PAD680 <= 90) {90} else if (##PAD680 <= 120) {120} else if (##PAD680 <= 150) {150} else if (##PAD680 <= 180) {180} else if (##PAD680 <= 210) {210} else {240}"
-    }
+    "formula": "30 if ##PAD680 <= 30 else ( 60 if ##PAD680 <= 60 else ( 90 if ##PAD680 <= 90 else ( 120 if ##PAD680 <= 120 else ( 150 if ##PAD680 <= 150 else ( 180 if ##PAD680 <= 180 else ( 210 if ##PAD680 <= 210 else 240 ) ) ) ) ) )"
+  }
 }

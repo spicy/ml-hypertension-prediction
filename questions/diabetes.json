@@ -141,7 +141,7 @@
     "label": "Age when first told you had diabetes",
     "text": "How old {was SP/were you} when a doctor or other health professional first told {you/him/her} that {you/he/she} had diabetes or sugar diabetes?",
     "target": "Both males and females 1 YEAR - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -323,6 +323,6 @@
     "label": "Bucketed Age",
     "text": "Categorized Age by Buckets.",
     "include_after_autofill": true,
-    "formula": "if (##DID040 <= 19) {14} else if (##DID040 <= 29) {24} else if (##DID040 <= 39) {34} else if (##DID040 <= 49) {44} else if (##DID040 <= 59) {54} else if (##DID040 <= 69) {64} else if (##DID040 <= 79) {74} else {80}"
+    "formula": "14 if ##DID040 <= 19 else ( 24 if ##DID040 <= 29 else ( 34 if ##DID040 <= 39 else ( 44 if ##DID040 <= 49 else ( 54 if ##DID040 <= 59 else ( 64 if ##DID040 <= 69 else ( 74 if ##DID040 <= 79 else 80 ) ) ) ) ) )"
   }
 }

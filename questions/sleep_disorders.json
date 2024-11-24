@@ -53,12 +53,11 @@
       }
     }
   },
-
   "SLD012": {
     "label": "Sleep hours - weekdays or workdays",
     "text": "Number of hours usually slept on weekdays or workdays.",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include_after_autofill": true,
+    "include_after_autofill": false,
     "mappings": {
       "3-13": {
         "description": "Hours slept"
@@ -95,7 +94,6 @@
       }
     }
   },
-
   "SLQ050": {
     "label": "Ever told doctor had trouble sleeping?",
     "text": "Have you ever told a doctor or other health professional that you have trouble sleeping?",
@@ -134,10 +132,10 @@
       }
     }
   },
-      "SLD010H_BUCKET": {
-        "label": "Bucketed Sleep Hours",
-        "text": "Categorized Sleep by Hours Buckets.",
-        "include_after_autofill": true,
-        "formula": "if (##SLD010H <= 2) {2} else if (##SLD010H <= 4) {4} else if (##SLD010H <= 6) {6} else if (##SLD010H <= 8) {8} else if (##SLD010H <= 10) {10} else if (##SLD010H <= 12) {12} else if (##SLD010H <= 14) {14} else {16}"
-      }
+  "SLD012_BUCKET": {
+    "label": "Bucketed Sleep Hours",
+    "text": "Categorized Sleep by Hours Buckets.",
+    "include_after_autofill": true,
+    "formula": "2 if ##SLD012 <= 2 else ( 4 if ##SLD012 <= 4 else ( 6 if ##SLD012 <= 6 else ( 8 if ##SLD012 <= 8 else ( 10 if ##SLD012 <= 10 else ( 12 if ##SLD012 <= 12 else ( 14 if ##SLD012 <= 14 else 16 ) ) ) ) ) )"
+  }
 }
