@@ -29,7 +29,8 @@ class Config:
     )
     UNFILTERED_DATA_FILENAME: str = "UnfilteredCombinedData.csv"
     FILTERED_DATA_FILENAME: str = "FilteredCombinedData.csv"
-    VALIDATE_DATA: bool = True
+    VALIDATE_DATA: bool = False
+    MIN_AGE: int = 18
 
 
 @dataclass

@@ -24,7 +24,6 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.utils import shuffle
 
 
 def load_data() -> pd.DataFrame:
@@ -64,8 +63,7 @@ def load_data() -> pd.DataFrame:
 
     # Change the HYPERTENSION column to int
     data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
-
-    return shuffle(data)
+    return data
 
 
 def split_data(X, y):
@@ -176,18 +174,20 @@ def load_and_evaluate(model_name, X_test, y_test, selector=None):
 
 
 def _load_and_evaluate(model_name, X_test, y_test):
-    """Load and evaluate single model with detailed visualization"""
+    """Load and evaluate single model"""
     with open(f"{model_name}.model", "rb") as f:
         model = pickle.load(f)
 
     if "lr" in model_name:
+        # Turn probability into 2 classes
         y_prob = model.predict_proba(X_test)[:, 1]
         y_pred = (y_prob >= 0.5).astype(int)
+        accuracy = accuracy_score(y_test, y_pred)
     else:
         y_pred = model.predict(X_test)
         y_prob = model.predict_proba(X_test)[:, 1]
+        accuracy = model.score(X_test, y_test)
 
-    accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred)
@@ -266,64 +266,65 @@ def _load_and_evaluate(model_name, X_test, y_test):
     )
     plt.close()
 
+    return [accuracy, precision, recall, f1, roc_auc, conf_matrix]
+
 
 def find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector):
-    params = {
-        "n_estimators": [500, 700, 1000],
-        "max_depth": [None, 20, 25],
-        "min_samples_split": [2, 4, 8, 10, 12],
-        "min_samples_leaf": [4, 6, 8, 10],
-        "bootstrap": [True, False],
+    # Create a base estimator (e.g., Decision Tree)
+    base_estimator = DecisionTreeClassifier(random_state=42)
+
+    # Create a Bagging Classifier
+    bagging_clf = BaggingClassifier(estimator=base_estimator, random_state=42)
+
+    # Define the parameter grid for tuning
+    param_grid = {
+        "n_estimators": [100, 200, 300],  # Number of base estimators
+        "max_samples": [
+            0.5,
+            0.7,
+            1.0,
+        ],  # Fraction of samples to draw for each base estimator
+        "max_features": [
+            0.5,
+            0.7,
+            1.0,
+        ],  # Fraction of features to draw for each base estimator
+        "bootstrap": [True, False],  # Whether to use bootstrap sampling
+        "estimator__max_depth": [
+            None,
+            5,
+            10,
+            15,
+        ],  # Maximum depth for the base Decision Tree
+        "estimator__min_samples_split": [
+            5,
+            10,
+            15,
+        ],  # Minimum samples to split in the base Decision Tree
+        "estimator__min_samples_leaf": [2, 4, 6, 8],
     }
-    rf = RandomForestClassifier()
+
+    # Set up GridSearchCV
     grid_search = GridSearchCV(
-        estimator=rf, param_grid=params, cv=5, scoring="f1", verbose=3, n_jobs=-1
+        estimator=bagging_clf,
+        param_grid=param_grid,
+        cv=5,
+        scoring="accuracy",
+        verbose=2,
+        n_jobs=-1,
     )
-    grid_search.fit(X_train_reduced, y_train)
+
+    # Fit the grid search to the training data
+    grid_search.fit(X_train, y_train)
 
     # Print the best parameters and the corresponding accuracy
     print("Best Parameters:", grid_search.best_params_)
     print("Best Cross-Validation Accuracy:", grid_search.best_score_)
-    X_test_reduced = selector.transform(X_test)
-    # Evaluate on the test set
-    best_rf = grid_search.best_estimator_
-    y_pred = best_rf.predict(X_test_reduced)
-    print("Test Set Accuracy:", accuracy_score(y_test, y_pred))
 
-    # # Create a base estimator (e.g., Decision Tree)
-    # base_estimator = DecisionTreeClassifier(random_state=42)
-    #
-    # # Create a Bagging Classifier
-    # bagging_clf = BaggingClassifier(estimator=base_estimator, random_state=42)
-    #
-    # # Define the parameter grid for tuning
-    # param_grid = {
-    #     'n_estimators': [50, 100, 200],  # Number of base estimators
-    #     'max_samples': [0.5, 0.7, 1.0],  # Fraction of samples to draw for each base estimator
-    #     'max_features': [0.5, 0.7, 1.0],  # Fraction of features to draw for each base estimator
-    #     'bootstrap': [True, False],  # Whether to use bootstrap sampling
-    #     'estimator__max_depth': [None, 5, 10, 15],  # Maximum depth for the base Decision Tree
-    #     'estimator__min_samples_split': [5, 10, 15],  # Minimum samples to split in the base Decision Tree
-    #     'estimator__min_samples_leaf': [2, 4, 6, 8]
-    # }
-    #
-    # # Set up GridSearchCV
-    # grid_search = GridSearchCV(estimator=bagging_clf, param_grid=param_grid, cv=5, scoring='accuracy', verbose=1,
-    #                            n_jobs=-1)
-    #
-    # # Fit the grid search to the training data
-    # grid_search.fit(X_train_reduced, y_train)
-    #
-    # # Print the best parameters and the corresponding accuracy
-    # print("Best Parameters:", grid_search.best_params_)
-    # print("Best Cross-Validation Accuracy:", grid_search.best_score_)
-    #
-    # X_test_reduced = selector.transform(X_test)
-    #
-    # # Evaluate on the test set
-    # best_bagging_clf = grid_search.best_estimator_
-    # y_pred = best_bagging_clf.predict(X_test_reduced)
-    # print("Test Set Accuracy:", accuracy_score(y_test, y_pred))
+    # Evaluate on the test set
+    best_bagging_clf = grid_search.best_estimator_
+    y_pred = best_bagging_clf.predict(X_test)
+    print("Test Set Accuracy:", accuracy_score(y_test, y_pred))
 
 
 if __name__ == "__main__":
@@ -338,6 +339,7 @@ if __name__ == "__main__":
     X_train_reduced, selector = feature_selection(X_train, y_train)
 
     train_models(X_train, y_train, X_train_reduced, model_name="hypertension_predictor")
+
     load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
 
     # find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector)
