@@ -25,6 +25,11 @@ from sklearn.metrics import (
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
+from sklearn.metrics import make_scorer
+
+from imblearn.over_sampling import KMeansSMOTE
+from imblearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 def load_data() -> pd.DataFrame:
     base_path = os.path.abspath(
@@ -62,7 +67,7 @@ def load_data() -> pd.DataFrame:
     )
 
     # Change the HYPERTENSION column to int
-    data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
+    data["HYPERTENSION"] = data["HYPERTENSION"].astype(bool)
     return data
 
 
@@ -86,10 +91,11 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
 
     # Initialize all models
     rf = RandomForestClassifier(
-        n_estimators=700,
-        max_depth=25,
+        n_estimators=750,
+        max_depth=15,
         min_samples_split=2,
         min_samples_leaf=8,
+        bootstrap=True,
         random_state=42,
     )
     rfr = RandomForestClassifier(
@@ -139,21 +145,54 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
     lrr = LogisticRegression(max_iter=1000, solver="newton-cg", random_state=42)
 
     # Train all models
-    _train_model(X_train, y_train, model_name + "_rf", rf)
-    _train_model(X_train_reduced, y_train, model_name + "_rf_reduced", rfr)
-    _train_model(X_train, y_train, model_name + "_gb", gb)
-    _train_model(X_train_reduced, y_train, model_name + "_gb_reduced", gbr)
-    _train_model(X_train, y_train, model_name + "_dt_bag", dt_bag)
-    _train_model(X_train_reduced, y_train, model_name + "_dt_bag_reduced", dt_bag_r)
-    _train_model(X_train, y_train, model_name + "_lr", lr)
-    _train_model(X_train_reduced, y_train, model_name + "_lr_reduced", lrr)
+    _train_model(X_train, y_train, model_name + "_rf", rf,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.4})
+    _train_model(X_train_reduced, y_train, model_name + "_rf_reduced", rfr,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.4})
+    _train_model(X_train, y_train, model_name + "_gb", gb,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
+    _train_model(X_train_reduced, y_train, model_name + "_gb_reduced", gbr,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
+    _train_model(X_train, y_train, model_name + "_dt_bag", dt_bag,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
+    _train_model(X_train_reduced, y_train, model_name + "_dt_bag_reduced", dt_bag_r,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
+    _train_model(X_train, y_train, model_name + "_lr", lr,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
+    _train_model(X_train_reduced, y_train, model_name + "_lr_reduced", lrr,
+                 {'k_neighbors': 3,
+                  'sampling_strategy': 1.0,
+                  'cluster_balance_threshold': 0.3})
 
 
-def _train_model(X_train, y_train, model_name, model):
+def _train_model(X_train, y_train, model_name, model, smote_params):
     """Train and save a single model"""
-    model.fit(X_train, y_train)
+    # Define pipeline
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        ('smote', KMeansSMOTE(random_state=42,
+                              k_neighbors=smote_params['k_neighbors'],
+                              sampling_strategy=smote_params['sampling_strategy'],
+                              cluster_balance_threshold=smote_params['cluster_balance_threshold'])),
+        ('classifier', model)
+    ])
+    pipeline.fit(X_train, y_train)
     with open(f"{model_name}.model", "wb") as f:
-        pickle.dump(model, f)
+        pickle.dump(pipeline, f)
 
 
 def load_and_evaluate(model_name, X_test, y_test, selector=None):
@@ -190,15 +229,15 @@ def _load_and_evaluate(model_name, X_test, y_test):
 
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
+    f1 = f1_score(y_true=y_test, y_pred=y_pred)
     roc_auc = roc_auc_score(y_test, y_pred)
     conf_matrix = confusion_matrix(y_test, y_pred)
 
-    print(f"{model_name} Accuracy: {accuracy}")
-    print(f"{model_name} Precision: {precision}")
-    print(f"{model_name} Recall: {recall}")
-    print(f"{model_name} F1 Score: {f1}")
-    print(f"{model_name} ROC AUC: {roc_auc}")
+    print(f"{model_name} Accuracy: {accuracy:4f}")
+    print(f"{model_name} Precision: {precision:4f}")
+    print(f"{model_name} Recall: {recall:4f}")
+    print(f"{model_name} F1 Score: {f1:4f}")
+    print(f"{model_name} ROC AUC: {roc_auc:4f}")
     print(f"{model_name} Confusion Matrix: \n", conf_matrix, "\n")
 
     eval_dir = "evaluation_plots"
@@ -269,64 +308,6 @@ def _load_and_evaluate(model_name, X_test, y_test):
     return [accuracy, precision, recall, f1, roc_auc, conf_matrix]
 
 
-def find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector):
-    # Create a base estimator (e.g., Decision Tree)
-    base_estimator = DecisionTreeClassifier(random_state=42)
-
-    # Create a Bagging Classifier
-    bagging_clf = BaggingClassifier(estimator=base_estimator, random_state=42)
-
-    # Define the parameter grid for tuning
-    param_grid = {
-        "n_estimators": [100, 200, 300],  # Number of base estimators
-        "max_samples": [
-            0.5,
-            0.7,
-            1.0,
-        ],  # Fraction of samples to draw for each base estimator
-        "max_features": [
-            0.5,
-            0.7,
-            1.0,
-        ],  # Fraction of features to draw for each base estimator
-        "bootstrap": [True, False],  # Whether to use bootstrap sampling
-        "estimator__max_depth": [
-            None,
-            5,
-            10,
-            15,
-        ],  # Maximum depth for the base Decision Tree
-        "estimator__min_samples_split": [
-            5,
-            10,
-            15,
-        ],  # Minimum samples to split in the base Decision Tree
-        "estimator__min_samples_leaf": [2, 4, 6, 8],
-    }
-
-    # Set up GridSearchCV
-    grid_search = GridSearchCV(
-        estimator=bagging_clf,
-        param_grid=param_grid,
-        cv=5,
-        scoring="accuracy",
-        verbose=2,
-        n_jobs=-1,
-    )
-
-    # Fit the grid search to the training data
-    grid_search.fit(X_train, y_train)
-
-    # Print the best parameters and the corresponding accuracy
-    print("Best Parameters:", grid_search.best_params_)
-    print("Best Cross-Validation Accuracy:", grid_search.best_score_)
-
-    # Evaluate on the test set
-    best_bagging_clf = grid_search.best_estimator_
-    y_pred = best_bagging_clf.predict(X_test)
-    print("Test Set Accuracy:", accuracy_score(y_test, y_pred))
-
-
 if __name__ == "__main__":
     data = load_data()
 
@@ -342,4 +323,3 @@ if __name__ == "__main__":
 
     load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
 
-    # find_best_params(X_train, y_train, X_test, y_test, X_train_reduced, selector)
