@@ -230,11 +230,11 @@ def _load_and_evaluate(model_name, X_test, y_test):
     roc_auc = roc_auc_score(y_test, y_pred)
     conf_matrix = confusion_matrix(y_test, y_pred)
 
-    print(f"{model_name} Accuracy: {accuracy:4f}")
-    print(f"{model_name} Precision: {precision:4f}")
-    print(f"{model_name} Recall: {recall:4f}")
-    print(f"{model_name} F1 Score: {f1:4f}")
-    print(f"{model_name} ROC AUC: {roc_auc:4f}")
+    print(f"{model_name} Accuracy: {accuracy:.4f}")
+    print(f"{model_name} Precision: {precision:.4f}")
+    print(f"{model_name} Recall: {recall:.4f}")
+    print(f"{model_name} F1 Score: {f1:.4f}")
+    print(f"{model_name} ROC AUC: {roc_auc:.4f}")
     print(f"{model_name} Confusion Matrix: \n", conf_matrix, "\n")
 
     eval_dir = "evaluation_plots"
