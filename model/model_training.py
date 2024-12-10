@@ -22,11 +22,8 @@ from sklearn.metrics import (
     roc_auc_score,
     roc_curve,
 )
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-
-from sklearn.metrics import make_scorer
-
 from imblearn.over_sampling import KMeansSMOTE
 from imblearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -74,7 +71,7 @@ def load_data() -> pd.DataFrame:
 def split_data(X, y):
     """Create 80-20 train-test split"""
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X, y, test_size=0.1, random_state=42
     )
     return X_train, X_test, y_train, y_test
 
