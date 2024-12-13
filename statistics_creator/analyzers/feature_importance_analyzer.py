@@ -86,6 +86,12 @@ class FeatureImportanceAnalyzer(BaseAnalyzer):
         # Get selected feature mask and names
         selected_features = X.columns[selector.get_support()].tolist()
 
+        # Limit all series to top 20 features
+        rf_importance = rf_importance.head(20)
+        gb_importance = gb_importance.head(20)
+        f_scores = f_scores.head(20)
+        selected_features = selected_features[:20]
+
         logger.info(
             f"Feature importance analysis completed. Selected {len(selected_features)} features."
         )

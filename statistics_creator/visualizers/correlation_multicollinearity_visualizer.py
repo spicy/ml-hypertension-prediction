@@ -42,7 +42,7 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
         )
 
         plt.title(
-            "Correlation Matrix Heatmap",
+            "Correlation Matrix Heatmap (Top 20 Features)",
             fontsize=config.TITLE_FONT_SIZE,
             pad=config.TITLE_PAD,
         )
@@ -68,7 +68,7 @@ class CorrelationMulticollinearityVisualizer(BaseVisualizer):
 
         sns.barplot(x="VIF", y="Feature", data=vif_data)
         plt.title(
-            "Variance Inflation Factor (VIF) for Features",
+            "Variance Inflation Factor (VIF) for Top 20 Features",
             fontsize=config.TITLE_FONT_SIZE,
         )
         plt.xlabel("VIF", fontsize=config.VIF_LABEL_FONT_SIZE)

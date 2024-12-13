@@ -32,8 +32,6 @@ class MissingDataConfig(BaseConfig):
     X_LABEL: str = "Columns"
     Y_LABEL: str = "Percentage of Missing Data"
     PLOT_FILENAME: str = "missing_data_percentage.png"
-
-    # New constants moved from MissingDataAnalyzer
     PERCENTAGE_MULTIPLIER: int = 100
     MISSING_DATA_LOG_MESSAGE: str = "Missing data analysis completed."
 
@@ -44,16 +42,16 @@ class CorrelationMulticollinearityConfig(BaseConfig):
 
     CORR_WIDTH: int = 40
     CORR_HEIGHT: int = 30
-    CORR_X_TICK_FONT_SIZE: int = 10
-    CORR_Y_TICK_FONT_SIZE: int = 10
+    CORR_X_TICK_FONT_SIZE: int = 18
+    CORR_Y_TICK_FONT_SIZE: int = 18
     CORR_TIGHT_LAYOUT_PAD: float = 3.0
-    CORR_ANNOT_FONT_SIZE: int = 8
+    CORR_ANNOT_FONT_SIZE: int = 16
 
     VIF_WIDTH: int = 40
     VIF_HEIGHT: int = 30
     VIF_LABEL_FONT_SIZE: int = 16
     VIF_LEGEND_FONT_SIZE: int = 12
-    VIF_TICK_FONT_SIZE: int = 10
+    VIF_TICK_FONT_SIZE: int = 16
     VIF_THRESHOLD: float = 5.0
 
     CORRELATION_PLOT_FILENAME: str = "correlation_matrix_heatmap.png"
@@ -118,8 +116,8 @@ class FeatureImportanceConfig(BaseConfig):
     # Visualization settings
     WIDTH: int = 12
     HEIGHT: int = 8
-    LABEL_FONT_SIZE: int = 10
-    TICK_FONT_SIZE: int = 8
+    LABEL_FONT_SIZE: int = 14
+    TICK_FONT_SIZE: int = 14
     TIGHT_LAYOUT_PAD: float = 1.0
 
     # Plot filenames
@@ -159,8 +157,6 @@ class OutlierConfig(BaseConfig):
     BOUND_LINESTYLE: str = "--"
     PLOT_FILE_PREFIX: str = "outliers_"
     PLOT_FILE_EXTENSION: str = ".png"
-
-    # New constants moved from OutlierAnalyzer
     LOWER_QUANTILE: float = 0.25
     UPPER_QUANTILE: float = 0.75
     IQR_MULTIPLIER: float = 1.5

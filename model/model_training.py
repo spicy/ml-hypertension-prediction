@@ -1,10 +1,14 @@
 import glob
 import os
 import pickle
+from itertools import cycle
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
+from imblearn.over_sampling import KMeansSMOTE
+from imblearn.pipeline import Pipeline
 from sklearn.ensemble import (
     BaggingClassifier,
     GradientBoostingClassifier,
@@ -24,10 +28,9 @@ from sklearn.metrics import (
     roc_curve,
 )
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from imblearn.over_sampling import KMeansSMOTE
-from imblearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
 
 def load_data() -> pd.DataFrame:
     """Load and combine all autofilled data files."""
@@ -131,51 +134,82 @@ def train_models(X_train, y_train, X_train_reduced, model_name):
     lrr = LogisticRegression(max_iter=1000, solver="newton-cg", random_state=42)
 
     # Train all models
-    _train_model(X_train, y_train, model_name + "_rf", rf,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.4})
-    _train_model(X_train_reduced, y_train, model_name + "_rf_reduced", rfr,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.4})
-    _train_model(X_train, y_train, model_name + "_gb", gb,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
-    _train_model(X_train_reduced, y_train, model_name + "_gb_reduced", gbr,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
-    _train_model(X_train, y_train, model_name + "_dt_bag", dt_bag,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
-    _train_model(X_train_reduced, y_train, model_name + "_dt_bag_reduced", dt_bag_r,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
-    _train_model(X_train, y_train, model_name + "_lr", lr,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
-    _train_model(X_train_reduced, y_train, model_name + "_lr_reduced", lrr,
-                 {'k_neighbors': 3,
-                  'sampling_strategy': 1.0,
-                  'cluster_balance_threshold': 0.3})
+    _train_model(
+        X_train,
+        y_train,
+        model_name + "_rf",
+        rf,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.4},
+    )
+    _train_model(
+        X_train_reduced,
+        y_train,
+        model_name + "_rf_reduced",
+        rfr,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.4},
+    )
+    _train_model(
+        X_train,
+        y_train,
+        model_name + "_gb",
+        gb,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
+    _train_model(
+        X_train_reduced,
+        y_train,
+        model_name + "_gb_reduced",
+        gbr,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
+    _train_model(
+        X_train,
+        y_train,
+        model_name + "_dt_bag",
+        dt_bag,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
+    _train_model(
+        X_train_reduced,
+        y_train,
+        model_name + "_dt_bag_reduced",
+        dt_bag_r,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
+    _train_model(
+        X_train,
+        y_train,
+        model_name + "_lr",
+        lr,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
+    _train_model(
+        X_train_reduced,
+        y_train,
+        model_name + "_lr_reduced",
+        lrr,
+        {"k_neighbors": 3, "sampling_strategy": 1.0, "cluster_balance_threshold": 0.3},
+    )
 
 
 def _train_model(X_train, y_train, model_name, model, smote_params):
     """Train and save a single model"""
     # Define pipeline
-    pipeline = Pipeline([
-        ('scaler', StandardScaler()),
-        ('smote', KMeansSMOTE(random_state=42,
-                              k_neighbors=smote_params['k_neighbors'],
-                              sampling_strategy=smote_params['sampling_strategy'],
-                              cluster_balance_threshold=smote_params['cluster_balance_threshold'])),
-        ('classifier', model)
-    ])
+    pipeline = Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            (
+                "smote",
+                KMeansSMOTE(
+                    random_state=42,
+                    k_neighbors=smote_params["k_neighbors"],
+                    sampling_strategy=smote_params["sampling_strategy"],
+                    cluster_balance_threshold=smote_params["cluster_balance_threshold"],
+                ),
+            ),
+            ("classifier", model),
+        ]
+    )
     pipeline.fit(X_train, y_train)
     with open(f"{model_name}.model", "wb") as f:
         pickle.dump(pipeline, f)
@@ -183,19 +217,144 @@ def _train_model(X_train, y_train, model_name, model, smote_params):
 
 def load_and_evaluate(model_name, X_test, y_test, selector=None):
     """Load and evaluate all models"""
-    _load_and_evaluate(model_name + "_rf", X_test, y_test)
-    _load_and_evaluate(model_name + "_gb", X_test, y_test)
-    _load_and_evaluate(model_name + "_dt_bag", X_test, y_test)
-    _load_and_evaluate(model_name + "_lr", X_test, y_test)
+    # Create lists to store results for combined plots
+    models_data = []
+
+    # Evaluate full-feature models
+    models_data.extend(
+        [
+            (
+                model_name + "_rf",
+                *_load_and_evaluate(model_name + "_rf", X_test, y_test),
+            ),
+            (
+                model_name + "_gb",
+                *_load_and_evaluate(model_name + "_gb", X_test, y_test),
+            ),
+            (
+                model_name + "_dt_bag",
+                *_load_and_evaluate(model_name + "_dt_bag", X_test, y_test),
+            ),
+            (
+                model_name + "_lr",
+                *_load_and_evaluate(model_name + "_lr", X_test, y_test),
+            ),
+        ]
+    )
 
     if selector:
         # Apply selector on X_test for reduced feature model evaluation
         X_test_reduced = selector.transform(X_test)
 
-        _load_and_evaluate(model_name + "_rf_reduced", X_test_reduced, y_test)
-        _load_and_evaluate(model_name + "_gb_reduced", X_test_reduced, y_test)
-        _load_and_evaluate(model_name + "_dt_bag_reduced", X_test_reduced, y_test)
-        _load_and_evaluate(model_name + "_lr_reduced", X_test_reduced, y_test)
+        # Evaluate reduced-feature models
+        models_data.extend(
+            [
+                (
+                    model_name + "_rf_reduced",
+                    *_load_and_evaluate(
+                        model_name + "_rf_reduced", X_test_reduced, y_test
+                    ),
+                ),
+                (
+                    model_name + "_gb_reduced",
+                    *_load_and_evaluate(
+                        model_name + "_gb_reduced", X_test_reduced, y_test
+                    ),
+                ),
+                (
+                    model_name + "_dt_bag_reduced",
+                    *_load_and_evaluate(
+                        model_name + "_dt_bag_reduced", X_test_reduced, y_test
+                    ),
+                ),
+                (
+                    model_name + "_lr_reduced",
+                    *_load_and_evaluate(
+                        model_name + "_lr_reduced", X_test_reduced, y_test
+                    ),
+                ),
+            ]
+        )
+
+    # Plot combined ROC curves
+    _plot_combined_roc_curves(models_data, y_test)
+
+    # Plot combined confusion matrices
+    _plot_combined_confusion_matrices(models_data)
+
+
+def _plot_combined_roc_curves(models_data, y_test):
+    """Plot ROC curves for all models in a single figure"""
+    plt.figure(figsize=(12, 8))
+    colors = cycle(
+        [
+            "aqua",
+            "darkorange",
+            "cornflowerblue",
+            "red",
+            "green",
+            "purple",
+            "brown",
+            "pink",
+        ]
+    )
+
+    for model_name, _, _, _, _, roc_auc, _, y_prob in models_data:
+        fpr, tpr, _ = roc_curve(y_test, y_prob)
+        plt.plot(
+            fpr,
+            tpr,
+            color=next(colors),
+            lw=2,
+            label=f"{model_name} (AUC = {roc_auc:.2f})",
+        )
+
+    plt.plot([0, 1], [0, 1], "k--", lw=2)
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC Curves - All Models")
+    plt.legend(loc="lower right", bbox_to_anchor=(1.45, 0))
+    plt.tight_layout()
+    plt.savefig(
+        "evaluation_plots/combined_roc_curves.png", dpi=300, bbox_inches="tight"
+    )
+    plt.close()
+
+
+def _plot_combined_confusion_matrices(models_data):
+    """Plot confusion matrices for all models in a single figure"""
+    n_models = len(models_data)
+    n_cols = 4
+    n_rows = (n_models + n_cols - 1) // n_cols
+
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(20, 5 * n_rows))
+    axes = axes.flatten()
+
+    for idx, (model_name, _, _, _, _, _, conf_matrix, _) in enumerate(models_data):
+        sns.heatmap(
+            conf_matrix,
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            xticklabels=["Negative", "Positive"],
+            yticklabels=["Negative", "Positive"],
+            ax=axes[idx],
+        )
+        axes[idx].set_title(f"Confusion Matrix - {model_name}")
+        axes[idx].set_ylabel("True Label")
+        axes[idx].set_xlabel("Predicted Label")
+
+    # Remove empty subplots if any
+    for idx in range(len(models_data), len(axes)):
+        fig.delaxes(axes[idx])
+
+    plt.tight_layout()
+    plt.savefig(
+        "evaluation_plots/combined_confusion_matrices.png", dpi=300, bbox_inches="tight"
+    )
+    plt.close()
 
 
 def _load_and_evaluate(model_name, X_test, y_test):
@@ -291,7 +450,7 @@ def _load_and_evaluate(model_name, X_test, y_test):
     )
     plt.close()
 
-    return [accuracy, precision, recall, f1, roc_auc, conf_matrix]
+    return [accuracy, precision, recall, f1, roc_auc, conf_matrix, y_prob]
 
 
 if __name__ == "__main__":
@@ -308,4 +467,3 @@ if __name__ == "__main__":
     train_models(X_train, y_train, X_train_reduced, model_name="hypertension_predictor")
 
     load_and_evaluate("hypertension_predictor", X_test, y_test, selector)
-

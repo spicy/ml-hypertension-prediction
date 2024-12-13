@@ -46,6 +46,9 @@ class FeatureImportanceVisualizer(BaseVisualizer):
 
     def _plot_importance(self, importance_series, title, output_path):
         """Helper method to create importance plots"""
+        # Get top 20 features
+        importance_series = importance_series.head(20)
+
         plt.figure(figsize=(config.WIDTH, config.HEIGHT))
 
         sns.barplot(x=importance_series.values, y=importance_series.index, orient="h")
