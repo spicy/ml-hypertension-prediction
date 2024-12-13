@@ -1,0 +1,56 @@
+{
+  "total_files": 6,
+  "successful_files": 6,
+  "failed_files": 0,
+  "total_processing_time": 321.79849457740784,
+  "results": [
+    {
+      "success": true,
+      "records_processed": 6228,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2007-2008.csv",
+      "processing_time": 50.42106294631958,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 6527,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2009-2010.csv",
+      "processing_time": 51.64111304283142,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 5864,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2011-2012.csv",
+      "processing_time": 46.317784786224365,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 6113,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2013-2014.csv",
+      "processing_time": 48.967381715774536,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 5992,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2015-2016.csv",
+      "processing_time": 47.022857904434204,
+      "autofill_counts": {}
+    },
+    {
+      "success": true,
+      "records_processed": 9693,
+      "errors": [],
+      "file_path": "C:\\Users\\spice\\OneDrive\\Desktop\\git projects\\ml-hypertension-prediction\\data\\processed\\FilteredCombinedData_2017-2020.csv",
+      "processing_time": 77.42678213119507,
+      "autofill_counts": {}
+    }
+  ]
+}

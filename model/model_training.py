@@ -1,3 +1,4 @@
+import glob
 import os
 import pickle
 
@@ -27,39 +28,27 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 def load_data() -> pd.DataFrame:
+    """Load and combine all autofilled data files."""
     base_path = os.path.abspath(
         os.path.join(os.path.dirname(__file__), "../data/processed/autofilled")
     )
-    files = [
-        "AutoFilled_Data_2007-2008.csv",
-        "AutoFilled_Data_2009-2010.csv",
-        "AutoFilled_Data_2011-2012.csv",
-        "AutoFilled_Data_2013-2014.csv",
-        "AutoFilled_Data_2015-2016.csv",
-        "AutoFilled_Data_2017-2020.csv",
-    ]
+    pattern = os.path.join(base_path, "AutoFilled_Data_*.csv")
+    files = glob.glob(pattern)
+
+    if not files:
+        print(f"Error: No files found matching pattern: {pattern}")
+        return None
 
     data_frames = []
-    for file in files:
-        file_path = os.path.join(base_path, file)
-        if os.path.exists(file_path):
-            data_frames.append(pd.read_csv(file_path, index_col="SEQN"))
+    for file in sorted(files):
+        if os.path.exists(file):
+            data_frames.append(pd.read_csv(file, index_col="SEQN"))
         else:
-            print(f"Error: File {file_path} not found.")
+            print(f"Error: File {file} not found.")
             return None
 
     # Combine all the loaded dataframes into one
-    data = pd.concat(
-        [
-            data_frames[0],
-            data_frames[1],
-            data_frames[2],
-            data_frames[3],
-            data_frames[4],
-            data_frames[5],
-        ],
-        axis=0,
-    )
+    data = pd.concat(data_frames, axis=0)
 
     # Change the HYPERTENSION column to int
     data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)

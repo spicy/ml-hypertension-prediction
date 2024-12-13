@@ -1,3 +1,4 @@
+import glob
 import os
 
 import pandas as pd
@@ -23,9 +24,21 @@ class DataLoader:
 
     @staticmethod
     @log_execution_time
-    def load_data(file_path: str) -> pd.DataFrame:
+    def load_data(file_path: str = None) -> pd.DataFrame:
         """
-        Load data from a CSV file into a pandas DataFrame.
+        Load data from CSV file(s) into a pandas DataFrame.
+        If file_path is provided, loads a single file.
+        If no file_path is provided, loads and combines all autofilled data files.
+        """
+        if file_path:
+            return DataLoader._load_single_file(file_path)
+        else:
+            return DataLoader._load_autofilled_data()
+
+    @staticmethod
+    def _load_single_file(file_path: str) -> pd.DataFrame:
+        """
+        Load a single CSV file into a DataFrame.
         """
         logger.info(f"Loading data from {file_path}...")
 
@@ -46,3 +59,32 @@ class DataLoader:
             error_msg = f"Unable to parse '{file_path}': {e}"
             logger.error(error_msg)
             raise ValueError(error_msg)
+
+    @staticmethod
+    def _load_autofilled_data() -> pd.DataFrame:
+        """
+        Load and combine all autofilled data files.
+        """
+        pattern = os.path.join(
+            data_config.AUTOFILLED_DIR, data_config.FILTERED_DATA_PATTERN
+        )
+        files = glob.glob(pattern)
+
+        if not files:
+            error_msg = f"No files found matching pattern: {pattern}"
+            logger.error(error_msg)
+            raise FileNotFoundError(error_msg)
+
+        data_frames = []
+        for file in sorted(files):
+            df = pd.read_csv(file, index_col="SEQN")
+            data_frames.append(df)
+
+        # Combine all the loaded dataframes into one
+        data = pd.concat(data_frames, axis=0)
+
+        # Change the HYPERTENSION column to int
+        data["HYPERTENSION"] = data["HYPERTENSION"].astype(int)
+
+        logger.info(f"Combined data loaded successfully. Shape: {data.shape}")
+        return data

@@ -113,20 +113,36 @@ class DataConfig:
 
 @dataclass
 class FeatureImportanceConfig(BaseConfig):
-    """Configuration for feature importance visualization and analysis."""
+    """Configuration for feature importance analysis."""
 
+    # Visualization settings
     WIDTH: int = 12
     HEIGHT: int = 8
     LABEL_FONT_SIZE: int = 10
     TICK_FONT_SIZE: int = 8
     TIGHT_LAYOUT_PAD: float = 1.0
-    PLOT_TITLE: str = "Feature Importance"
-    X_LABEL: str = "Importance"
-    Y_LABEL: str = "Features"
-    PLOT_FILENAME: str = "feature_importance.png"
 
-    N_ESTIMATORS: int = 100
+    # Plot filenames
+    RF_IMPORTANCE_PLOT: str = "random_forest_importance.png"
+    GB_IMPORTANCE_PLOT: str = "gradient_boosting_importance.png"
+    F_SCORE_PLOT: str = "f_score_importance.png"
+
+    # Analysis settings
+    K_BEST_FEATURES: int = 20
     RANDOM_STATE: int = 42
+
+    # Random Forest settings
+    RF_N_ESTIMATORS: int = 700
+    RF_MAX_DEPTH: int = 25
+    RF_MIN_SAMPLES_SPLIT: int = 2
+    RF_MIN_SAMPLES_LEAF: int = 8
+
+    # Gradient Boosting settings
+    GB_N_ESTIMATORS: int = 100
+    GB_LEARNING_RATE: float = 0.05
+    GB_MAX_DEPTH: int = 5
+    GB_MIN_SAMPLES_LEAF: int = 1
+    GB_MIN_SAMPLES_SPLIT: int = 10
 
 
 @dataclass
