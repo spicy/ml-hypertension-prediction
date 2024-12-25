@@ -1,19 +1,24 @@
 import json
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional, Union
 
 import pandas as pd
 
 from ..core.exceptions import AutofillErrorCode, AutofillException
 from ..core.interfaces import DataReader
-from ..utils.data_utils import convert_numeric_to_int64
 
 
 class FileDataReader(DataReader):
-    def read_csv(self, file_path: Path) -> pd.DataFrame:
+    def read_csv(
+        self, file_path: Path, chunksize: Optional[int] = None
+    ) -> Union[pd.DataFrame, pd.io.parsers.TextFileReader]:
         try:
-            df = pd.read_csv(file_path)
-            return convert_numeric_to_int64(df)
+            return pd.read_csv(
+                file_path,
+                chunksize=chunksize,
+                dtype_backend="numpy_nullable",
+                float_precision="round_trip",
+            )
         except Exception as e:
             raise AutofillException(
                 AutofillErrorCode.FILE_ERROR,

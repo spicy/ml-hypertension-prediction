@@ -1,6 +1,7 @@
 import os
 from typing import List, Tuple
 
+import pandas as pd
 from analyzers import (
     ClassAnalyzer,
     ComprehensiveNumericalAnalyzer,
@@ -30,9 +31,6 @@ from statistics_creator import StatisticsCreator
 def create_analyzer_visualizer_pairs() -> List[Tuple[BaseAnalyzer, BaseVisualizer]]:
     """
     Create and return a list of analyzer-visualizer pairs.
-
-    Returns:
-        List[Tuple[BaseAnalyzer, BaseVisualizer]]: A list of tuples, each containing an analyzer and its corresponding visualizer.
     """
     return [
         (MissingDataAnalyzer(), MissingDataVisualizer()),
@@ -72,14 +70,15 @@ def main() -> None:
     statistics_creator = StatisticsCreator(data_loader, analyzer_visualizer_pairs)
 
     # Get all filtered data files
-    processed_dir = data_config.PROCESSED_DIR
+    processed_dir = data_config.AUTOFILLED_DIR
     filtered_files = list(processed_dir.glob(data_config.FILTERED_DATA_PATTERN))
 
     if not filtered_files:
         logger.error(f"No filtered data files found in {processed_dir}")
         return
 
-    # Process each filtered data file
+    # Process individual files
+    all_dataframes = []
     for data_file in filtered_files:
         year_range = data_file.stem.split("_")[-1]  # Extract year range from filename
         logger.info(f"Processing data for year range: {year_range}")
@@ -93,13 +92,37 @@ def main() -> None:
         )
 
         try:
-            results = statistics_creator.run_analysis(str(data_file))
+            df = data_loader.load_data(str(data_file))
+            all_dataframes.append(df)
+            results = statistics_creator.run_analysis(df)
             logger.info(
                 f"Analysis completed for {year_range}. Summary: {summarize_results(results)}"
             )
             save_results(results, statistics_creator.statistics_folder)
         except Exception as e:
             logger.error(f"Error processing {year_range}: {str(e)}")
+
+    # Process combined dataset
+    if all_dataframes:
+        logger.info("Processing combined dataset...")
+        combined_df = pd.concat(all_dataframes, axis=0)
+
+        # Create combined statistics folder
+        combined_stats_folder = os.path.join(
+            data_config.DEFAULT_STATISTICS_FOLDER, "combined_analysis"
+        )
+        statistics_creator.statistics_folder = data_loader.create_statistics_folder(
+            combined_stats_folder
+        )
+
+        try:
+            results = statistics_creator.run_analysis(combined_df)
+            logger.info(
+                f"Analysis completed for combined dataset. Summary: {summarize_results(results)}"
+            )
+            save_results(results, statistics_creator.statistics_folder)
+        except Exception as e:
+            logger.error(f"Error processing combined dataset: {str(e)}")
 
 
 if __name__ == "__main__":

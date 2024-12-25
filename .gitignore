@@ -168,6 +168,6 @@ cython_debug/
 *.pyc
 
 *.history/
-/data/processed
-*/data/processed
 .DS_Store
+*.model
+/model/evaluation_plots

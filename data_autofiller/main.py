@@ -9,6 +9,7 @@ from datetime import datetime
 
 from data_autofiller.config import Config
 from data_autofiller.core.autofiller import AutofillConfig
+from data_autofiller.core.imputer import Imputer
 from data_autofiller.core.rule_engine import DefaultRuleEngine
 from data_autofiller.infrastructure.data_reader import FileDataReader
 from data_autofiller.infrastructure.repositories import FileQuestionRepository
@@ -33,8 +34,6 @@ def main() -> int:
         app_config = Config()
         autofill_config = AutofillConfig(
             chunk_size=app_config.CHUNK_SIZE,
-            parallel_processing=app_config.PARALLEL_PROCESSING,
-            max_workers=app_config.MAX_WORKERS or 4,
             allow_missing_columns=app_config.ALLOW_MISSING_COLUMNS,
             seqn_column=app_config.SEQN_COLUMN,
             questions_dir=app_config.QUESTIONS_DIR,
@@ -55,6 +54,9 @@ def main() -> int:
 
         result = service.process_files(input_files, autofill_config.output_dir)
         save_processing_report(result, autofill_config.output_dir)
+
+        imputer = Imputer(autofill_config)
+        imputer.impute()
 
         logger.info(
             f"Processing completed: {result.successful_files}/{result.total_files} files successful"

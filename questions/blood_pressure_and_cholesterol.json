@@ -3,7 +3,7 @@
     "label": "Ever told you had high blood pressure",
     "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension, also called high blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -13,9 +13,15 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ030": "2",
-            "BPQ040A": "2",
-            "BPQ050A": "2"
+            "BPQ030": {
+              "value": "2"
+            },
+            "BPQ040A": {
+              "value": "2"
+            },
+            "BPQ050A": {
+              "value": "2"
+            }
           }
         }
       },
@@ -24,9 +30,10 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ030": "7",
-            "BPQ040A": "7",
-            "BPQ050A": "7"
+            "BPQ020": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
@@ -35,9 +42,10 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ030": "9",
-            "BPQ040A": "9",
-            "BPQ050A": "9"
+            "BPQ020": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       }
@@ -48,7 +56,7 @@
     "label": "Told had high blood pressure - 2+ times",
     "text": "{Were you/Was SP} told on 2 or more different visits that {you/s/he} had hypertension, also called high blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -57,10 +65,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ030": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ030": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -69,7 +95,7 @@
     "label": "Taking prescription for hypertension",
     "text": "Because of {your/SP's} (high blood pressure/hypertension), {have you/has s/he} ever been told to . . . take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -79,7 +105,9 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ050A": "2"
+            "BPQ050A": {
+              "value": "2"
+            }
           }
         }
       },
@@ -88,7 +116,10 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ050A": "7"
+            "BPQ040A": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
@@ -97,7 +128,10 @@
         "skip": {
           "destination": "BPQ080",
           "auto_fill": {
-            "BPQ050A": "9"
+            "BPQ040A": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       }
@@ -106,9 +140,9 @@
 
   "BPQ050A": {
     "label": "Now taking prescribed medicine for HBP",
-    "text": "{Are you/Is SP} now taking prescribed medicine?",
+    "text": "{Are you/Is SP} now taking prescribed medicine to lower blood pressure?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -117,10 +151,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ050A": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ050A": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -129,14 +181,16 @@
     "label": "Doctor told you - high cholesterol level",
     "text": "{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes",
         "skip": {
           "destination": "BPQ070",
           "auto_fill": {
-            "BPQ060": "1"
+            "BPQ060": {
+              "value": "1"
+            }
           }
         }
       },
@@ -144,10 +198,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ080": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ080": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -156,7 +228,7 @@
     "label": "Ever had blood cholesterol checked",
     "text": "{Have you/Has SP} ever had {your/his/her} blood cholesterol checked?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -166,9 +238,15 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ070": "5",
-            "BPQ090D": "2",
-            "BPQ100D": "2"
+            "BPQ070": {
+              "value": "5"
+            },
+            "BPQ090D": {
+              "value": "2"
+            },
+            "BPQ100D": {
+              "value": "2"
+            }
           }
         }
       },
@@ -177,9 +255,10 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-             "BPQ070": "7",
-            "BPQ090D": "7",
-            "BPQ100D": "7"
+            "BPQ060": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
@@ -187,10 +266,14 @@
         "description": "Don't know",
         "skip": {
           "destination": "End of Section",
-          "auto_fill": {
-             "BPQ070": "9",
-            "BPQ090D": "9",
-            "BPQ100D": "9"
+          "skip": {
+            "destination": "End of Section",
+            "auto_fill": {
+              "BPQ060": {
+                "value": "",
+                "overwrite_existing": true
+              }
+            }
           }
         }
       }
@@ -201,7 +284,7 @@
     "label": "When blood cholesterol last checked",
     "text": "About how long has it been since {you/SP} last had {your/his/her} blood cholesterol checked? Has it been...",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Less than 1 year ago"
@@ -219,10 +302,28 @@
         "description": "Never"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ070": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ070": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -231,7 +332,7 @@
     "label": "Told to take prescription for cholesterol",
     "text": "[To lower (your/his/her) blood cholesterol, (have/has) (you/SP) ever been told by a doctor or other health professional]... to take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -241,7 +342,9 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ100D": "2"
+            "BPQ100D": {
+              "value": "2"
+            }
           }
         }
       },
@@ -250,7 +353,10 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ100D": "7"
+            "BPQ090D": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
@@ -259,7 +365,10 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "BPQ100D": "9"
+            "BPQ090D": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       }
@@ -270,7 +379,7 @@
     "label": "Now taking prescribed medicine",
     "text": "(Are you/Is SP) now following this advice to take prescribed medicine?",
     "target": "Both males and females 16 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -279,10 +388,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ100D": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "BPQ100D": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

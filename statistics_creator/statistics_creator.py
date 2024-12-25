@@ -1,5 +1,6 @@
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Union
 
+import pandas as pd
 from analyzers.base_analyzer import BaseAnalyzer
 from config import data_config
 from data_loader import DataLoader
@@ -13,11 +14,6 @@ class StatisticsCreator:
 
     This class orchestrates the process of loading data, running various analyzers on it,
     and creating visualizations based on the analysis results.
-
-    Attributes:
-        data_loader (DataLoader): An instance of DataLoader for loading the data.
-        analyzer_visualizer_pairs (List[Tuple[BaseAnalyzer, BaseVisualizer]]): A list of analyzer-visualizer pairs.
-        _statistics_folder (str): The folder where statistics and visualizations will be saved.
     """
 
     def __init__(
@@ -27,10 +23,6 @@ class StatisticsCreator:
     ):
         """
         Initialize the StatisticsCreator with data loader, analyzers, and visualizers.
-
-        Args:
-            data_loader (DataLoader): An instance of DataLoader.
-            analyzer_visualizer_pairs (List[Tuple[BaseAnalyzer, BaseVisualizer]]): A list of pairs of analyzer and visualizer instances.
         """
         self.data_loader = data_loader
         self.analyzer_visualizer_pairs = analyzer_visualizer_pairs
@@ -49,24 +41,18 @@ class StatisticsCreator:
         self._statistics_folder = value
 
     @log_execution_time
-    def run_analysis(self, data_path: str) -> dict[str, Any]:
+    def run_analysis(self, data: Union[str, pd.DataFrame]) -> dict[str, Any]:
         """
         Run the analysis on the data and create visualizations.
 
         It loads the data, applies each analyzer to the data, creates visualizations
         based on the analysis results, and returns a dictionary of all results.
-
-        Args:
-            data_path (str): The path to the data file.
-
-        Returns:
-            dict[str, Any]: A dictionary containing the results of all analyzers, where the keys
-                            are the names of the analyzer classes and the values are the analysis results.
-
-        Note:
-            The visualizations are saved in the statistics_folder specified during initialization.
         """
-        df = self.data_loader.load_data(data_path)
+        if isinstance(data, str):
+            df = self.data_loader.load_data(data)
+        else:
+            df = data
+
         results = {}
 
         for analyzer, visualizer in self.analyzer_visualizer_pairs:

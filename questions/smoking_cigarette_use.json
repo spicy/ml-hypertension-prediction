@@ -3,7 +3,7 @@
     "label": "Smoked at least 100 cigarettes in life",
     "text": "These next questions are about cigarette smoking and other tobacco use. {Have you/Has SP} smoked at least 100 cigarettes in {your/his/her} entire life?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "0",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Yes"
@@ -13,52 +13,60 @@
         "skip": {
           "destination": "End of Section",
           "auto_fill": {
-            "SMD030": "0",
-            "SMQ040": "3",
-            "SMQ050Q": "0",
-            "SMQ050U": "0",
-            "SMD057": "0",
-            "SMD641": "0",
-            "SMD650": "1",
-            "SMD100FL": "2",
-            "SMD100MN": "2",
-            "SMQ670": "0"
+            "SMD030": {
+              "value": "0"
+            },
+            "SMQ040": {
+              "value": "3"
+            },
+            "SMQ050Q": {
+              "value": "0"
+            },
+            "SMQ050U": {
+              "value": "0"
+            },
+            "SMD057": {
+              "value": "0"
+            },
+            "SMD641": {
+              "value": "0"
+            },
+            "SMD650": {
+              "value": "1"
+            },
+            "SMD100FL": {
+              "value": "2"
+            },
+            "SMD100MN": {
+              "value": "2"
+            },
+            "SMQ670": {
+              "value": "0"
+            }
           }
         }
       },
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "End of Section",
+          "destination": "",
           "auto_fill": {
-            "SMD030": "777",
-            "SMQ040": "7",
-            "SMQ050Q": "77777",
-            "SMQ050U": "7",
-            "SMD057": "777",
-            "SMD641": "77",
-            "SMD650": "777",
-            "SMD100FL": "7",
-            "SMD100MN": "7",
-            "SMQ670": "7"
+            "SMQ020": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "End of Section",
+          "destination": "",
           "auto_fill": {
-            "SMD030": "999",
-            "SMQ040": "9",
-            "SMQ050Q": "99999",
-            "SMQ050U": "9",
-            "SMD057": "999",
-            "SMD641": "99",
-            "SMD650": "999",
-            "SMD100FL": "9",
-            "SMD100MN": "9",
-            "SMQ670": "9"
+            "SMQ020": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       }
@@ -69,7 +77,7 @@
     "label": "Age started smoking cigarettes regularly",
     "text": "How old {were you/was SP} when {you/s/he} first started to smoke cigarettes fairly regularly?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "7-76": {
         "description": "Range of Values"
@@ -78,10 +86,28 @@
         "description": "Never smoked cigarettes regularly"
       },
       "777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD030": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD030": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -90,16 +116,22 @@
     "label": "Do you now smoke cigarettes?",
     "text": "{Do you/Does SP} now smoke cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "1": {
         "description": "Every day",
         "skip": {
           "destination": "SMD641",
           "auto_fill": {
-            "SMQ050Q": "0",
-            "SMQ050U": "0",
-            "SMD057": "0"
+            "SMQ050Q": {
+              "value": "0"
+            },
+            "SMQ050U": {
+              "value": "0"
+            },
+            "SMD057": {
+              "value": "0"
+            }
           }
         }
       },
@@ -108,9 +140,15 @@
         "skip": {
           "destination": "SMD641",
           "auto_fill": {
-            "SMQ050Q": "0",
-            "SMQ050U": "0",
-            "SMD057": "0"
+            "SMQ050Q": {
+              "value": "0"
+            },
+            "SMQ050U": {
+              "value": "0"
+            },
+            "SMD057": {
+              "value": "0"
+            }
           }
         }
       },
@@ -120,32 +158,24 @@
       "7": {
         "description": "Refused",
         "skip": {
-          "destination": "End of Section",
+          "destination": "",
           "auto_fill": {
-            "SMQ050Q": "77777",
-            "SMQ050U": "7",
-            "SMD057": "777",
-            "SMD641": "77",
-            "SMD650": "777",
-            "SMD100FL": "7",
-            "SMD100MN": "7",
-            "SMQ670": "7"
+            "SMQ040": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       },
       "9": {
         "description": "Don't know",
         "skip": {
-          "destination": "End of Section",
+          "destination": "",
           "auto_fill": {
-            "SMQ050Q": "99999",
-            "SMQ050U": "9",
-            "SMD057": "999",
-            "SMD641": "99",
-            "SMD650": "999",
-            "SMD100FL": "9",
-            "SMD100MN": "9",
-            "SMQ670": "9"
+            "SMQ040": {
+              "value": "",
+              "overwrite_existing": true
+            }
           }
         }
       }
@@ -156,7 +186,7 @@
     "label": "How long since quit smoking cigarettes",
     "text": "How long has it been since {you/SP} quit smoking cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -168,10 +198,28 @@
         "description": "50 or more years"
       },
       "77777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ050Q": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "99999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ050Q": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -180,37 +228,125 @@
     "label": "Unit of measure (day/week/month/year)",
     "text": "Unit of Measure",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "0": {
-        "description": "Not Applicable"
+        "description": "Not Applicable",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": {
+              "value": "0"
+            }
+          }
+        }
+      },
+      "1": {
+        "description": "Days",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": {
+              "value": "1"
+            }
+          }
+        }
+      },
+      "2": {
+        "description": "Weeks",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": {
+              "value": "7"
+            }
+          }
+        }
+      },
+      "3": {
+        "description": "Months",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": {
+              "value": "30"
+            }
+          }
+        }
+      },
+      "4": {
+        "description": "Years",
+        "skip": {
+          "destination": "SMQQUIT",
+          "auto_fill": {
+            "SMQMULT": {
+              "value": "365"
+            }
+          }
+        }
+      },
+      "7": {
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ050U": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
+      },
+      "9": {
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ050U": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "SMQMULT":{
+    "label": "Time since quit multiplier",
+    "include_after_autofill": false,
+    "mappings": {
+      "0": {
+        "description": "None"
       },
       "1": {
         "description": "Days"
       },
-      "2": {
+      "7": {
         "description": "Weeks"
       },
-      "3": {
+      "30": {
         "description": "Months"
       },
-      "4": {
+      "365": {
         "description": "Years"
-      },
-      "7": {
-        "description": "Refused"
-      },
-      "9": {
-        "description": "Don't know"
       }
-    }
+    },
+    "formula": "1 if ##SMQ050U == 1 else ( 7 if ##SMQ050U == 2 else ( 30 if ##SMQ050U == 3 else ( 365 if ##SMQ050U == 4 else 0 ) ) )"
+  },
+
+  "SMQQUIT": {
+    "label": "Days since quit smoking",
+    "text": "Time in days since {you/SP} quit smoking?",
+    "include_after_autofill": true,
+    "formula": "##SMQMULT * ##SMQ050Q"
   },
 
   "SMD057": {
     "label": "# cigarettes smoked per day when quit",
     "text": "At that time, about how many cigarettes did {you/SP} usually smoke per day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -225,10 +361,28 @@
         "description": "95 cigarettes or more"
       },
       "777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD057": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD057": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -237,16 +391,34 @@
     "label": "# days smoked cigs during past 30 days",
     "text": "On how many of the past 30 days did {you/SP} smoke a cigarette?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0-30": {
         "description": "Range of Values"
       },
       "77": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD641": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "99": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD641": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -255,7 +427,7 @@
     "label": "Avg # cigarettes/day during past 30 days",
     "text": "During the past 30 days, on the days that {you/SP} smoked, about how many cigarettes did {you/s/he} smoke per day?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "2-60": {
         "description": "Range of Values"
@@ -267,10 +439,28 @@
         "description": "95 cigarettes or more"
       },
       "777": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD650": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "999": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD650": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -279,7 +469,7 @@
     "label": "Cigarette Filter type",
     "text": "Do you usually smoke filtered or non-filtered cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "0": {
         "description": "Non-filtered"
@@ -291,10 +481,28 @@
         "description": "Not Applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD100FL": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD100FL": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -303,7 +511,7 @@
     "label": "Cigarette Menthol indicator",
     "text": "Do you usually smoke menthol or non-menthol cigarettes?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": false,
     "mappings": {
       "0": {
         "description": "Non-menthol"
@@ -315,10 +523,28 @@
         "description": "Not Applicable"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD100MN": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMD100MN": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   },
@@ -327,7 +553,7 @@
     "label": "Tried to quit smoking",
     "text": "During the past 12 months, {have you/has SP} stopped smoking for longer than a day because {you were/he was/she was} trying to quit smoking?",
     "target": "Both males and females 18 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0": {
         "description": "Not Applicable"
@@ -339,10 +565,28 @@
         "description": "No"
       },
       "7": {
-        "description": "Refused"
+        "description": "Refused",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ670": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       },
       "9": {
-        "description": "Don't know"
+        "description": "Don't know",
+        "skip": {
+          "destination": "",
+          "auto_fill": {
+            "SMQ670": {
+              "value": "",
+              "overwrite_existing": true
+            }
+          }
+        }
       }
     }
   }

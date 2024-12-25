@@ -22,30 +22,17 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
     def analyze(self, df: pd.DataFrame) -> dict:
         """
         Analyze the input DataFrame for correlations and multicollinearity.
-
-        It performs the following steps:
-        1. Selects numeric columns from the input DataFrame.
-        2. Calculates the correlation matrix for these numeric columns.
-        3. Imputes missing values and scales features for VIF calculation.
-        4. Calculates VIF for each numeric feature.
-
-        Args:
-            df (pd.DataFrame): The input DataFrame to analyze.
-
-        Returns:
-            dict: A dictionary containing the correlation matrix and VIF data.
-                  Keys are "correlation_matrix" and "vif_data".
-
-        Note:
-            Only numerical columns are considered in this analysis.
         """
         logger.info("Starting correlation and multicollinearity analysis...")
 
         # Select only numeric columns
         numeric_df = df.select_dtypes(include=[np.number])
 
-        # Calculate correlation matrix
-        correlation_matrix = numeric_df.corr()
+        # Calculate correlation matrix for top 20 features based on variance
+        variances = numeric_df.var().sort_values(ascending=False)
+        top_20_features = variances.head(20).index
+        numeric_df_top20 = numeric_df[top_20_features]
+        correlation_matrix = numeric_df_top20.corr()
 
         # Impute missing values and scale features (for VIF calculation)
         imputer = SimpleImputer(strategy=config.IMPUTER_STRATEGY)
@@ -63,6 +50,9 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
             "VIF", ascending=config.VIF_SORT_ASCENDING
         ).reset_index(drop=True)
 
+        # Get top 20 VIF features
+        vif_data = vif_data.head(20)
+
         logger.info("Correlation and multicollinearity analysis completed.")
         return {"correlation_matrix": correlation_matrix, "vif_data": vif_data}
 
@@ -72,17 +62,6 @@ class CorrelationMulticollinearityAnalyzer(BaseAnalyzer):
 
         This method uses linear regression to calculate the VIF value for a specified feature.
         If perfect multicollinearity is detected (R² = 1), returns infinity.
-
-        Args:
-            X (np.ndarray): The scaled feature matrix.
-            idx (int): The index of the feature for which to calculate VIF.
-
-        Returns:
-            float: The calculated VIF value for the specified feature.
-                  Returns float('inf') if perfect multicollinearity is detected.
-
-        Note:
-            A higher VIF value indicates higher multicollinearity.
         """
         try:
             y = X[:, idx]

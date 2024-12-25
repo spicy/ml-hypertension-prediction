@@ -3,7 +3,7 @@
     "label": "Gender",
     "text": "Gender of the participant.",
     "target": "Both males and females",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1": {
         "description": "Male"
@@ -13,12 +13,11 @@
       }
     }
   },
-
   "RIDAGEYR": {
     "label": "Age in years at screening",
     "text": "Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.",
     "target": "Both males and females 0 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "0-79": {
         "description": "Range of Values"

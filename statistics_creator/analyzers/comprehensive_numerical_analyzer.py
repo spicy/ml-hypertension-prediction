@@ -1,8 +1,10 @@
 import pandas as pd
-from scipy import stats
-from .base_analyzer import BaseAnalyzer
 from config import comprehensive_numerical_config as config
-from logger import logger, log_execution_time
+from logger import log_execution_time, logger
+from scipy import stats
+
+from .base_analyzer import BaseAnalyzer
+
 
 class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
     """
@@ -20,16 +22,6 @@ class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
         2. For each numeric column, calculates basic descriptive statistics,
            skewness, and kurtosis.
         3. Combines all statistics into a single dictionary.
-
-        Args:
-            df (pd.DataFrame): The input DataFrame to analyze.
-
-        Returns:
-            dict: A dictionary containing comprehensive numerical statistics
-                  for each numeric column in the input DataFrame.
-
-        Note:
-            Only non-null values are considered in the analysis for each column.
         """
         logger.info("Starting comprehensive numerical analysis...")
 
@@ -40,10 +32,12 @@ class ComprehensiveNumericalAnalyzer(BaseAnalyzer):
             column_data = df[column].dropna()
             if len(column_data) > 0:
                 stats_dict = column_data.describe().to_dict()
-                stats_dict.update({
-                    config.SKEWNESS_KEY: stats.skew(column_data),
-                    config.KURTOSIS_KEY: stats.kurtosis(column_data),
-                })
+                stats_dict.update(
+                    {
+                        config.SKEWNESS_KEY: stats.skew(column_data),
+                        config.KURTOSIS_KEY: stats.kurtosis(column_data),
+                    }
+                )
                 results[column] = stats_dict
 
         logger.info("Comprehensive numerical analysis completed.")

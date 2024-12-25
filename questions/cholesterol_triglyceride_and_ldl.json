@@ -3,7 +3,7 @@
     "label": "LDL-cholesterol (mg/dL)",
     "text": "LDL-cholesterol (mg/dL)",
     "target": "Both males and females 12 YEARS - 150 YEARS",
-    "include": "1",
+    "include_after_autofill": true,
     "mappings": {
       "1-400": {
         "description": "Range of Values"

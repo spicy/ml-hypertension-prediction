@@ -32,8 +32,6 @@ class MissingDataConfig(BaseConfig):
     X_LABEL: str = "Columns"
     Y_LABEL: str = "Percentage of Missing Data"
     PLOT_FILENAME: str = "missing_data_percentage.png"
-
-    # New constants moved from MissingDataAnalyzer
     PERCENTAGE_MULTIPLIER: int = 100
     MISSING_DATA_LOG_MESSAGE: str = "Missing data analysis completed."
 
@@ -44,16 +42,16 @@ class CorrelationMulticollinearityConfig(BaseConfig):
 
     CORR_WIDTH: int = 40
     CORR_HEIGHT: int = 30
-    CORR_X_TICK_FONT_SIZE: int = 10
-    CORR_Y_TICK_FONT_SIZE: int = 10
+    CORR_X_TICK_FONT_SIZE: int = 18
+    CORR_Y_TICK_FONT_SIZE: int = 18
     CORR_TIGHT_LAYOUT_PAD: float = 3.0
-    CORR_ANNOT_FONT_SIZE: int = 8
+    CORR_ANNOT_FONT_SIZE: int = 16
 
     VIF_WIDTH: int = 40
     VIF_HEIGHT: int = 30
     VIF_LABEL_FONT_SIZE: int = 16
     VIF_LEGEND_FONT_SIZE: int = 12
-    VIF_TICK_FONT_SIZE: int = 10
+    VIF_TICK_FONT_SIZE: int = 16
     VIF_THRESHOLD: float = 5.0
 
     CORRELATION_PLOT_FILENAME: str = "correlation_matrix_heatmap.png"
@@ -100,31 +98,49 @@ class DataConfig:
 
     PROJECT_ROOT: Path = field(default_factory=get_project_root)
     DATA_DIR: Path = field(default_factory=lambda: get_project_root() / "data")
-    PROCESSED_DIR: Path = field(
-        default_factory=lambda: get_project_root() / "data" / "processed"
+    AUTOFILLED_DIR: Path = field(
+        default_factory=lambda: get_project_root() / "data" / "processed" / "autofilled"
     )
-    FILTERED_DATA_PATTERN: str = "FilteredCombinedData_*.csv"
-    TARGET_COLUMN: str = "BPQ020"
+    FILTERED_DATA_PATTERN: str = "AutoFilled_Data_*.csv"
+    TARGET_COLUMN: str = "HYPERTENSION"
     RESULTS_FILENAME: str = "analysis_results.json"
-    DEFAULT_STATISTICS_FOLDER: str = "statistics"
+    DEFAULT_STATISTICS_FOLDER: str = (
+        get_project_root() / "data" / "processed" / "autofilled" / "statistics"
+    )
 
 
 @dataclass
 class FeatureImportanceConfig(BaseConfig):
-    """Configuration for feature importance visualization and analysis."""
+    """Configuration for feature importance analysis."""
 
+    # Visualization settings
     WIDTH: int = 12
     HEIGHT: int = 8
-    LABEL_FONT_SIZE: int = 10
-    TICK_FONT_SIZE: int = 8
+    LABEL_FONT_SIZE: int = 14
+    TICK_FONT_SIZE: int = 14
     TIGHT_LAYOUT_PAD: float = 1.0
-    PLOT_TITLE: str = "Feature Importance"
-    X_LABEL: str = "Importance"
-    Y_LABEL: str = "Features"
-    PLOT_FILENAME: str = "feature_importance.png"
 
-    N_ESTIMATORS: int = 100
+    # Plot filenames
+    RF_IMPORTANCE_PLOT: str = "random_forest_importance.png"
+    GB_IMPORTANCE_PLOT: str = "gradient_boosting_importance.png"
+    F_SCORE_PLOT: str = "f_score_importance.png"
+
+    # Analysis settings
+    K_BEST_FEATURES: int = 20
     RANDOM_STATE: int = 42
+
+    # Random Forest settings
+    RF_N_ESTIMATORS: int = 700
+    RF_MAX_DEPTH: int = 25
+    RF_MIN_SAMPLES_SPLIT: int = 2
+    RF_MIN_SAMPLES_LEAF: int = 8
+
+    # Gradient Boosting settings
+    GB_N_ESTIMATORS: int = 100
+    GB_LEARNING_RATE: float = 0.05
+    GB_MAX_DEPTH: int = 5
+    GB_MIN_SAMPLES_LEAF: int = 1
+    GB_MIN_SAMPLES_SPLIT: int = 10
 
 
 @dataclass
@@ -141,8 +157,6 @@ class OutlierConfig(BaseConfig):
     BOUND_LINESTYLE: str = "--"
     PLOT_FILE_PREFIX: str = "outliers_"
     PLOT_FILE_EXTENSION: str = ".png"
-
-    # New constants moved from OutlierAnalyzer
     LOWER_QUANTILE: float = 0.25
     UPPER_QUANTILE: float = 0.75
     IQR_MULTIPLIER: float = 1.5
